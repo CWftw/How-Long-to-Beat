@@ -1,4 +1,4 @@
-package howlongtobeat.cwftw.me.howlongtobeat;
+package howlongtobeat.cwftw.me.howlongtobeat.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,7 +8,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import howlongtobeat.cwftw.me.howlongtobeat.GameFragment.OnGameFragmentInteractionListener;
+import howlongtobeat.cwftw.me.howlongtobeat.R;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
 
 /**

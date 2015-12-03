@@ -11,8 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import howlongtobeat.cwftw.me.howlongtobeat.FavoriteFragment.OnFavoriteFragmentInteractionListener;
-import howlongtobeat.cwftw.me.howlongtobeat.GameFragment.OnGameFragmentInteractionListener;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity implements OnGameFragmentInteractionListener, OnFavoriteFragmentInteractionListener {
