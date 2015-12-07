@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="howlongtobeat.cwftw.me.howlongtobeat.Preferences">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/backUpdate"
+        android:id="@+id/updateCheck"
+        android:layout_marginTop="44dp"
+        android:checked="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20sp"
+        android:layout_marginLeft="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/notificationsCheck"
+        android:id="@+id/notificationsCheck"
+        android:checked="false"
+        android:textSize="20sp"
+        android:layout_below="@+id/pluggedInCheck"
+        android:layout_marginTop="38dp"
+        android:layout_marginLeft="10dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/saveBtn"
+        android:textSize="20sp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/pluggedInCheck"
+        android:layout_toEndOf="@+id/pluggedInCheck"
+        android:layout_marginBottom="47dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:id="@+id/cancelBtn"
+        android:textSize="20sp"
+        android:layout_alignTop="@+id/saveBtn"
+        android:layout_alignLeft="@+id/notificationsCheck"
+        android:layout_alignStart="@+id/notificationsCheck"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pluggedIn"
+        android:id="@+id/pluggedInCheck"
+        android:layout_below="@+id/updateCheck"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:checked="false"
+        android:textSize="20sp"
+        android:enabled="false"
+        android:layout_marginLeft="10dp" />
+</RelativeLayout>
