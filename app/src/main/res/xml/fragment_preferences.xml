@@ -1,0 +1,32 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="howlongtobeat.cwftw.me.howlongtobeat.Preferences">
+
+    <CheckBoxPreference
+        android:key="pref_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/backUpdate"
+        android:id="@+id/updateCheck"
+        android:checked="false"/>
+
+    <CheckBoxPreference
+        android:key="pref_pluggedIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/pluggedIn"
+        android:id="@+id/pluggedInCheck"
+        android:checked="false"
+        android:enabled="false"/>
+
+    <CheckBoxPreference
+        android:key="pref_notifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/notificationsCheck"
+        android:id="@+id/notificationsCheck"
+        android:checked="false"/>
+</PreferenceScreen>
