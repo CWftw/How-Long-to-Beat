@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            getFragmentManager().beginTransaction().replace(R.id.main_content, Preferences.newInstance()).commit();
         }
 
         return super.onOptionsItemSelected(item);
