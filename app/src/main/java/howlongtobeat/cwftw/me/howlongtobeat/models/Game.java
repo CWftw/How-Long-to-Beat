@@ -4,7 +4,9 @@ package howlongtobeat.cwftw.me.howlongtobeat.models;
  * Created by colin on 2015-12-02.
  */
 public class Game {
+
     // Basic game info
+    private String title;
     private int mainHours;
     private int mainExtraHours;
     private int completionistHours;
@@ -104,4 +106,13 @@ public class Game {
     public void setRetired(int retired) {
         this.retired = retired;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
 }
