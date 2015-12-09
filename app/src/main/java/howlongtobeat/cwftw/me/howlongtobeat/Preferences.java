@@ -1,12 +1,13 @@
 package howlongtobeat.cwftw.me.howlongtobeat;
 
-import android.app.Activity;
-import android.net.Uri;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 public class Preferences extends PreferenceFragment
 {
@@ -34,7 +35,28 @@ public class Preferences extends PreferenceFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        // Inflate the layout for this fragment
+        final CheckBox updateCheck = (CheckBox) container.findViewById(R.id.updateCheck);
+
+        updateCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox pluggedInCheck = (CheckBox) v.findViewById(R.id.pluggedInCheck);
+
+                if (updateCheck.isChecked())
+                {
+                    pluggedInCheck.setEnabled(true);
+                    getActivity().startService(
+                            new Intent(getActivity(), NotificationsService.class));
+                }
+                else
+                {
+                    pluggedInCheck.setEnabled(false);
+                    getActivity().stopService(
+                            new Intent(getActivity(), NotificationsService.class));
+                }
+            }
+        });
+
         return inflater.inflate(R.layout.activity_main, container, false);
     }
 
