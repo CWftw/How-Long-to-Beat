@@ -1,6 +1,5 @@
-package howlongtobeat.cwftw.me.howlongtobeat;
+package howlongtobeat.cwftw.me.howlongtobeat.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -9,17 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
-public class Preferences extends PreferenceFragment
+import howlongtobeat.cwftw.me.howlongtobeat.UpdateService;
+import howlongtobeat.cwftw.me.howlongtobeat.R;
+
+public class PreferencesFragment extends PreferenceFragment
 {
-    public static Preferences newInstance()
+    public static PreferencesFragment newInstance()
     {
-        Preferences fragment = new Preferences();
+        PreferencesFragment fragment = new PreferencesFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public Preferences()
+    public PreferencesFragment()
     {
         // Required empty public constructor
     }
@@ -36,6 +38,7 @@ public class Preferences extends PreferenceFragment
                              Bundle savedInstanceState)
     {
         final CheckBox updateCheck = (CheckBox) container.findViewById(R.id.updateCheck);
+        CheckBox notificationsCheck =  (CheckBox) container.findViewById(R.id.notificationsCheck);
 
         updateCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,14 +48,26 @@ public class Preferences extends PreferenceFragment
                 if (updateCheck.isChecked())
                 {
                     pluggedInCheck.setEnabled(true);
-                    getActivity().startService(
-                            new Intent(getActivity(), NotificationsService.class));
                 }
                 else
                 {
                     pluggedInCheck.setEnabled(false);
+                }
+            }
+        });
+
+        notificationsCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (updateCheck.isChecked())
+                {
+                    getActivity().startService(
+                            new Intent(getActivity(), UpdateService.class));
+                }
+                else
+                {
                     getActivity().stopService(
-                            new Intent(getActivity(), NotificationsService.class));
+                            new Intent(getActivity(), UpdateService.class));
                 }
             }
         });
