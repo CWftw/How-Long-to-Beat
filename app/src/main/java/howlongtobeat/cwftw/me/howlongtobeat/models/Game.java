@@ -11,6 +11,8 @@ public class Game {
     private int mainExtraHours;
     private int completionistHours;
     private int combinedHours;
+    private String imageUrl;
+    private byte[] imageBytes;
 
     // Detailed game info
     private int polled;
@@ -115,4 +117,19 @@ public class Game {
         this.title = title;
     }
 
+    public byte[] getImageBytes() {
+        return imageBytes;
+    }
+
+    public void setImageBytes(byte[] imageBytes) {
+        this.imageBytes = imageBytes;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

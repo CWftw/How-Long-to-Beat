@@ -60,30 +60,6 @@ public class UpdateService extends Service
             public void run()
             {
                 Log.d("Update", "Timer started");
-
-                /*if(isUpdateAvailable())
-                {
-                    NotificationCompat.Builder nBuilder = new
-                            NotificationCompat.Builder(getApplicationContext());
-
-                    Intent favoritesIntent = new Intent(getApplicationContext(),
-                            FavoriteFragment.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                    PendingIntent pIntent = PendingIntent.getActivity(
-                            getApplicationContext(), 0, favoritesIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT);
-
-                    nBuilder.setSmallIcon(R.mipmap.ic_launcher);
-                    nBuilder.setContentTitle("Game Update");
-                    nBuilder.setContentText("One of your favorite games has been updated!");
-                    nBuilder.setContentIntent(pIntent);
-
-                    Notification notification = nBuilder.build();
-
-                    NotificationManager manager =
-                            (NotificationManager) getSystemService(UpdateService);
-                    manager.notify(1, notification);
-                }*/
             }
         };
 
@@ -98,6 +74,33 @@ public class UpdateService extends Service
         if(timer != null)
         {
             timer.cancel();
+        }
+    }
+
+    private void sendNotification(String text)
+    {
+        if(isUpdateAvailable())
+        {
+            NotificationCompat.Builder nBuilder = new
+                    NotificationCompat.Builder(getApplicationContext());
+
+            Intent favoritesIntent = new Intent(getApplicationContext(),
+                    FavoriteFragment.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            PendingIntent pIntent = PendingIntent.getActivity(
+                    getApplicationContext(), 0, favoritesIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+
+            nBuilder.setSmallIcon(R.mipmap.ic_launcher);
+            nBuilder.setContentTitle("Game Update");
+            nBuilder.setContentText("One of your favorite games has been updated!");
+            nBuilder.setContentIntent(pIntent);
+
+            Notification notification = nBuilder.build();
+
+            NotificationManager manager =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            manager.notify(1, notification);
         }
     }
 }

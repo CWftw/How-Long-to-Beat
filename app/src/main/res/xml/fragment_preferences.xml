@@ -19,8 +19,8 @@
         android:layout_height="wrap_content"
         android:title="@string/pluggedIn"
         android:id="@+id/pluggedInCheck"
-        android:checked="false"
-        android:enabled="false"/>
+        android:dependency="pref_update"
+        android:checked="false"/>
 
     <CheckBoxPreference
         android:key="pref_notifications"
