@@ -29,7 +29,9 @@ public class HLTBSearcher {
         Elements gameElements = doc.select(".back_white shadow_box");
 
         for (Element game : gameElements) {
-            String title = game.select(".")
+//            String title = game.select(".")
         }
+
+        return null;
     }
 }
