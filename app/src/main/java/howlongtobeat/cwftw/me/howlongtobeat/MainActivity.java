@@ -16,6 +16,7 @@ import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavorit
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.PreferencesFragment;
 
 public class MainActivity extends AppCompatActivity implements OnGameFragmentInteractionListener, OnFavoriteFragmentInteractionListener {
 
@@ -80,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            getFragmentManager().beginTransaction().replace(R.id.main_content, Preferences.newInstance()).commit();
+            getFragmentManager().beginTransaction().replace(R.id.main_content,
+                    PreferencesFragment.newInstance()).commit();
         }
 
         return super.onOptionsItemSelected(item);

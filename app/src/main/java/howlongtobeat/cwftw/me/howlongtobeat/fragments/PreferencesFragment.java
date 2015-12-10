@@ -1,8 +1,11 @@
 package howlongtobeat.cwftw.me.howlongtobeat.fragments;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.support.v4.app.NotificationBuilderWithBuilderAccessor;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +41,8 @@ public class PreferencesFragment extends PreferenceFragment
                              Bundle savedInstanceState)
     {
         final CheckBox updateCheck = (CheckBox) container.findViewById(R.id.updateCheck);
-        CheckBox notificationsCheck =  (CheckBox) container.findViewById(R.id.notificationsCheck);
+        final CheckBox notificationsCheck =
+                (CheckBox) container.findViewById(R.id.notificationsCheck);
 
         updateCheck.setOnClickListener(new View.OnClickListener() {
             @Override
