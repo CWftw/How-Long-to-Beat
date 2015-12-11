@@ -8,4 +8,6 @@
     <string name="cancel">Cancel</string>
     <string name="pluggedIn">Only when plugged in?</string>
     <string name="alert_dialog_ok">Ok</string>
+    <string name="updating">Updating</string>
+    <string name="notifications">Notifications</string>
 </resources>

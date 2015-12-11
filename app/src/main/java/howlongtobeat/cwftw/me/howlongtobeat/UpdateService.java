@@ -60,6 +60,7 @@ public class UpdateService extends Service
             public void run()
             {
                 Log.d("Update", "Timer started");
+                sendNotification("One of your favorite games has been updated!");
             }
         };
 
@@ -79,28 +80,25 @@ public class UpdateService extends Service
 
     private void sendNotification(String text)
     {
-        if(isUpdateAvailable())
-        {
-            NotificationCompat.Builder nBuilder = new
-                    NotificationCompat.Builder(getApplicationContext());
+        NotificationCompat.Builder nBuilder = new
+                NotificationCompat.Builder(getApplicationContext());
 
-            Intent favoritesIntent = new Intent(getApplicationContext(),
-                    FavoriteFragment.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent favoritesIntent = new Intent(getApplicationContext(),
+                FavoriteFragment.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-            PendingIntent pIntent = PendingIntent.getActivity(
-                    getApplicationContext(), 0, favoritesIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pIntent = PendingIntent.getActivity(
+                getApplicationContext(), 0, favoritesIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
-            nBuilder.setSmallIcon(R.mipmap.ic_launcher);
-            nBuilder.setContentTitle("Game Update");
-            nBuilder.setContentText("One of your favorite games has been updated!");
-            nBuilder.setContentIntent(pIntent);
+        nBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        nBuilder.setContentTitle("How Long to Beat");
+        nBuilder.setContentText(text);
+        nBuilder.setContentIntent(pIntent);
 
-            Notification notification = nBuilder.build();
+        Notification notification = nBuilder.build();
 
-            NotificationManager manager =
-                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            manager.notify(1, notification);
-        }
+        NotificationManager manager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(1, notification);
     }
 }

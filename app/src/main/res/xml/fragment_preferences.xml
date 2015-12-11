@@ -5,6 +5,9 @@
     android:layout_height="match_parent"
     tools:context="howlongtobeat.cwftw.me.howlongtobeat.Preferences">
 
+    <PreferenceCategory
+        android:title="@string/updating"
+        android:key="updateCategory">
     <CheckBoxPreference
         android:key="pref_update"
         android:layout_width="wrap_content"
@@ -21,7 +24,11 @@
         android:id="@+id/pluggedInCheck"
         android:dependency="pref_update"
         android:checked="false"/>
+    </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="@string/notifications"
+        android:key="notificationsCategory">
     <CheckBoxPreference
         android:key="pref_notifications"
         android:layout_width="wrap_content"
@@ -29,4 +36,5 @@
         android:title="@string/notificationsCheck"
         android:id="@+id/notificationsCheck"
         android:checked="false"/>
+    </PreferenceCategory>
 </PreferenceScreen>
