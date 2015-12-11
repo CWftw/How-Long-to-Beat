@@ -21,9 +21,17 @@ public class HLTBSearcher {
 //        String title = doc.title();
     }
 
+    public ResultSet search() throws IOException {
+        return search("", 1);
+    }
+
     public ResultSet search(String query) throws IOException{
+        return  search(query, 1);
+    }
+
+    public ResultSet search (String query, int page) throws IOException {
         // Post search form
-        Document doc = Jsoup.connect(BASE_SEARCH_URL).data("queryString", query).data("t", "games").data("sorthead", "popular").data("sortd", "Normal Order").data("plat", "").data("detail", "1").post();
+        Document doc = Jsoup.connect(BASE_SEARCH_URL).data("queryString", query).data("t", "games").data("page", Integer.toString(page)).data("sorthead", "popular").data("sortd", "Normal Order").data("plat", "").data("detail", "1").post();
 
         // Get game divs
         Elements gameElements = doc.select(".back_white shadow_box");
