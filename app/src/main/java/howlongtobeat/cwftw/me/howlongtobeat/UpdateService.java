@@ -4,16 +4,16 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.preference.CheckBoxPreference;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-
 import java.util.Timer;
 import java.util.TimerTask;
-
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment;
-import howlongtobeat.cwftw.me.howlongtobeat.models.Favorite;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.PreferencesFragment;
 
 /*
  * Created by Matt on 12/9/2015.
@@ -54,13 +54,20 @@ public class UpdateService extends Service
 
     private void startTimer()
     {
+        final CheckBoxPreference notificationsCheck =
+                (CheckBoxPreference) getSharedPreferences("pref_update", Context.MODE_PRIVATE);
+
         TimerTask task = new TimerTask()
         {
             @Override
             public void run()
             {
                 Log.d("Update", "Timer started");
-                sendNotification("One of your favorite games has been updated!");
+
+                if(notificationsCheck.isChecked())
+                {
+                    sendNotification("One of your favorite games has been updated!");
+                }
             }
         };
 
