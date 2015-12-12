@@ -1,6 +1,5 @@
 package howlongtobeat.cwftw.me.howlongtobeat;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -62,8 +61,6 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
 //                        .setAction("Action", null).show();
 //            }
 //        });
-
-        startService(new Intent(this, UpdateService.class));
     }
 
 

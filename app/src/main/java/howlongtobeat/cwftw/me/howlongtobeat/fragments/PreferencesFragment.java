@@ -6,6 +6,7 @@ import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 
 public class PreferencesFragment extends PreferenceFragment

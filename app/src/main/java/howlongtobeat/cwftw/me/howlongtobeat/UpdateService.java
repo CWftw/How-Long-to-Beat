@@ -12,8 +12,8 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.PreferencesFragment;
 
 /*
  * Created by Matt on 12/9/2015.
@@ -40,16 +40,6 @@ public class UpdateService extends Service
     {
         super.onDestroy();
         stopTimer();
-    }
-
-    private boolean isUpdateAvailable()
-    {
-        /*for (Favorite item : (Favorite) findViewById(R.id.favoriteList))
-        {
-
-        }*/
-
-        return true;
     }
 
     private void startTimer()
