@@ -1,5 +1,6 @@
 package howlongtobeat.cwftw.me.howlongtobeat;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -80,8 +81,12 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            getFragmentManager().beginTransaction().replace(R.id.main_content,
-                    PreferencesFragment.newInstance()).commit();
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_content, PreferencesFragment.newInstance())
+                    .addToBackStack(null) // enables back key
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit();
         }
 
         return super.onOptionsItemSelected(item);
