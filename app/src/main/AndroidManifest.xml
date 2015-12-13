@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="howlongtobeat.cwftw.me.howlongtobeat" >
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name=".HowLongToBeat"
         android:allowBackup="true"

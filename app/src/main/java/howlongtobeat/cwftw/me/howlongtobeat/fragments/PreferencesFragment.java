@@ -32,13 +32,6 @@ public class PreferencesFragment extends PreferenceFragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        return inflater.inflate(R.layout.activity_main, container, false);
-    }
-
-    @Override
     public void onDetach()
     {
         super.onDetach();

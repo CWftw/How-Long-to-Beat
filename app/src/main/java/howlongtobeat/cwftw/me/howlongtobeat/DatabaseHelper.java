@@ -17,12 +17,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private static final int DATABASE_VERSION = 1;
     private static final String CREATE_TABLE_GAME =
                     "CREATE TABLE games ( " +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "id INTEGER PRIMARY KEY" +
                     "title VARCHAR" +
-                    "mainHours INTEGER," +
-                    "extraHours INTEGER," +
-                    "completionistHours INTEGER" +
-                    "combinedHours INTEGER" +
+                    "mainHours REAL," +
+                    "extraHours REAL," +
+                    "completionistHours REAL" +
+                    "combinedHours REAL" +
                     "image BLOB" +
                     ")";
     private static DatabaseHelper instance;
@@ -78,10 +78,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         ContentValues values = new ContentValues();
         values.put("title", game.getTitle());
-        values.put("mainHours", game.getMainHours().getTime());
-        values.put("extraHours", game.getMainExtraHours().getTime());
-        values.put("completionistHours", game.getCompletionistHours().getTime());
-        values.put("combinedHours", game.getCombinedHours().getTime());
+        values.put("mainHours", game.getMainHours());
+        values.put("extraHours", game.getMainExtraHours());
+        values.put("completionistHours", game.getCompletionistHours());
+        values.put("combinedHours", game.getCombinedHours());
         values.put("image", game.getImageBytes());
 
         id = db.insertOrThrow("games", null, values);
@@ -104,18 +104,26 @@ public class DatabaseHelper extends SQLiteOpenHelper
             {
                 do
                 {
-                    Game g = new Game
-                    (
-                            c.getString(c.getColumnIndex("title")),
-                            new Time(c.getLong(c.getColumnIndex("mainHours"))),
-                            new Time(c.getLong(c.getColumnIndex("extraHours"))),
-                            new Time(c.getLong(c.getColumnIndex("completionistHours"))),
-                            new Time(c.getLong(c.getColumnIndex("combinedHours"))),
-                            c.getBlob(c.getColumnIndex("image"))
-                    );
+                    Game game = new Game();
+                    game.setTitle(c.getString(c.getColumnIndex("title")));
+                    game.setMainHours(c.getDouble(c.getColumnIndex("mainHours")));
+                    game.setMainExtraHours(c.getDouble(c.getColumnIndex("extraHours")));
+                    game.setCompletionistHours(c.getDouble(c.getColumnIndex("completionistHours")));
+                    game.setCombinedHours(c.getDouble(c.getColumnIndex("combinedHours")));
+                    game.setImageBytes(c.getBlob(c.getColumnIndex("image")));
+
+//                    Game g = new Game
+//                    (
+//                            c.getString(c.getColumnIndex("title")),
+//                            new Time(c.getDouble(c.getColumnIndex("mainHours"))),
+//                            new Time(c.getDouble(c.getColumnIndex("extraHours"))),
+//                            new Time(c.getDouble(c.getColumnIndex("completionistHours"))),
+//                            new Time(c.getDouble(c.getColumnIndex("combinedHours"))),
+//                            c.getBlob(c.getColumnIndex("image"))
+//                    );
 
                     // adding to games list
-                    games.add(g);
+                    games.add(game);
                 } while (c.moveToNext());
             }
         }
