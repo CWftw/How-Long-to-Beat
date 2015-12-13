@@ -63,7 +63,10 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
 //        });
 
 //        To go right to favorites
-//        mViewPager.setCurrentItem(1);
+        if(getIntent().getExtras().getBoolean("isNotification"))
+        {
+            mViewPager.setCurrentItem(1);
+        }
     }
 
 

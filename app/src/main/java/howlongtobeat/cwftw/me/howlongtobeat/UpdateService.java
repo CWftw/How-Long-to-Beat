@@ -85,6 +85,8 @@ public class UpdateService extends Service
         Intent favoritesIntent = new Intent(getApplicationContext(),
                 MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+        favoritesIntent.putExtra("isNotification", true);
+
         PendingIntent pIntent = PendingIntent.getActivity(
                 getApplicationContext(), 0, favoritesIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
