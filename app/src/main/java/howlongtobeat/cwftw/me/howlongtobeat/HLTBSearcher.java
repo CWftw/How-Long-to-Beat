@@ -24,7 +24,17 @@ public class HLTBSearcher {
     // base image url + 'src' attribute of img
     private static final String SELECTOR_IMAGE_URL = ".search_list_image a img";
     // Each div has data in a specific order
-    private static final String SELECTOR_DATA_MULTI = ".search_list_tidbit.center";
+    private static final String SELECTOR_DATA_MULTI = ".search_list_tidbit";
+
+    private static final String HEADER_MAIN_STORY = "Main Story";
+    private static final String HEADER_MAIN_EXTRA = "Main + Extra";
+    private static final String HEADER_COMPLETIONIST = "Completionist";
+    private static final String HEADER_COMBINED = "Combined";
+    private static final String HEADER_POLLED = "Polled";
+    private static final String HEADER_RATED = "Rated";
+    private static final String HEADER_BACKLOG = "Backlog";
+    private static final String HEADER_PLAYING = "Playing";
+    private static final String HEADER_RETIRED = "Retired";
 
 //    private static final String SELECTOR_MAIN_HOURS = ".search_list_details_block.search_list_tidbit.center time_100";
 //    private static final String SELECTOR_MAIN_EXTRA_HOURS = ".search_list_details_block.search_list_tidbit center time_100";
@@ -135,6 +145,16 @@ public class HLTBSearcher {
             // Get all data elements
             Elements gameData = gameElement.select(SELECTOR_DATA_MULTI);
             // Parse and convert all data fields
+
+            for (int i = 0; i < gameData.size(); i=2) {
+                switch (gameData.get(i).text()) {
+                    case HEADER_MAIN_STORY:
+                        game.setMainHours(parseString(gameData.get(i+1).text()));
+                        break;
+                    case HEADER_MAIN_EXTRA:
+                }
+            }
+
             game.setMainHours(parseString(gameData.get(0).text()));
             game.setMainExtraHours(parseString(gameData.get(1).text()));
             game.setCompletionistHours(parseString(gameData.get(2).text()));

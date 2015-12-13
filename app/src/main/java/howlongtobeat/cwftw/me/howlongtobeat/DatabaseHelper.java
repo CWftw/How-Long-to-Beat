@@ -91,13 +91,27 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public ArrayList<Game> selectGames()
     {
+        return selectGames("");
+    }
+
+    public ArrayList<Game> selectGames(String query)
+    {
         ArrayList<Game> games = new ArrayList<Game>();
 
         try
         {
             SQLiteDatabase db = this.getReadableDatabase();
-            String selectQuery = "SELECT * FROM games";
-            Cursor c = db.rawQuery(selectQuery, null);
+            String selectQuery;
+            Cursor c;
+
+            if (query == "") {
+                // Select all
+                selectQuery = "SELECT * FROM games";
+                c = db.rawQuery(selectQuery, null);
+            } else {
+                selectQuery = "SELECT * FROM games WHERE title LIKE '%?%'";
+                c = db.rawQuery(selectQuery, new String[] {query});
+            }
 
             // looping through all rows and adding to list
             if (c.moveToFirst())
