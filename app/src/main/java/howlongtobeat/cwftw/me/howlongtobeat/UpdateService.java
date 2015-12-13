@@ -19,6 +19,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -59,9 +60,34 @@ public class UpdateService extends Service {
                 boolean pluggedIn = preferences.getBoolean("pref_pluggedIn", false);
                 boolean notifications = preferences.getBoolean("pref_notifications", false);
                 DatabaseHelper db = DatabaseHelper.getInstance(getApplicationContext());
-                HLTBSearcher webDb = new HLTBSearcher("");
+                List<Game> games = db.selectGames("");
 
+                for (Game game : games)
+                {
+                    HLTBSearcher webDb = new HLTBSearcher();
 
+                    try
+                    {
+                        Game webGame = webDb.getGame(game.getTitle(), game.getId());
+
+                        if (game.getMainHours() != webGame.getMainHours() ||
+                            game.getMainExtraHours() != webGame.getMainExtraHours() ||
+                            game.getCompletionistHours() != webGame.getCompletionistHours() ||
+                            game.getCombinedHours() != webGame.getCombinedHours() ||
+                            game.getPolled() != webGame.getPolled() ||
+                            game.getRatedPercent() != webGame.getRatedPercent() ||
+                            game.getBacklogCount() != webGame.getBacklogCount() ||
+                            game.getPlaying() != webGame.getPlaying() ||
+                            game.getRetired() != webGame.getRetired())
+                        {
+
+                        }
+                    }
+                    catch(IOException e)
+                    {
+                        Log.d("How Long to Beat", e.getMessage());
+                    }
+                }
 
                 if(backUpdate)
                 {
