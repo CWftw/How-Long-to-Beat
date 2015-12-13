@@ -1,6 +1,6 @@
 package howlongtobeat.cwftw.me.howlongtobeat;
 
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,7 +17,6 @@ import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavorit
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.PreferencesFragment;
 
 public class MainActivity extends AppCompatActivity implements OnGameFragmentInteractionListener, OnFavoriteFragmentInteractionListener {
 
@@ -81,12 +80,10 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            getFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_content, PreferencesFragment.newInstance())
-                    .addToBackStack(null) // enables back key
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit();
+            Intent intent = new Intent(this, SettingsActivity.class);
+            intent.putExtra( SettingsActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.GeneralPreferenceFragment.class.getName() );
+            intent.putExtra( SettingsActivity.EXTRA_NO_HEADERS, true );
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

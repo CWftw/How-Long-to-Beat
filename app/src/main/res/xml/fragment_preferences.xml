@@ -6,35 +6,32 @@
     tools:context="howlongtobeat.cwftw.me.howlongtobeat.Preferences">
 
     <PreferenceCategory
-        android:title="@string/updating"
-        android:key="updateCategory">
+        android:title="@string/updating">
     <CheckBoxPreference
-        android:key="pref_update"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:title="@string/backUpdate"
-        android:id="@+id/updateCheck"
-        android:checked="false"/>
+        android:defaultValue="true"
+        android:key="@string/backUpdate"
+        android:title="@string/backUpdate"/>
 
     <CheckBoxPreference
-        android:key="pref_pluggedIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:defaultValue="false"
+        android:key="@string/pluggedIn"
         android:title="@string/pluggedIn"
-        android:id="@+id/pluggedInCheck"
-        android:dependency="pref_update"
-        android:checked="false"/>
+        android:dependency="@string/backUpdate" />
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/notifications"
-        android:key="notificationsCategory">
+        android:title="@string/notifications" >
     <CheckBoxPreference
-        android:key="pref_notifications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:title="@string/notificationsCheck"
-        android:id="@+id/notificationsCheck"
-        android:checked="false"/>
+        android:defaultValue="true"
+        android:key="@string/notifications"
+        android:title="@string/notificationsCheck" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/about" >
+        <Preference
+            android:key="@string/credits"
+            android:title="@string/credits">
+        </Preference>
     </PreferenceCategory>
 </PreferenceScreen>
