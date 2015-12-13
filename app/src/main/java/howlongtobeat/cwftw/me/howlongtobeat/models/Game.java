@@ -1,5 +1,7 @@
 package howlongtobeat.cwftw.me.howlongtobeat.models;
 
+import java.sql.Time;
+
 /**
  * Created by colin on 2015-12-02.
  */
@@ -7,27 +9,23 @@ public class Game {
 
     // Basic game info
     private String title;
-    private double mainHours;
-    private double mainExtraHours;
-    private double completionistHours;
-    private double combinedHours;
+    private Time mainHours;
+    private Time mainExtraHours;
+    private Time completionistHours;
+    private Time combinedHours;
     private String imageUrl;
     private byte[] imageBytes;
 
     // Detailed game info
-    private double polled;
-    private double ratedPercent;
-    private double backlogCount;
-    private double playing;
-    private double speedruns;
-    private double retired;
+    private int polled;
+    private int ratedPercent;
+    private int backlogCount;
+    private int playing;
+    private int speedruns;
+    private int retired;
 
-    public Game() {
-
-    }
-
-    public Game(String title, double mainHours, double mainExtraHours, double completionistHours,
-                double combinedHours, byte[] imageBytes)
+    public Game(String title, Time mainHours, Time mainExtraHours, Time completionistHours,
+                Time combinedHours, byte[] imageBytes)
     {
         this.title = title;
         this.mainHours = mainHours;
@@ -37,83 +35,83 @@ public class Game {
         this.imageBytes = imageBytes;
     }
 
-    public double getMainHours() {
+    public Time getMainHours() {
         return mainHours;
     }
 
-    public void setMainHours(double mainHours) {
+    public void setMainHours(Time mainHours) {
         this.mainHours = mainHours;
     }
 
-    public double getMainExtraHours() {
+    public Time getMainExtraHours() {
         return mainExtraHours;
     }
 
-    public void setMainExtraHours(double mainExtraHours) {
+    public void setMainExtraHours(Time mainExtraHours) {
         this.mainExtraHours = mainExtraHours;
     }
 
-    public double getCompletionistHours() {
+    public Time getCompletionistHours() {
         return completionistHours;
     }
 
-    public void setCompletionistHours(double completionistHours) {
+    public void setCompletionistHours(Time completionistHours) {
         this.completionistHours = completionistHours;
     }
 
-    public double getCombinedHours() {
+    public Time getCombinedHours() {
         return combinedHours;
     }
 
-    public void setCombinedHours(double combinedHours) {
+    public void setCombinedHours(Time combinedHours) {
         this.combinedHours = combinedHours;
     }
 
-    public double getPolled() {
+    public int getPolled() {
         return polled;
     }
 
-    public void setPolled(double polled) {
+    public void setPolled(int polled) {
         this.polled = polled;
     }
 
-    public double getRatedPercent() {
+    public int getRatedPercent() {
         return ratedPercent;
     }
 
-    public void setRatedPercent(double ratedPercent) {
+    public void setRatedPercent(int ratedPercent) {
         this.ratedPercent = ratedPercent;
     }
 
-    public double getBacklogCount() {
+    public int getBacklogCount() {
         return backlogCount;
     }
 
-    public void setBacklogCount(double backlogCount) {
+    public void setBacklogCount(int backlogCount) {
         this.backlogCount = backlogCount;
     }
 
-    public double getPlaying() {
+    public int getPlaying() {
         return playing;
     }
 
-    public void setPlaying(double playing) {
+    public void setPlaying(int playing) {
         this.playing = playing;
     }
 
-    public double getSpeedruns() {
+    public int getSpeedruns() {
         return speedruns;
     }
 
-    public void setSpeedruns(double speedruns) {
+    public void setSpeedruns(int speedruns) {
         this.speedruns = speedruns;
     }
 
-    public double getRetired() {
+    public int getRetired() {
         return retired;
     }
 
-    public void setRetired(double retired) {
+    public void setRetired(int retired) {
         this.retired = retired;
     }
 

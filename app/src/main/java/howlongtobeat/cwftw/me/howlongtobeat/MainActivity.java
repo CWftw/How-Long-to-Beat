@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
+//        To go right to favorites
+//        mViewPager.setCurrentItem(1);
     }
 
 

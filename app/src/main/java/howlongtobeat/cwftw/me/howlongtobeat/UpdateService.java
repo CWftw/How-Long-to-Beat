@@ -6,8 +6,10 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.CheckBoxPreference;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import java.util.Timer;
@@ -44,8 +46,8 @@ public class UpdateService extends Service
 
     private void startTimer()
     {
-        final CheckBoxPreference notificationsCheck =
-                (CheckBoxPreference) getSharedPreferences("pref_update", Context.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final boolean backUpdate = preferences.getBoolean("pref_backUpdate", false);
 
         TimerTask task = new TimerTask()
         {
@@ -54,7 +56,7 @@ public class UpdateService extends Service
             {
                 Log.d("Update", "Timer started");
 
-                if(notificationsCheck.isChecked())
+                if(backUpdate)
                 {
                     sendNotification("One of your favorite games has been updated!");
                 }
@@ -81,7 +83,7 @@ public class UpdateService extends Service
                 NotificationCompat.Builder(getApplicationContext());
 
         Intent favoritesIntent = new Intent(getApplicationContext(),
-                FavoriteFragment.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pIntent = PendingIntent.getActivity(
                 getApplicationContext(), 0, favoritesIntent,
