@@ -20,20 +20,20 @@ import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 public class DatabaseHelper extends SQLiteOpenHelper
 {
     private static final String DATABASE_NAME = "HLTB.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String CREATE_TABLE_GAME =
                     "CREATE TABLE games ( " +
-                    "id INTEGER PRIMARY KEY" +
-                    "title VARCHAR" +
+                    "id INTEGER," +
+                    "title VARCHAR," +
                     "mainHours REAL," +
                     "extraHours REAL," +
-                    "completionistHours REAL" +
-                    "combinedHours REAL" +
-                    "polled REAL" +
-                    "rated REAL" +
-                    "backlog REAL" +
-                    "playing REAL" +
-                    "retired REAL" +
+                    "completionistHours REAL," +
+                    "combinedHours REAL," +
+                    "polled REAL," +
+                    "rated REAL," +
+                    "backlog REAL," +
+                    "playing REAL," +
+                    "retired REAL," +
                     "image BLOB" +
                     ")";
     private static DatabaseHelper instance;
@@ -71,12 +71,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        try
-        {
-            db.execSQL("DROP TABLE IF EXISTS game");
-        }
-        catch (SQLException e)
-        {
+        try {
+            db.execSQL("DROP TABLE IF EXISTS games");
+            db.execSQL(CREATE_TABLE_GAME);
+        } catch (SQLException e) {
             Log.e("DatabaseHelper", "onUpgrade");
         }
     }
@@ -88,6 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put("id", game.getId());
         values.put("title", game.getTitle());
         values.put("mainHours", game.getMainHours());
         values.put("extraHours", game.getMainExtraHours());
@@ -158,9 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public Game selectGame(int id)
     {
-        Game game = new Game();
-
-        game.setId(id);
+        Game game = null;
 
         try
         {
@@ -170,6 +167,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
             if (c.moveToFirst())
             {
+                game = new Game();
+
+                game.setId(c.getInt(c.getColumnIndex("id")));
                 game.setTitle(c.getString(c.getColumnIndex("title")));
                 game.setMainHours(c.getDouble(c.getColumnIndex("mainHours")));
                 game.setMainExtraHours(c.getDouble(c.getColumnIndex("extraHours")));
@@ -185,7 +185,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
         catch (Exception e)
         {
-            Log.e("DatabaseHelper", "selectPlayer");
+            Log.e("DatabaseHelper", "selectGame");
         }
 
         return game;
