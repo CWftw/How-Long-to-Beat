@@ -21,6 +21,7 @@ import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.adapters.MyFavoriteRecyclerViewAdapter;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 /**
  * A fragment representing a list of Items.
@@ -111,6 +112,6 @@ public class FavoriteFragment extends Fragment {
      */
     public interface OnFavoriteFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFavoriteFragmentInteraction(DummyItem item);
+        void onFavoriteFragmentInteraction(Game item);
     }
 }

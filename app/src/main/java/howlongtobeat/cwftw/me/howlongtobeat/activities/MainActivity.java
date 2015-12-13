@@ -25,6 +25,7 @@ import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 public class MainActivity extends AppCompatActivity implements OnGameFragmentInteractionListener, OnFavoriteFragmentInteractionListener {
 
@@ -94,12 +95,12 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
     }
 
     @Override
-    public void onFavoriteFragmentInteraction(DummyContent.DummyItem item) {
+    public void onFavoriteFragmentInteraction(Game item) {
 
     }
 
     @Override
-    public void onGameFragmentInteraction(DummyContent.DummyItem item) {
+    public void onGameFragmentInteraction(Game item) {
 
     }
 

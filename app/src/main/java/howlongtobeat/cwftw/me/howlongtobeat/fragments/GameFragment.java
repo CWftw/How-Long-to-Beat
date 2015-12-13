@@ -153,6 +153,6 @@ public class GameFragment extends Fragment {
      */
     public interface OnGameFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onGameFragmentInteraction(DummyItem item);
+        void onGameFragmentInteraction(Game item);
     }
 }
