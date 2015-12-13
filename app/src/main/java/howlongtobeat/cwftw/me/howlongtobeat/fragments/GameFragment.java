@@ -1,19 +1,27 @@
 package howlongtobeat.cwftw.me.howlongtobeat.fragments;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import howlongtobeat.cwftw.me.howlongtobeat.HLTBSearcher;
+import howlongtobeat.cwftw.me.howlongtobeat.ResultSet;
 import howlongtobeat.cwftw.me.howlongtobeat.adapters.MyGameRecyclerViewAdapter;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 /**
  * A fragment representing a list of Items.
@@ -28,12 +36,35 @@ public class GameFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 2;
     private OnGameFragmentInteractionListener mListener;
+    private ResultSet results;
+    private HLTBSearcher searcher;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public GameFragment() {
+    }
+
+    private class DownloadGames extends AsyncTask {
+        @Override
+        protected Object doInBackground(Object[] params) {
+            try {
+                results = searcher.search();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+    }
+
+    public void updateDisplay() {
+        Log.i("updateDisplay()", "UPDATING");
     }
 
     // TODO: Customize parameter initialization
@@ -53,6 +84,9 @@ public class GameFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        searcher = new HLTBSearcher();
+        new DownloadGames().execute();
     }
 
     @Override
