@@ -72,7 +72,7 @@ public class GameFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Object o) {
-            adapter.addIems(results.getPage());
+            adapter.addItems(results.getPage());
             adapter.notifyDataSetChanged();
         }
     }

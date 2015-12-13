@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import howlongtobeat.cwftw.me.howlongtobeat.R;
+import howlongtobeat.cwftw.me.howlongtobeat.Utils;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
@@ -39,7 +40,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         mListener = listener;
     }
 
-    public void addIems(ArrayList<Game> games) {
+    public void addItems(ArrayList<Game> games) {
         this.mValues.addAll(games);
     }
 
@@ -63,6 +64,11 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
                 .placeholder(R.mipmap.ic_launcher)
                 // load the url
                 .load(mValues.get(position).getImageUrl());
+
+        holder.mainStoryItem.setText(Utils.formatData(mValues.get(position).getMainHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.extraItem.setText(Utils.formatData(mValues.get(position).getMainExtraHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.completionistItem.setText(Utils.formatData(mValues.get(position).getCompletionistHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.combinedItem.setText(Utils.formatData(mValues.get(position).getCombinedHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
