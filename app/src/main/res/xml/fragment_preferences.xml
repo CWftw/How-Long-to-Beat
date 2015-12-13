@@ -7,24 +7,24 @@
 
     <PreferenceCategory
         android:title="@string/updating">
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="pref_backUpdate"
-        android:title="@string/backUpdate"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_backUpdate"
+            android:title="@string/backUpdate"/>
 
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="pref_pluggedIn"
-        android:title="@string/pluggedIn"
-        android:dependency="pref_backUpdate" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_pluggedIn"
+            android:title="@string/pluggedIn"
+            android:dependency="pref_backUpdate" />
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/notifications" >
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="pref_notifications"
-        android:title="@string/notificationsCheck" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_notifications"
+            android:title="@string/notificationsCheck" />
     </PreferenceCategory>
 
     <PreferenceCategory

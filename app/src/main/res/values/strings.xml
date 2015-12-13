@@ -81,4 +81,5 @@
     <string name="Backlog">Backlog</string>
     <string name="Playing">Playing</string>
     <string name="Retired">Retired</string>
+    <string name="gameImage">Game Image</string>
 </resources>

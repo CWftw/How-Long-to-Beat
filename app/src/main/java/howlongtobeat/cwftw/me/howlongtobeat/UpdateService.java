@@ -13,15 +13,20 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import howlongtobeat.cwftw.me.howlongtobeat.activities.MainActivity;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
+
+import static howlongtobeat.cwftw.me.howlongtobeat.Utils.*;
 
 public class UpdateService extends Service {
     private Timer timer;
@@ -44,15 +49,33 @@ public class UpdateService extends Service {
     }
 
     private void startTimer() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        final boolean backUpdate = preferences.getBoolean("pref_backUpdate", false);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
                 Log.d("Update", "Timer started");
+                boolean backUpdate = preferences.getBoolean("pref_backUpdate", false);
+                boolean pluggedIn = preferences.getBoolean("pref_pluggedIn", false);
+                boolean notifications = preferences.getBoolean("pref_notifications", false);
 
-                if (backUpdate) {
+                if(backUpdate)
+                {
+                    DatabaseHelper db = DatabaseHelper.getInstance(getApplicationContext());
+                    HLTBSearcher webDb = new HLTBSearcher("");
+
+                    if(pluggedIn && isPluggedIn(getApplicationContext()))
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+
+                if (notifications)
+                {
                     sendNotification("One of your favorite games has been updated!");
                 }
             }
