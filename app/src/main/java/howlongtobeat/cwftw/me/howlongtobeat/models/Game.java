@@ -10,6 +10,7 @@ package howlongtobeat.cwftw.me.howlongtobeat.models;
 public class Game {
 
     // Basic game info
+    private int id;
     private String title;
     private double mainHours;
     private double mainExtraHours;
@@ -146,5 +147,13 @@ public class Game {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

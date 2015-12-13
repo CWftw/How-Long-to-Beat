@@ -25,6 +25,8 @@ public class HLTBSearcher {
      * Selector Constants
      */
     private static final String SELECTOR_GAME_CARD = ".back_white.shadow_box";
+    // href attribute of 'a' tag, example format 'game.php?id=3340'
+    private static final String SELECTOR_ID = ".search_list_details h3 a";
     // 'title' attribute of 'a' tag
     private static final String SELECTOR_TITLE = ".search_list_image a";
     // base image url + 'src' attribute of img
@@ -101,6 +103,68 @@ public class HLTBSearcher {
         previousResultSet = null;
     }
 
+    public Game getGame(String name, int matchId) throws IOException{
+        Document doc = Jsoup.connect(BASE_SEARCH_URL).data("queryString", name).data("t", "games").data("page", Integer.toString(this.page)).data("sorthead", "name").data("sortd", "Normal Order").data("plat", "").data("detail", "1").post();
+
+        // Get game divs
+        Elements gameElements = doc.select(SELECTOR_GAME_CARD);
+
+        for (Element gameElement : gameElements) {
+            int id = (int)parseString(gameElement.select(SELECTOR_ID).first().attr("href"));
+            if (id == matchId) {
+                Game game = new Game();
+
+                game.setId((int)parseString(gameElement.select(SELECTOR_ID).first().attr("href")));
+                game.setTitle(gameElement.select(SELECTOR_TITLE).first().attr("title"));
+                game.setImageUrl(BASE_IMAGE_URL + gameElement.select(SELECTOR_IMAGE_URL).first().attr("src"));
+
+                // Get all data elements
+                Elements gameData = gameElement.select(SELECTOR_DATA_MULTI);
+                // Parse and convert all data fields
+
+                for (int i = 0; i < gameData.size(); i+=2) {
+                    switch (gameData.get(i).text().trim()) {
+                        case HEADER_MAIN_STORY:
+                            game.setMainHours(parseString(gameData.get(i + 1).text()));
+                            break;
+                        case HEADER_MAIN_EXTRA:
+                            game.setMainExtraHours(parseString(gameData.get(i + 1).text()));
+                            break;
+                        case HEADER_COMPLETIONIST:
+                            game.setCompletionistHours(parseString(gameData.get(i + 1).text()));
+                            break;
+                        case HEADER_COMBINED:
+                            game.setCombinedHours(parseString(gameData.get(i + 1).text()));
+                            break;
+                        case HEADER_POLLED:
+                            game.setPolled(parseString(gameData.get(i + 1).text()));
+                            break;
+                        case HEADER_RATED:
+                            game.setRatedPercent(parseString(gameData.get(i + 1).text()));
+                            break;
+                        case HEADER_BACKLOG:
+                            game.setBacklogCount(parseString(gameData.get(i + 1).text()));
+                            break;
+                        case HEADER_PLAYING:
+                            game.setPlaying(parseString(gameData.get(i + 1).text()));
+                            break;
+                        case HEADER_RETIRED:
+                            game.setRetired(parseString(gameData.get(i + 1).text()));
+                            break;
+                        default:
+                            // Unknown field
+                            Log.i("UNKNOWN FIELD", gameData.get(i + 1).text());
+                            break;
+                    }
+                }
+                return game;
+            }
+        }
+
+        // Game not found
+        return null;
+    }
+
     public ResultSet search () throws IOException {
 //        ResultSet resultSet = new ResultSet();
         ArrayList<Game> games = new ArrayList<Game>();
@@ -123,6 +187,7 @@ public class HLTBSearcher {
         for (Element gameElement : gameElements) {
             Game game = new Game();
 
+            game.setId((int)parseString(gameElement.select(SELECTOR_ID).first().attr("href")));
             game.setTitle(gameElement.select(SELECTOR_TITLE).first().attr("title"));
             game.setImageUrl(BASE_IMAGE_URL + gameElement.select(SELECTOR_IMAGE_URL).first().attr("src"));
 
@@ -165,17 +230,6 @@ public class HLTBSearcher {
                         break;
                 }
             }
-
-//            game.setMainHours(parseString(gameData.get(0).text()));
-//            game.setMainExtraHours(parseString(gameData.get(1).text()));
-//            game.setCompletionistHours(parseString(gameData.get(2).text()));
-//            game.setCombinedHours(parseString(gameData.get(3).text()));
-//            game.setPolled(parseString(gameData.get(4).text()));
-//            game.setRatedPercent(parseString(gameData.get(5).text()));
-//            game.setBacklogCount(parseString(gameData.get(6).text()));
-//            game.setPlaying(parseString(gameData.get(7).text()));
-//            game.setRetired(parseString(gameData.get(8).text()));
-
             games.add(game);
         }
 
