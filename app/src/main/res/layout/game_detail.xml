@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="101dp"
-        android:id="@+id/imageView"
+        android:id="@+id/gameImageDetail"
         android:src="@mipmap/ic_launcher"
         android:layout_gravity="center_horizontal" />
 
@@ -170,6 +170,12 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/retiredDetail" />
         </TableRow>
+
     </TableLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray" />
 
 </LinearLayout>

@@ -30,6 +30,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
                     "extraHours REAL," +
                     "completionistHours REAL" +
                     "combinedHours REAL" +
+                    "polled REAL" +
+                    "rated REAL" +
+                    "backlog REAL" +
+                    "playing REAL" +
+                    "retired REAL" +
                     "image BLOB" +
                     ")";
     private static DatabaseHelper instance;
@@ -89,16 +94,16 @@ public class DatabaseHelper extends SQLiteOpenHelper
         values.put("extraHours", game.getMainExtraHours());
         values.put("completionistHours", game.getCompletionistHours());
         values.put("combinedHours", game.getCombinedHours());
+        values.put("polled", game.getPolled());
+        values.put("rated", game.getRatedPercent());
+        values.put("backlog", game.getBacklogCount());
+        values.put("playing", game.getPlaying());
+        values.put("retired", game.getRetired());
         values.put("image", game.getImageBytes());
 
         id = db.insertOrThrow("games", null, values);
         db.close();
         return id;
-    }
-
-    public ArrayList<Game> selectGames()
-    {
-        return selectGames("");
     }
 
     public ArrayList<Game> selectGames(String query)
@@ -131,17 +136,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
                     game.setMainExtraHours(c.getDouble(c.getColumnIndex("extraHours")));
                     game.setCompletionistHours(c.getDouble(c.getColumnIndex("completionistHours")));
                     game.setCombinedHours(c.getDouble(c.getColumnIndex("combinedHours")));
+                    game.setPolled(c.getDouble(c.getColumnIndex("polled")));
+                    game.setRatedPercent(c.getDouble(c.getColumnIndex("rated")));
+                    game.setBacklogCount(c.getDouble(c.getColumnIndex("backlog")));
+                    game.setPlaying(c.getDouble(c.getColumnIndex("playing")));
+                    game.setRetired(c.getDouble(c.getColumnIndex("retired")));
                     game.setImageBytes(c.getBlob(c.getColumnIndex("image")));
-
-//                    Game g = new Game
-//                    (
-//                            c.getString(c.getColumnIndex("title")),
-//                            new Time(c.getDouble(c.getColumnIndex("mainHours"))),
-//                            new Time(c.getDouble(c.getColumnIndex("extraHours"))),
-//                            new Time(c.getDouble(c.getColumnIndex("completionistHours"))),
-//                            new Time(c.getDouble(c.getColumnIndex("combinedHours"))),
-//                            c.getBlob(c.getColumnIndex("image"))
-//                    );
 
                     // adding to games list
                     games.add(game);
