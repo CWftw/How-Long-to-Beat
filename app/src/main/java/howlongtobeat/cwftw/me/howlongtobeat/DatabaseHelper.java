@@ -130,6 +130,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 do
                 {
                     Game game = new Game();
+                    game.setId(c.getInt(c.getColumnIndex("id")));
                     game.setTitle(c.getString(c.getColumnIndex("title")));
                     game.setMainHours(c.getDouble(c.getColumnIndex("mainHours")));
                     game.setMainExtraHours(c.getDouble(c.getColumnIndex("extraHours")));
@@ -153,6 +154,41 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
         
         return games;
+    }
+
+    public Game selectGame(int id)
+    {
+        Game game = new Game();
+
+        game.setId(id);
+
+        try
+        {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String selectQuery = "SELECT * FROM games WHERE id = " + id;
+            Cursor c = db.rawQuery(selectQuery, null);
+
+            if (c.moveToFirst())
+            {
+                game.setTitle(c.getString(c.getColumnIndex("title")));
+                game.setMainHours(c.getDouble(c.getColumnIndex("mainHours")));
+                game.setMainExtraHours(c.getDouble(c.getColumnIndex("extraHours")));
+                game.setCompletionistHours(c.getDouble(c.getColumnIndex("completionistHours")));
+                game.setCombinedHours(c.getDouble(c.getColumnIndex("combinedHours")));
+                game.setPolled(c.getDouble(c.getColumnIndex("polled")));
+                game.setRatedPercent(c.getDouble(c.getColumnIndex("rated")));
+                game.setBacklogCount(c.getDouble(c.getColumnIndex("backlog")));
+                game.setPlaying(c.getDouble(c.getColumnIndex("playing")));
+                game.setRetired(c.getDouble(c.getColumnIndex("retired")));
+                game.setImageBytes(c.getBlob(c.getColumnIndex("image")));
+            }
+        }
+        catch (Exception e)
+        {
+            Log.e("DatabaseHelper", "selectPlayer");
+        }
+
+        return game;
     }
 
     public boolean deleteGame(int id)

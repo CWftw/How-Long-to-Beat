@@ -58,15 +58,23 @@ public class UpdateService extends Service {
                 boolean backUpdate = preferences.getBoolean("pref_backUpdate", false);
                 boolean pluggedIn = preferences.getBoolean("pref_pluggedIn", false);
                 boolean notifications = preferences.getBoolean("pref_notifications", false);
+                DatabaseHelper db = DatabaseHelper.getInstance(getApplicationContext());
+                HLTBSearcher webDb = new HLTBSearcher("");
+
+
 
                 if(backUpdate)
                 {
-                    DatabaseHelper db = DatabaseHelper.getInstance(getApplicationContext());
-                    HLTBSearcher webDb = new HLTBSearcher("");
-
-                    if(pluggedIn && isPluggedIn(getApplicationContext()))
+                    if(pluggedIn)
                     {
+                        if(isPluggedIn(getApplicationContext()))
+                        {
 
+                        }
+                        else
+                        {
+
+                        }
                     }
                     else
                     {
