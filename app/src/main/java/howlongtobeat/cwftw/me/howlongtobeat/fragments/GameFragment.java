@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import howlongtobeat.cwftw.me.howlongtobeat.HLTBSearcher;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
@@ -27,6 +28,7 @@ import howlongtobeat.cwftw.me.howlongtobeat.ResultSet;
 import howlongtobeat.cwftw.me.howlongtobeat.adapters.MyGameRecyclerViewAdapter;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 /**
  * A fragment representing a list of Items.
@@ -41,6 +43,7 @@ public class GameFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 2;
     private OnGameFragmentInteractionListener mListener;
+    private MyGameRecyclerViewAdapter adapter;
     private ResultSet results;
     private HLTBSearcher searcher;
 
@@ -66,6 +69,12 @@ public class GameFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
         }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            adapter.addIems(results.getPage());
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void updateDisplay() {
@@ -90,6 +99,7 @@ public class GameFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
+        adapter = new MyGameRecyclerViewAdapter(new ArrayList<Game>(), mListener);
         searcher = new HLTBSearcher();
         new DownloadGames().execute();
     }
@@ -108,7 +118,7 @@ public class GameFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyGameRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }

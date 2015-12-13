@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
@@ -26,12 +28,16 @@ import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmen
  */
 public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Game> mValues;
     private final OnGameFragmentInteractionListener mListener;
 
-    public MyGameRecyclerViewAdapter(List<DummyItem> items, OnGameFragmentInteractionListener listener) {
+    public MyGameRecyclerViewAdapter(List<Game> items, OnGameFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
+    }
+
+    public void addIems(ArrayList<Game> games) {
+        this.mValues.addAll(games);
     }
 
     @Override
@@ -68,7 +74,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Game mItem;
 
         public ViewHolder(View view) {
             super(view);

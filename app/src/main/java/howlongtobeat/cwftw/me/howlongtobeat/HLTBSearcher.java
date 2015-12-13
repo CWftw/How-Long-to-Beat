@@ -113,8 +113,8 @@ public class HLTBSearcher {
 //        resultSet.setPages();
         if (previousResultSet == null) {
             // No previous results
-            resultSet.setPages((int)parseString(doc.select(SELECTOR_PAGES).first().text()));
-            resultSet.setTotalResults((int)parseString(doc.select(SELECTOR_TOTAL_RESULTS).last().text()));
+            resultSet.setPages((int)parseString(doc.select(SELECTOR_PAGES).last().text()));
+            resultSet.setTotalResults((int) parseString(doc.select(SELECTOR_TOTAL_RESULTS).first().text()));
         }
 
         // Get game divs
@@ -124,44 +124,44 @@ public class HLTBSearcher {
             Game game = new Game();
 
             game.setTitle(gameElement.select(SELECTOR_TITLE).first().attr("title"));
-            game.setImageUrl(gameElement.select(SELECTOR_IMAGE_URL).first().attr("src"));
+            game.setImageUrl(BASE_IMAGE_URL + gameElement.select(SELECTOR_IMAGE_URL).first().attr("src"));
 
             // Get all data elements
             Elements gameData = gameElement.select(SELECTOR_DATA_MULTI);
             // Parse and convert all data fields
 
-            for (int i = 0; i < gameData.size(); i=2) {
-                switch (gameData.get(i).text()) {
+            for (int i = 0; i < gameData.size(); i+=2) {
+                switch (gameData.get(i).text().trim()) {
                     case HEADER_MAIN_STORY:
                         game.setMainHours(parseString(gameData.get(i + 1).text()));
                         break;
                     case HEADER_MAIN_EXTRA:
-                        game.setMainExtraHours(parseString(gameData.get(1).text()));
+                        game.setMainExtraHours(parseString(gameData.get(i + 1).text()));
                         break;
                     case HEADER_COMPLETIONIST:
-                        game.setCompletionistHours(parseString(gameData.get(2).text()));
+                        game.setCompletionistHours(parseString(gameData.get(i + 1).text()));
                         break;
                     case HEADER_COMBINED:
-                        game.setCombinedHours(parseString(gameData.get(3).text()));
+                        game.setCombinedHours(parseString(gameData.get(i + 1).text()));
                         break;
                     case HEADER_POLLED:
-                        game.setPolled(parseString(gameData.get(4).text()));
+                        game.setPolled(parseString(gameData.get(i + 1).text()));
                         break;
                     case HEADER_RATED:
-                        game.setRatedPercent(parseString(gameData.get(5).text()));
+                        game.setRatedPercent(parseString(gameData.get(i + 1).text()));
                         break;
                     case HEADER_BACKLOG:
-                        game.setBacklogCount(parseString(gameData.get(6).text()));
+                        game.setBacklogCount(parseString(gameData.get(i + 1).text()));
                         break;
                     case HEADER_PLAYING:
-                        game.setPlaying(parseString(gameData.get(7).text()));
+                        game.setPlaying(parseString(gameData.get(i + 1).text()));
                         break;
                     case HEADER_RETIRED:
-                        game.setRetired(parseString(gameData.get(8).text()));
+                        game.setRetired(parseString(gameData.get(i + 1).text()));
                         break;
                     default:
                         // Unknown field
-                        Log.i("UNKNOWN FIELD", gameData.get(i).text());
+                        Log.i("UNKNOWN FIELD", gameData.get(i + 1).text());
                         break;
                 }
             }
@@ -174,15 +174,12 @@ public class HLTBSearcher {
 //            game.setRatedPercent(parseString(gameData.get(5).text()));
 //            game.setBacklogCount(parseString(gameData.get(6).text()));
 //            game.setPlaying(parseString(gameData.get(7).text()));
-            game.setRetired(parseString(gameData.get(8).text()));
+//            game.setRetired(parseString(gameData.get(8).text()));
 
             games.add(game);
         }
 
         resultSet.setPage(games);
-        resultSet.setPages(1);
-        resultSet.setTotalResults(100);
-
         previousResultSet = resultSet;
         return resultSet;
     }
@@ -199,7 +196,7 @@ public class HLTBSearcher {
                 returnValue += 0.5;
             }
         } catch (NumberFormatException e) {
-            returnValue = 0;
+            returnValue = -1;
         }
 
         return returnValue;
