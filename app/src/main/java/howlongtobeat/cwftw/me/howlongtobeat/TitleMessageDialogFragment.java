@@ -1,8 +1,8 @@
 /*
-* Colin Willson
-* Mobile Applications II
-* Assignment 2
-* November 4, 2015
+ * Colin Willson & Matt Allen
+ * Final Project, PROG3210
+ * December 13, 2015
+ *
  */
 
 package howlongtobeat.cwftw.me.howlongtobeat;

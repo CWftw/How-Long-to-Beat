@@ -1,4 +1,11 @@
-package howlongtobeat.cwftw.me.howlongtobeat;
+/*
+ * Colin Willson & Matt Allen
+ * Final Project, PROG3210
+ * December 13, 2015
+ *
+ */
+
+package howlongtobeat.cwftw.me.howlongtobeat.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

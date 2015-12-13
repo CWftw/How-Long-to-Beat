@@ -1,3 +1,10 @@
+/*
+ * Colin Willson & Matt Allen
+ * Final Project, PROG3210
+ * December 13, 2015
+ *
+ */
+
 package howlongtobeat.cwftw.me.howlongtobeat.fragments;
 
 import android.content.Context;
@@ -13,15 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import howlongtobeat.cwftw.me.howlongtobeat.HLTBSearcher;
+import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.ResultSet;
 import howlongtobeat.cwftw.me.howlongtobeat.adapters.MyGameRecyclerViewAdapter;
-import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
-import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 /**
  * A fragment representing a list of Items.

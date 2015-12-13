@@ -1,4 +1,11 @@
-package howlongtobeat.cwftw.me.howlongtobeat;
+/*
+ * Colin Willson & Matt Allen
+ * Final Project, PROG3210
+ * December 13, 2015
+ *
+ */
+
+package howlongtobeat.cwftw.me.howlongtobeat.activities;
 
 
 import android.annotation.TargetApi;
@@ -20,7 +27,7 @@ import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
-import java.util.List;
+import howlongtobeat.cwftw.me.howlongtobeat.R;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

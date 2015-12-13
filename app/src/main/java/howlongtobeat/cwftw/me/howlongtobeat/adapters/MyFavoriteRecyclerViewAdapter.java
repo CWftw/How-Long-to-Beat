@@ -1,3 +1,10 @@
+/*
+ * Colin Willson & Matt Allen
+ * Final Project, PROG3210
+ * December 13, 2015
+ *
+ */
+
 package howlongtobeat.cwftw.me.howlongtobeat.adapters;
 
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +16,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import howlongtobeat.cwftw.me.howlongtobeat.R;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the

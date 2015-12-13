@@ -1,4 +1,13 @@
+/*
+ * Colin Willson & Matt Allen
+ * Final Project, PROG3210
+ * December 13, 2015
+ *
+ */
+
 package howlongtobeat.cwftw.me.howlongtobeat;
+
+import android.util.Log;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,9 +20,6 @@ import java.util.ArrayList;
 
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
-/**
- * Created by colin on 2015-12-02.
- */
 public class HLTBSearcher {
     /*
      * Selector Constants
@@ -36,23 +42,10 @@ public class HLTBSearcher {
     private static final String HEADER_PLAYING = "Playing";
     private static final String HEADER_RETIRED = "Retired";
 
-//    private static final String SELECTOR_MAIN_HOURS = ".search_list_details_block.search_list_tidbit.center time_100";
-//    private static final String SELECTOR_MAIN_EXTRA_HOURS = ".search_list_details_block.search_list_tidbit center time_100";
-//    private static final String SELECTOR_COMPLETIONIST_HOURS = ".search_list_details_block";
-//    private static final String SELECTOR_COMBINED_HOURS = ".search_list_details_block";
-//    private static final String SELECTOR_IMAGE_URL = ".search_list_details_block";
-
-    // Detailed game info
-//    private static final String SELECTOR_POLLED = ".search_list_details_block";
-//    private static final String SELECTOR_RATED_PERCENT = ".search_list_details_block";
-//    private static final String SELECTOR_BACKLOG_COUNT = ".search_list_details_block";
-//    private static final String SELECTOR_PLAYING = ".search_list_details_block";
-//    private static final String SELECTOR_SPEEDRUNS = ".search_list_details_block";
-//    private static final String SELECTOR_RETIRED = ".search_list_details_block";
-
     // General Results
-    private static final String SELECTOR_PAGES = "span.search_list_page.back_darkish shadow_box";
-    private static final String SELECTOR_TOTAL_RESULTS = "h3.head_padding.shadow_box back_blue";
+    private static final String SELECTOR_PAGES = "span.search_list_page.back_darkish.shadow_box";
+    // Get last page element text
+    private static final String SELECTOR_TOTAL_RESULTS = ".head_padding.shadow_box.back_blue";
     /*
      * End Selector Constants
      */
@@ -63,6 +56,8 @@ public class HLTBSearcher {
     private static final String BASE_SEARCH_URL = "http://howlongtobeat.com/search_main.php";
     private static final String BASE_IMAGE_URL = "http://howlongtobeat.com/";
 
+    private ResultSet resultSet;
+    private ResultSet previousResultSet;
 
     private String query;
     private int page;
@@ -88,42 +83,26 @@ public class HLTBSearcher {
     public HLTBSearcher () {
         this.query = "";
         this.page = 1;
+        resultSet = new ResultSet();
+        previousResultSet = null;
     }
 
     public HLTBSearcher (String query) {
         this.query = query;
         this.page = 1;
+        resultSet = new ResultSet();
+        previousResultSet = null;
     }
 
     public HLTBSearcher (String query, int page) {
         this.query = query;
         this.page = page;
+        resultSet = new ResultSet();
+        previousResultSet = null;
     }
 
-//    public ResultSet search() throws IOException {
-//        return search("", 1);
-//    }
-//
-//    public ResultSet search(String query) throws IOException{
-//        return  search(query, 1);
-//    }
-
-//    public ResultSet search (String query, int page) throws IOException {
-//        // Post search form
-//        Document doc = Jsoup.connect(BASE_SEARCH_URL).data("queryString", query).data("t", "games").data("page", Integer.toString(page)).data("sorthead", "popular").data("sortd", "Normal Order").data("plat", "").data("detail", "1").post();
-//
-//        // Get game divs
-//        Elements gameElements = doc.select(".back_white shadow_box");
-//
-//        for (Element game : gameElements) {
-////            String title = game.select(".")
-//        }
-//
-//        return new ResultSet();
-//    }
-
     public ResultSet search () throws IOException {
-        ResultSet resultSet = new ResultSet();
+//        ResultSet resultSet = new ResultSet();
         ArrayList<Game> games = new ArrayList<Game>();
 
         // Post search form
@@ -132,6 +111,11 @@ public class HLTBSearcher {
         // Get general result values
 //        Element pages =
 //        resultSet.setPages();
+        if (previousResultSet == null) {
+            // No previous results
+            resultSet.setPages((int)parseString(doc.select(SELECTOR_PAGES).first().text()));
+            resultSet.setTotalResults((int)parseString(doc.select(SELECTOR_TOTAL_RESULTS).last().text()));
+        }
 
         // Get game divs
         Elements gameElements = doc.select(SELECTOR_GAME_CARD);
@@ -149,20 +133,47 @@ public class HLTBSearcher {
             for (int i = 0; i < gameData.size(); i=2) {
                 switch (gameData.get(i).text()) {
                     case HEADER_MAIN_STORY:
-                        game.setMainHours(parseString(gameData.get(i+1).text()));
+                        game.setMainHours(parseString(gameData.get(i + 1).text()));
                         break;
                     case HEADER_MAIN_EXTRA:
+                        game.setMainExtraHours(parseString(gameData.get(1).text()));
+                        break;
+                    case HEADER_COMPLETIONIST:
+                        game.setCompletionistHours(parseString(gameData.get(2).text()));
+                        break;
+                    case HEADER_COMBINED:
+                        game.setCombinedHours(parseString(gameData.get(3).text()));
+                        break;
+                    case HEADER_POLLED:
+                        game.setPolled(parseString(gameData.get(4).text()));
+                        break;
+                    case HEADER_RATED:
+                        game.setRatedPercent(parseString(gameData.get(5).text()));
+                        break;
+                    case HEADER_BACKLOG:
+                        game.setBacklogCount(parseString(gameData.get(6).text()));
+                        break;
+                    case HEADER_PLAYING:
+                        game.setPlaying(parseString(gameData.get(7).text()));
+                        break;
+                    case HEADER_RETIRED:
+                        game.setRetired(parseString(gameData.get(8).text()));
+                        break;
+                    default:
+                        // Unknown field
+                        Log.i("UNKNOWN FIELD", gameData.get(i).text());
+                        break;
                 }
             }
 
-            game.setMainHours(parseString(gameData.get(0).text()));
-            game.setMainExtraHours(parseString(gameData.get(1).text()));
-            game.setCompletionistHours(parseString(gameData.get(2).text()));
-            game.setCombinedHours(parseString(gameData.get(3).text()));
-            game.setPolled(parseString(gameData.get(4).text()));
-            game.setRatedPercent(parseString(gameData.get(5).text()));
-            game.setBacklogCount(parseString(gameData.get(6).text()));
-            game.setPlaying(parseString(gameData.get(7).text()));
+//            game.setMainHours(parseString(gameData.get(0).text()));
+//            game.setMainExtraHours(parseString(gameData.get(1).text()));
+//            game.setCompletionistHours(parseString(gameData.get(2).text()));
+//            game.setCombinedHours(parseString(gameData.get(3).text()));
+//            game.setPolled(parseString(gameData.get(4).text()));
+//            game.setRatedPercent(parseString(gameData.get(5).text()));
+//            game.setBacklogCount(parseString(gameData.get(6).text()));
+//            game.setPlaying(parseString(gameData.get(7).text()));
             game.setRetired(parseString(gameData.get(8).text()));
 
             games.add(game);
@@ -171,6 +182,8 @@ public class HLTBSearcher {
         resultSet.setPage(games);
         resultSet.setPages(1);
         resultSet.setTotalResults(100);
+
+        previousResultSet = resultSet;
         return resultSet;
     }
 

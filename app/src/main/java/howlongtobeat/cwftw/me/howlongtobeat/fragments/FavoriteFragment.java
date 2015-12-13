@@ -1,3 +1,10 @@
+/*
+ * Colin Willson & Matt Allen
+ * Final Project, PROG3210
+ * December 13, 2015
+ *
+ */
+
 package howlongtobeat.cwftw.me.howlongtobeat.fragments;
 
 import android.content.Context;
@@ -10,8 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import howlongtobeat.cwftw.me.howlongtobeat.adapters.MyFavoriteRecyclerViewAdapter;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
+import howlongtobeat.cwftw.me.howlongtobeat.adapters.MyFavoriteRecyclerViewAdapter;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
 

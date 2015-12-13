@@ -1,63 +1,58 @@
+/*
+ * Colin Willson & Matt Allen
+ * Final Project, PROG3210
+ * December 13, 2015
+ *
+ */
+
 package howlongtobeat.cwftw.me.howlongtobeat;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
-import android.preference.CheckBoxPreference;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment;
+import howlongtobeat.cwftw.me.howlongtobeat.activities.MainActivity;
 
-/*
- * Created by Matt on 12/9/2015.
- */
-public class UpdateService extends Service
-{
+public class UpdateService extends Service {
     private Timer timer;
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
         startTimer();
     }
 
     @Override
-    public IBinder onBind(Intent intent)
-    {
+    public IBinder onBind(Intent intent) {
         return null;
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
         stopTimer();
     }
 
-    private void startTimer()
-    {
+    private void startTimer() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         final boolean backUpdate = preferences.getBoolean("pref_backUpdate", false);
 
-        TimerTask task = new TimerTask()
-        {
+        TimerTask task = new TimerTask() {
             @Override
-            public void run()
-            {
+            public void run() {
                 Log.d("Update", "Timer started");
 
-                if(backUpdate)
-                {
+                if (backUpdate) {
                     sendNotification("One of your favorite games has been updated!");
                 }
             }
@@ -69,16 +64,13 @@ public class UpdateService extends Service
         timer.schedule(task, delay, interval);
     }
 
-    private void stopTimer()
-    {
-        if(timer != null)
-        {
+    private void stopTimer() {
+        if (timer != null) {
             timer.cancel();
         }
     }
 
-    private void sendNotification(String text)
-    {
+    private void sendNotification(String text) {
         NotificationCompat.Builder nBuilder = new
                 NotificationCompat.Builder(getApplicationContext());
 

@@ -1,8 +1,12 @@
+/*
+ * Colin Willson & Matt Allen
+ * Final Project, PROG3210
+ * December 13, 2015
+ *
+ */
+
 package howlongtobeat.cwftw.me.howlongtobeat.models;
 
-/**
- * Created by colin on 2015-12-02.
- */
 public class Game {
 
     // Basic game info
@@ -23,18 +27,21 @@ public class Game {
     private double retired;
 
     public Game() {
+        // Initialize fields with 'empty' data
+        this.title = "";
+        this.mainHours = -1;
+        this.mainExtraHours = -1;
+        this.completionistHours = -1;
+        this.combinedHours = -1;
+        this.imageUrl = "";
+        this.imageBytes = null;
 
-    }
-
-    public Game(String title, double mainHours, double mainExtraHours, double completionistHours,
-                double combinedHours, byte[] imageBytes)
-    {
-        this.title = title;
-        this.mainHours = mainHours;
-        this.mainExtraHours = mainExtraHours;
-        this.completionistHours = completionistHours;
-        this.combinedHours = combinedHours;
-        this.imageBytes = imageBytes;
+        this.polled = -1;
+        this.ratedPercent = -1;
+        this.backlogCount = -1;
+        this.playing = -1;
+        this.speedruns = -1;
+        this.retired = -1;
     }
 
     public double getMainHours() {

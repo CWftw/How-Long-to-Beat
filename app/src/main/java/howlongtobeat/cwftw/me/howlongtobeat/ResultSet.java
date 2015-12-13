@@ -1,13 +1,16 @@
+/*
+ * Colin Willson & Matt Allen
+ * Final Project, PROG3210
+ * December 13, 2015
+ *
+ */
+
 package howlongtobeat.cwftw.me.howlongtobeat;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
-/**
- * Created by colin on 2015-12-02.
- */
 public class ResultSet {
     private int pages;
     private int totalResults;
