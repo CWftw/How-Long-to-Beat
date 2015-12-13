@@ -18,12 +18,13 @@ public class HLTBSearcher {
     /*
      * Selector Constants
      */
+    private static final String SELECTOR_GAME_CARD = ".back_white.shadow_box";
     // 'title' attribute of 'a' tag
-    private static final String SELECTOR_TITLE = ".search_list_image + a";
+    private static final String SELECTOR_TITLE = ".search_list_image a";
     // base image url + 'src' attribute of img
-    private static final String SELECTOR_IMAGE_URL = ".search_list_image + a + img";
+    private static final String SELECTOR_IMAGE_URL = ".search_list_image a img";
     // Each div has data in a specific order
-    private static final String SELECTOR_DATA_MULTI = ".search_list_details_block.search_list_tidbit.center time_100";
+    private static final String SELECTOR_DATA_MULTI = ".search_list_tidbit.center";
 
 //    private static final String SELECTOR_MAIN_HOURS = ".search_list_details_block.search_list_tidbit.center time_100";
 //    private static final String SELECTOR_MAIN_EXTRA_HOURS = ".search_list_details_block.search_list_tidbit center time_100";
@@ -123,28 +124,51 @@ public class HLTBSearcher {
 //        resultSet.setPages();
 
         // Get game divs
-        Elements gameElements = doc.select(".back_white shadow_box");
+        Elements gameElements = doc.select(SELECTOR_GAME_CARD);
         // For each game div, parse html and add to game object
         for (Element gameElement : gameElements) {
+            Game game = new Game();
+
+            game.setTitle(gameElement.select(SELECTOR_TITLE).first().attr("title"));
+            game.setImageUrl(gameElement.select(SELECTOR_IMAGE_URL).first().attr("src"));
+
             // Get all data elements
             Elements gameData = gameElement.select(SELECTOR_DATA_MULTI);
             // Parse and convert all data fields
-            Game game = new Game();
-
-//            game.
+            game.setMainHours(parseString(gameData.get(0).text()));
+            game.setMainExtraHours(parseString(gameData.get(1).text()));
+            game.setCompletionistHours(parseString(gameData.get(2).text()));
+            game.setCombinedHours(parseString(gameData.get(3).text()));
+            game.setPolled(parseString(gameData.get(4).text()));
+            game.setRatedPercent(parseString(gameData.get(5).text()));
+            game.setBacklogCount(parseString(gameData.get(6).text()));
+            game.setPlaying(parseString(gameData.get(7).text()));
+            game.setRetired(parseString(gameData.get(8).text()));
 
             games.add(game);
         }
 
         resultSet.setPage(games);
+        resultSet.setPages(1);
+        resultSet.setTotalResults(100);
         return resultSet;
     }
 
-    private long parseString(String input) {
+    private double parseString(String input) {
         String charsRemoved = input.replaceAll("[^0-9]", "");
+        double returnValue;
 
-//        if ()
+        try {
+            returnValue = Double.parseDouble(charsRemoved);
 
-        return Long.parseLong(charsRemoved);
+            // If string contains 1/2, add 0.5 to return value
+            if (input.contains("½")) {
+                returnValue += 0.5;
+            }
+        } catch (NumberFormatException e) {
+            returnValue = 0;
+        }
+
+        return returnValue;
     }
 }
