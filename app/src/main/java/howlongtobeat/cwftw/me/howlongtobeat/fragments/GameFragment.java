@@ -95,7 +95,7 @@ public class GameFragment extends Fragment
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        adapter = new MyGameRecyclerViewAdapter(new ArrayList<Game>(), mListener);
+        adapter = new MyGameRecyclerViewAdapter(new ArrayList<Game>(), mListener, getActivity());
         searcher = new HLTBSearcher();
     }
 

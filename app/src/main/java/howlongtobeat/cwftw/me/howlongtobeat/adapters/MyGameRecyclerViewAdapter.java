@@ -7,7 +7,9 @@
 
 package howlongtobeat.cwftw.me.howlongtobeat.adapters;
 
+import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +25,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,10 +45,43 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
 
     private final List<Game> mValues;
     private final OnGameFragmentInteractionListener mListener;
+    private Context context;
 
-    public MyGameRecyclerViewAdapter(List<Game> items, OnGameFragmentInteractionListener listener) {
+    public MyGameRecyclerViewAdapter(List<Game> items, OnGameFragmentInteractionListener listener, Context context) {
         mValues = items;
         mListener = listener;
+        this.context = context;
+    }
+
+    public class LoadImageFromURL extends AsyncTask<Game, Void, Game> {
+
+        @Override
+        protected Game doInBackground(Game... params) {
+            Game game = params[0];
+
+            try {
+                URL url = new URL(game.getImageUrl());
+                InputStream is = url.openConnection().getInputStream();
+                byte[] imageData = getBytes(is);
+                game.setImageBytes(imageData);
+                return game;
+
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Game result) {
+            DatabaseHelper.getInstance(context).insertGame(result);
+        }
+
     }
 
     public void addItems(ArrayList<Game> games) {
@@ -94,19 +131,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
 
                 if (!isFavorited) {
                     holder.favoritedImg.setImageResource(R.mipmap.full_star);
-                    Uri imageURI = Uri.parse(holder.mItem.getImageUrl());
-                    InputStream iStream = null;
-                    try {
-                        iStream = holder.gameItemImg.getContext().getContentResolver().openInputStream(imageURI);
-                        byte[] inputData = getBytes(iStream);
-                        holder.mItem.setImageBytes(inputData);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    DatabaseHelper.getInstance(holder.gameItemImg.getContext()).insertGame(holder.mItem);
+                    new LoadImageFromURL().execute(holder.mItem);
                 } else {
                     holder.favoritedImg.setImageResource(R.mipmap.empty_star);
                     DatabaseHelper.getInstance(holder.gameItemImg.getContext()).deleteGame(holder.mItem.getId());

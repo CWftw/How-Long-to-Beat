@@ -17,7 +17,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="56af5688-894d-414c-a395-f27fa6e0cff1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/adapters/MyFavoriteRecyclerViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/adapters/MyFavoriteRecyclerViewAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/fragments/GameFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/fragments/GameFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/adapters/MyGameRecyclerViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/adapters/MyGameRecyclerViewAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -47,19 +47,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="UpdateService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/UpdateService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="2" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
-              <folding>
-                <element signature="e#1304#3414#0" expanded="true" />
-                <element signature="e#3413#3414#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/activities/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -68,6 +55,8 @@
               <folding>
                 <element signature="e#0#6428#0" expanded="true" />
                 <element signature="imports" expanded="true" />
+                <element signature="e#4210#4553#0" expanded="true" />
+                <element signature="e#4552#4553#0" expanded="true" />
                 <element signature="e#4613#4828#0" expanded="true" />
                 <element signature="e#4827#4828#0" expanded="true" />
                 <element signature="e#5346#5347#0" expanded="true" />
@@ -82,9 +71,9 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/fragments/GameFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="102" column="7" selection-start-line="102" selection-start-column="6" selection-end-line="102" selection-end-column="7" />
+              <caret line="97" column="95" selection-start-line="97" selection-start-column="95" selection-end-line="97" selection-end-column="95" />
               <folding>
-                <element signature="e#0#5152#0" expanded="true" />
+                <element signature="e#0#5167#0" expanded="true" />
                 <element signature="imports" expanded="true" />
                 <element signature="e#1950#1951#0" expanded="true" />
                 <element signature="e#1994#1995#0" expanded="true" />
@@ -98,7 +87,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/adapters/MyFavoriteRecyclerViewAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="70" column="46" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
+              <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3555#3871#0" expanded="true" />
@@ -115,17 +104,32 @@
       <file leaf-file-name="MyGameRecyclerViewAdapter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/adapters/MyGameRecyclerViewAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3096539">
-              <caret line="96" column="72" selection-start-line="96" selection-start-column="72" selection-end-line="96" selection-end-column="72" />
+            <state vertical-scroll-proportion="1.1158301">
+              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
               <folding>
-                <element signature="e#0#6716#0" expanded="true" />
+                <element signature="e#0#7196#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#1571#1572#0" expanded="true" />
-                <element signature="e#1613#1614#0" expanded="true" />
-                <element signature="e#3423#4795#0" expanded="true" />
-                <element signature="e#4794#4795#0" expanded="true" />
-                <element signature="e#4839#5252#0" expanded="true" />
-                <element signature="e#5251#5252#0" expanded="true" />
+                <element signature="e#2693#2694#0" expanded="true" />
+                <element signature="e#2735#2736#0" expanded="true" />
+                <element signature="e#4545#5275#0" expanded="true" />
+                <element signature="e#5274#5275#0" expanded="true" />
+                <element signature="e#5319#5732#0" expanded="true" />
+                <element signature="e#5731#5732#0" expanded="true" />
+                <element signature="e#6191#6192#0" expanded="true" />
+                <element signature="e#6228#6229#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AsyncTask.java" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Program Files (x86)/Android/android-sdk/sources/android-23/android/os/AsyncTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="662" column="0" selection-start-line="662" selection-start-column="0" selection-end-line="662" selection-end-column="0" />
+              <folding>
+                <element signature="e#10711#10948#0" expanded="true" />
+                <element signature="e#10947#10948#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -161,7 +165,7 @@
         <entry file="file://C:/Program Files (x86)/Android/android-sdk/sources/android-23/android/os/Looper.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+              <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1579,13 +1583,13 @@
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/game_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/HLTBSearcher.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/fragments/GameFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/activities/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/DatabaseHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/fragments/FavoriteFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/adapters/MyFavoriteRecyclerViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/adapters/MyGameRecyclerViewAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/fragments/GameFragment.java" />
       </list>
     </option>
   </component>
@@ -2099,7 +2103,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33333334" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33333334" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942432" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893288" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2114,7 +2118,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39933994" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39933994" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2176,7 +2180,7 @@
           <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="32" />
+      <option name="time" value="34" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2522,25 +2526,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Program Files (x86)/Android/android-sdk/sources/android-23/android/os/Looper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/DatabaseHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#8473#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Program Files (x86)/Android/android-sdk/sources/android-23/android/view/View.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2548,63 +2533,6 @@
           <folding>
             <element signature="e#822721#822722#0" expanded="true" />
             <element signature="e#822759#822760#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Program Files (x86)/Android/android-sdk/sources/android-23/android/os/Handler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-          <folding>
-            <element signature="e#29660#29661#0" expanded="true" />
-            <element signature="e#29698#29699#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/activities/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="137" column="41" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#6428#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#4613#4828#0" expanded="true" />
-            <element signature="e#4827#4828#0" expanded="true" />
-            <element signature="e#5346#5347#0" expanded="true" />
-            <element signature="e#5379#5380#0" expanded="true" />
-            <element signature="e#6204#6244#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/fragments/GameFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="102" column="7" selection-start-line="102" selection-start-column="6" selection-end-line="102" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#5152#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#1950#1951#0" expanded="true" />
-            <element signature="e#1994#1995#0" expanded="true" />
-            <element signature="e#2178#2205#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/adapters/MyFavoriteRecyclerViewAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="46" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3555#3871#0" expanded="true" />
-            <element signature="e#3870#3871#0" expanded="true" />
-            <element signature="e#3915#4332#0" expanded="true" />
-            <element signature="e#4331#4332#0" expanded="true" />
-            <element signature="e#4386#4387#0" expanded="true" />
-            <element signature="e#4423#4424#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2621,19 +2549,110 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/activities/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="137" column="41" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#6428#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#4210#4553#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4613#4828#0" expanded="true" />
+            <element signature="e#4827#4828#0" expanded="true" />
+            <element signature="e#5346#5347#0" expanded="true" />
+            <element signature="e#5379#5380#0" expanded="true" />
+            <element signature="e#6204#6244#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/fragments/GameFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="97" column="95" selection-start-line="97" selection-start-column="95" selection-end-line="97" selection-end-column="95" />
+          <folding>
+            <element signature="e#0#5167#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1950#1951#0" expanded="true" />
+            <element signature="e#1994#1995#0" expanded="true" />
+            <element signature="e#2178#2205#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/adapters/MyFavoriteRecyclerViewAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3555#3871#0" expanded="true" />
+            <element signature="e#3870#3871#0" expanded="true" />
+            <element signature="e#3915#4332#0" expanded="true" />
+            <element signature="e#4331#4332#0" expanded="true" />
+            <element signature="e#4386#4387#0" expanded="true" />
+            <element signature="e#4423#4424#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/DatabaseHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#8473#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files (x86)/Android/android-sdk/sources/android-23/android/os/AsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="662" column="0" selection-start-line="662" selection-start-column="0" selection-end-line="662" selection-end-column="0" />
+          <folding>
+            <element signature="e#10711#10948#0" expanded="true" />
+            <element signature="e#10947#10948#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files (x86)/Android/android-sdk/sources/android-23/android/os/Handler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+          <folding>
+            <element signature="e#29660#29661#0" expanded="true" />
+            <element signature="e#29698#29699#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files (x86)/Android/android-sdk/sources/android-23/android/os/Looper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/howlongtobeat/cwftw/me/howlongtobeat/adapters/MyGameRecyclerViewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3096539">
-          <caret line="96" column="72" selection-start-line="96" selection-start-column="72" selection-end-line="96" selection-end-column="72" />
+        <state vertical-scroll-proportion="1.1158301">
+          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
           <folding>
-            <element signature="e#0#6716#0" expanded="true" />
+            <element signature="e#0#7196#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#1571#1572#0" expanded="true" />
-            <element signature="e#1613#1614#0" expanded="true" />
-            <element signature="e#3423#4795#0" expanded="true" />
-            <element signature="e#4794#4795#0" expanded="true" />
-            <element signature="e#4839#5252#0" expanded="true" />
-            <element signature="e#5251#5252#0" expanded="true" />
+            <element signature="e#2693#2694#0" expanded="true" />
+            <element signature="e#2735#2736#0" expanded="true" />
+            <element signature="e#4545#5275#0" expanded="true" />
+            <element signature="e#5274#5275#0" expanded="true" />
+            <element signature="e#5319#5732#0" expanded="true" />
+            <element signature="e#5731#5732#0" expanded="true" />
+            <element signature="e#6191#6192#0" expanded="true" />
+            <element signature="e#6228#6229#0" expanded="true" />
           </folding>
         </state>
       </provider>
