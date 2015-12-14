@@ -72,7 +72,8 @@ public class GameFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Object o) {
-            adapter.addItems(results.getPage());
+//            adapter.addItems(results.getPage());
+            adapter.setItems(results.getPage());
             adapter.notifyDataSetChanged();
         }
     }
@@ -102,6 +103,19 @@ public class GameFragment extends Fragment {
         adapter = new MyGameRecyclerViewAdapter(new ArrayList<Game>(), mListener);
         searcher = new HLTBSearcher();
         new DownloadGames().execute();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isVisibleToUser) {
+            Log.d("MyFragment", "Fragment is visible.");
+            new DownloadGames().execute();
+        }
+        else {
+            Log.d("MyFragment", "Fragment is not visible.");
+        }
     }
 
     @Override

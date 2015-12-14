@@ -51,6 +51,11 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         this.mValues.addAll(games);
     }
 
+    public void setItems(ArrayList<Game> games) {
+        this.mValues.clear();
+        this.mValues.addAll(games);
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
