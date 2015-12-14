@@ -36,6 +36,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
 
     private final List<Game> mValues;
     private final OnGameFragmentInteractionListener mListener;
+    private final boolean isDetails = true;
 
     public MyGameRecyclerViewAdapter(List<Game> items, OnGameFragmentInteractionListener listener) {
         mValues = items;
@@ -53,8 +54,19 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.game_item, parent, false);
+        View view;
+
+        if(isDetails)
+        {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.game_detail, parent, false);
+        }
+        else
+        {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.game_item, parent, false);
+        }
+
         return new ViewHolder(view);
     }
 
@@ -73,12 +85,23 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         holder.extraItem.setText(Utils.formatData(mValues.get(position).getMainExtraHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
         holder.completionistItem.setText(Utils.formatData(mValues.get(position).getCompletionistHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
         holder.combinedItem.setText(Utils.formatData(mValues.get(position).getCombinedHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.mainStoryDetail.setText(Utils.formatData(mValues.get(position).getMainHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.extraDetail.setText(Utils.formatData(mValues.get(position).getMainExtraHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.completionistDetail.setText(Utils.formatData(mValues.get(position).getCompletionistHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.combinedDetail.setText(Utils.formatData(mValues.get(position).getCombinedHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.polledDetail.setText(String.valueOf(mValues.get(position).getPolled()));
+        holder.ratedDetail.setText(Utils.formatData(mValues.get(position).getRatedPercent(), Utils.FormatTypes.PERCENT, holder.gameItemImg.getContext()));
+        holder.backlogDetail.setText(String.valueOf(mValues.get(position).getBacklogCount()));
+        holder.playingDetail.setText(String.valueOf(mValues.get(position).getPlaying()));
+        holder.retiredDetail.setText(String.valueOf(mValues.get(position).getRetired()));
 
         boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(position) != null;
         if (isFavorited) {
             holder.favoritedImg.setImageResource(R.mipmap.full_star);
+            holder.favoritedImgDetail.setImageResource(R.mipmap.full_star);
         } else {
             holder.favoritedImg.setImageResource(R.mipmap.empty_star);
+            holder.favoritedImgDetail.setImageResource(R.mipmap.empty_star);
         }
 
         holder.favoritedImg.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +112,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
 
                 if (!isFavorited) {
                     holder.favoritedImg.setImageResource(R.mipmap.full_star);
+                    holder.favoritedImgDetail.setImageResource(R.mipmap.full_star);
 
 //                    Bitmap photo = ((Ion)holder.gameItemImg.getDrawable()).getBitmap();
 //                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -100,6 +124,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
                     DatabaseHelper.getInstance(holder.gameItemImg.getContext()).insertGame(holder.mItem);
                 } else {
                     holder.favoritedImg.setImageResource(R.mipmap.empty_star);
+                    holder.favoritedImgDetail.setImageResource(R.mipmap.empty_star);
                     DatabaseHelper.getInstance(holder.gameItemImg.getContext()).deleteGame(holder.mItem.getId());
                 }
             }
@@ -126,10 +151,20 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         public final View mView;
         public final ImageView gameItemImg;
         public final ImageButton favoritedImg;
+        public final ImageButton favoritedImgDetail;
         public final TextView mainStoryItem;
         public final TextView extraItem;
         public final TextView completionistItem;
         public final TextView combinedItem;
+        public final TextView mainStoryDetail;
+        public final TextView extraDetail;
+        public final TextView completionistDetail;
+        public final TextView combinedDetail;
+        public final TextView polledDetail;
+        public final TextView ratedDetail;
+        public final TextView backlogDetail;
+        public final TextView playingDetail;
+        public final TextView retiredDetail;
         public Game mItem;
 
         public ViewHolder(View view) {
@@ -137,10 +172,20 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
             mView = view;
             gameItemImg = (ImageView) view.findViewById(R.id.gameItemImg);
             favoritedImg = (ImageButton) view.findViewById(R.id.favoritedImg);
+            favoritedImgDetail = (ImageButton) view.findViewById(R.id.favoritedImgDetail);
             mainStoryItem = (TextView) view.findViewById(R.id.mainStoryItem);
             extraItem = (TextView) view.findViewById(R.id.extraItem);
             completionistItem = (TextView) view.findViewById(R.id.completionistItem);
             combinedItem = (TextView) view.findViewById(R.id.combinedItem);
+            mainStoryDetail = (TextView) view.findViewById(R.id.mainStoryDetail);
+            extraDetail = (TextView) view.findViewById(R.id.extraDetail);
+            completionistDetail = (TextView) view.findViewById(R.id.completionistDetail);
+            combinedDetail = (TextView) view.findViewById(R.id.combinedDetail);
+            polledDetail = (TextView) view.findViewById(R.id.polledDetail);
+            ratedDetail = (TextView) view.findViewById(R.id.ratedDetail);
+            backlogDetail = (TextView) view.findViewById(R.id.backlogDetail);
+            playingDetail = (TextView) view.findViewById(R.id.playingDetail);
+            retiredDetail = (TextView) view.findViewById(R.id.retiredDetail);
         }
     }
 }
