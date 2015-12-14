@@ -89,6 +89,9 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
             intent.putExtra(SettingsActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.GeneralPreferenceFragment.class.getName());
             intent.putExtra(SettingsActivity.EXTRA_NO_HEADERS, true);
             startActivity(intent);
+        } else if (id == R.id.action_search) {
+            // Search
+            // 
         }
 
         return super.onOptionsItemSelected(item);
