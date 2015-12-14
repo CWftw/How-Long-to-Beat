@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
             final EditText input = new EditText(this);
 
             search.setView(input);
-            search.setPositiveButton("@strings/search", new DialogInterface.OnClickListener()
+            search.setPositiveButton(getResources().getString(R.string.search), new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int whichButton)
                 {
