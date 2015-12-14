@@ -99,13 +99,13 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
         else if(id == R.id.action_search)
         {
             AlertDialog.Builder search = new AlertDialog.Builder(this);
-            search.setTitle("Search");
-            search.setMessage("Search for a game");
+            search.setTitle("@strings/search");
+            search.setMessage("@strings/searchGame");
 
             final EditText input = new EditText(this);
 
             search.setView(input);
-            search.setPositiveButton("Search", new DialogInterface.OnClickListener()
+            search.setPositiveButton("@strings/search", new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int whichButton)
                 {
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
                 }
             });
 
-            search.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+            search.setNegativeButton("@strings/cancel", new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int whichButton)
                 {
