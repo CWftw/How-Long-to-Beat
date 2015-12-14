@@ -34,11 +34,9 @@ import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
  * Activities containing this fragment MUST implement the {@link OnGameFragmentInteractionListener}
  * interface.
  */
-public class GameFragment extends Fragment {
-
-    // TODO: Customize parameter argument names
+public class GameFragment extends Fragment
+{
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 2;
     private OnGameFragmentInteractionListener mListener;
     private MyGameRecyclerViewAdapter adapter;
@@ -75,7 +73,6 @@ public class GameFragment extends Fragment {
         }
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static GameFragment newInstance(int columnCount) {
         GameFragment fragment = new GameFragment();
@@ -157,8 +154,8 @@ public class GameFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnGameFragmentInteractionListener {
-        // TODO: Update argument type and name
+    public interface OnGameFragmentInteractionListener
+    {
         void onGameFragmentInteraction(Game item);
     }
 }

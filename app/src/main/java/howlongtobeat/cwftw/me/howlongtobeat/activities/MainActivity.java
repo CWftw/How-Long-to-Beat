@@ -23,7 +23,6 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import howlongtobeat.cwftw.me.howlongtobeat.R;
-import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment;

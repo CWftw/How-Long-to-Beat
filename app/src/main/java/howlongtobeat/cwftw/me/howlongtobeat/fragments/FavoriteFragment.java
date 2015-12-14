@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.adapters.MyFavoriteRecyclerViewAdapter;
-import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
-import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 /**
@@ -34,10 +32,7 @@ import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
  * interface.
  */
 public class FavoriteFragment extends Fragment {
-
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 2;
     private OnFavoriteFragmentInteractionListener mListener;
     private MyFavoriteRecyclerViewAdapter adapter;
@@ -49,7 +44,6 @@ public class FavoriteFragment extends Fragment {
     public FavoriteFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static FavoriteFragment newInstance(int columnCount) {
         FavoriteFragment fragment = new FavoriteFragment();
@@ -137,7 +131,6 @@ public class FavoriteFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFavoriteFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFavoriteFragmentInteraction(Game item);
     }
 }

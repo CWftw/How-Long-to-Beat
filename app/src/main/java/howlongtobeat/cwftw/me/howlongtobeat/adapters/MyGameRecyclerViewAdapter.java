@@ -7,8 +7,6 @@
 
 package howlongtobeat.cwftw.me.howlongtobeat.adapters;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,10 +16,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.koushikdutta.async.future.Future;
 import com.koushikdutta.ion.Ion;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +31,6 @@ import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnGameFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecyclerViewAdapter.ViewHolder> {
 
