@@ -24,7 +24,6 @@ import java.util.List;
 import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.Utils;
-import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
@@ -74,7 +73,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         holder.completionistItem.setText(Utils.formatData(mValues.get(position).getCompletionistHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
         holder.combinedItem.setText(Utils.formatData(mValues.get(position).getCombinedHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
 
-        boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(position) != null;
+        boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
         if (isFavorited) {
             holder.favoritedImg.setImageResource(R.mipmap.full_star);
         } else {
@@ -85,7 +84,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
             @Override
             public void onClick(View v) {
                 Log.i("INFO", "Image Clicked");
-                boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(position) != null;
+                boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
 
                 if (!isFavorited) {
                     holder.favoritedImg.setImageResource(R.mipmap.full_star);

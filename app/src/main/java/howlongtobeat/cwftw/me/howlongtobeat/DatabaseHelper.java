@@ -157,7 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public Game selectGame(int id)
     {
-        Game game = new Game();
+        Game game = null;
 
         try
         {
@@ -167,6 +167,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
             if (c.moveToFirst())
             {
+                game = new Game();
+
                 game.setId(c.getInt(c.getColumnIndex("id")));
                 game.setTitle(c.getString(c.getColumnIndex("title")));
                 game.setMainHours(c.getDouble(c.getColumnIndex("mainHours")));
@@ -184,6 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         catch (Exception e)
         {
             Log.e("DatabaseHelper", "selectGame");
+            return null;
         }
 
         return game;
