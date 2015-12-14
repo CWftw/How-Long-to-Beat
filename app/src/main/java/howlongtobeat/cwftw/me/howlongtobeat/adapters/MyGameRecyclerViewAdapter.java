@@ -37,10 +37,6 @@ import howlongtobeat.cwftw.me.howlongtobeat.Utils;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnGameFragmentInteractionListener}.
- */
 public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecyclerViewAdapter.ViewHolder> {
 
     private final List<Game> mValues;
@@ -67,14 +63,12 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
                 return game;
 
             } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            return null;
 
+            return null;
         }
 
         @Override
