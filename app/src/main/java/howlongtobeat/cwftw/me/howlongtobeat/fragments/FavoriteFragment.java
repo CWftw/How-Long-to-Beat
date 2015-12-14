@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.adapters.MyFavoriteRecyclerViewAdapter;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
@@ -77,7 +78,7 @@ public class FavoriteFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyFavoriteRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyFavoriteRecyclerViewAdapter(DatabaseHelper.getInstance(getContext()).selectGames(""), mListener));
         }
         return view;
     }

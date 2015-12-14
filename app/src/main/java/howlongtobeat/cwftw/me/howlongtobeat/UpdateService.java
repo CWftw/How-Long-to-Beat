@@ -13,7 +13,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -27,7 +26,7 @@ import java.util.TimerTask;
 import howlongtobeat.cwftw.me.howlongtobeat.activities.MainActivity;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
-import static howlongtobeat.cwftw.me.howlongtobeat.Utils.*;
+import static howlongtobeat.cwftw.me.howlongtobeat.Utils.isPluggedIn;
 
 public class UpdateService extends Service {
     private Timer timer;
@@ -62,54 +61,41 @@ public class UpdateService extends Service {
                 DatabaseHelper db = DatabaseHelper.getInstance(getApplicationContext());
                 List<Game> games = db.selectGames("");
 
-                for (Game game : games)
-                {
+                for (Game game : games) {
                     HLTBSearcher webDb = new HLTBSearcher();
 
-                    try
-                    {
+                    try {
                         Game webGame = webDb.getGame(game.getTitle(), game.getId());
 
                         if (game.getMainHours() != webGame.getMainHours() ||
-                            game.getMainExtraHours() != webGame.getMainExtraHours() ||
-                            game.getCompletionistHours() != webGame.getCompletionistHours() ||
-                            game.getCombinedHours() != webGame.getCombinedHours() ||
-                            game.getPolled() != webGame.getPolled() ||
-                            game.getRatedPercent() != webGame.getRatedPercent() ||
-                            game.getBacklogCount() != webGame.getBacklogCount() ||
-                            game.getPlaying() != webGame.getPlaying() ||
-                            game.getRetired() != webGame.getRetired())
-                        {
+                                game.getMainExtraHours() != webGame.getMainExtraHours() ||
+                                game.getCompletionistHours() != webGame.getCompletionistHours() ||
+                                game.getCombinedHours() != webGame.getCombinedHours() ||
+                                game.getPolled() != webGame.getPolled() ||
+                                game.getRatedPercent() != webGame.getRatedPercent() ||
+                                game.getBacklogCount() != webGame.getBacklogCount() ||
+                                game.getPlaying() != webGame.getPlaying() ||
+                                game.getRetired() != webGame.getRetired()) {
 
                         }
-                    }
-                    catch(IOException e)
-                    {
+                    } catch (IOException e) {
                         Log.d("How Long to Beat", e.getMessage());
                     }
                 }
 
-                if(backUpdate)
-                {
-                    if(pluggedIn)
-                    {
-                        if(isPluggedIn(getApplicationContext()))
-                        {
+                if (backUpdate) {
+                    if (pluggedIn) {
+                        if (isPluggedIn(getApplicationContext())) {
+
+                        } else {
 
                         }
-                        else
-                        {
-
-                        }
-                    }
-                    else
-                    {
+                    } else {
 
                     }
                 }
 
-                if (notifications)
-                {
+                if (notifications) {
                     sendNotification("One of your favorite games has been updated!");
                 }
             }
@@ -140,7 +126,7 @@ public class UpdateService extends Service {
                 getApplicationContext(), 0, favoritesIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        nBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        nBuilder.setSmallIcon(R.mipmap.full_star);
         nBuilder.setContentTitle("How Long to Beat");
         nBuilder.setContentText(text);
         nBuilder.setContentIntent(pIntent);
