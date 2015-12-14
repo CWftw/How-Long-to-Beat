@@ -54,6 +54,48 @@ public class UpdateService extends Service {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
+<<<<<<< HEAD
+            Log.d("Update", "Timer started");
+            boolean backUpdate = preferences.getBoolean("pref_backUpdate", false);
+            boolean pluggedIn = preferences.getBoolean("pref_pluggedIn", false);
+            boolean notifications = preferences.getBoolean("pref_notifications", false);
+            DatabaseHelper db = DatabaseHelper.getInstance(getApplicationContext());
+            List<Game> games = db.selectGames("");
+
+            for (Game game : games)
+            {
+                HLTBSearcher webDb = new HLTBSearcher();
+
+                try
+                {
+                    Game webGame = webDb.getGame(game.getTitle(), game.getId());
+
+                    if (game.getMainHours() != webGame.getMainHours() ||
+                        game.getMainExtraHours() != webGame.getMainExtraHours() ||
+                        game.getCompletionistHours() != webGame.getCompletionistHours() ||
+                        game.getCombinedHours() != webGame.getCombinedHours() ||
+                        game.getPolled() != webGame.getPolled() ||
+                        game.getRatedPercent() != webGame.getRatedPercent() ||
+                        game.getBacklogCount() != webGame.getBacklogCount() ||
+                        game.getPlaying() != webGame.getPlaying() ||
+                        game.getRetired() != webGame.getRetired())
+                    {
+                        if(backUpdate && (!pluggedIn ||
+                                (pluggedIn && isPluggedIn(getApplicationContext()))))
+                        {
+                            db.updateGame(game.getTitle(), game.getId());
+                        }
+
+                        if (notifications)
+                        {
+                            sendNotification(game.getTitle() + " has been updated!");
+                        }
+                    }
+                }
+                catch(IOException e)
+                {
+                    Log.d("How Long to Beat", e.getMessage());
+=======
                 Log.d("Update", "Timer started");
                 boolean backUpdate = preferences.getBoolean("pref_backUpdate", false);
                 boolean pluggedIn = preferences.getBoolean("pref_pluggedIn", false);
@@ -97,7 +139,9 @@ public class UpdateService extends Service {
 
                 if (notifications) {
                     sendNotification("One of your favorite games has been updated!");
+>>>>>>> origin/master
                 }
+            }
             }
         };
 
