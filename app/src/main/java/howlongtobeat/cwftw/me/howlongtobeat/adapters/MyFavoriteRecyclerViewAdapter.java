@@ -87,6 +87,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
                 Log.i("INFO", "Image Clicked");
                 DatabaseHelper.getInstance(holder.gameItemImg.getContext()).deleteGame(holder.mItem.getId());
                 mValues.remove(position);
+                notifyDataSetChanged();
             }
         });
 
