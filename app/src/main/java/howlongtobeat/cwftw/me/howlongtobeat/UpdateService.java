@@ -93,15 +93,15 @@ public class UpdateService extends Service {
                 }
                 catch(IOException e)
                 {
-                    Log.d("How Long to Beat", e.getMessage());
+                    Log.i("How Long to Beat", e.getMessage());
                 }
             }
             }
         };
 
         timer = new Timer(true);
-        int delay = 1000;
-        int interval = 1000;
+        int delay = 60000;
+        int interval = 600000;
         timer.schedule(task, delay, interval);
     }
 
