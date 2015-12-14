@@ -13,9 +13,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
@@ -37,6 +40,7 @@ public class FavoriteFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 2;
     private OnFavoriteFragmentInteractionListener mListener;
+    private MyFavoriteRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -62,6 +66,27 @@ public class FavoriteFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        adapter = new MyFavoriteRecyclerViewAdapter(new ArrayList<Game>(), mListener);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isVisibleToUser) {
+            Log.d("MyFragment", "Fragment is visible.");
+            updateList();
+        }
+        else {
+            Log.d("MyFragment", "Fragment is not visible.");
+        }
+    }
+
+    private void updateList() {
+        ArrayList<Game> games = DatabaseHelper.getInstance(getContext()).selectGames("");
+//        adapter.setItems(games);
+//        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -78,7 +103,7 @@ public class FavoriteFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyFavoriteRecyclerViewAdapter(DatabaseHelper.getInstance(getContext()).selectGames(""), mListener));
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }

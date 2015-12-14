@@ -26,8 +26,6 @@ import howlongtobeat.cwftw.me.howlongtobeat.HLTBSearcher;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.ResultSet;
 import howlongtobeat.cwftw.me.howlongtobeat.adapters.MyGameRecyclerViewAdapter;
-import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
-import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 /**
@@ -72,14 +70,9 @@ public class GameFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Object o) {
-//            adapter.addItems(results.getPage());
             adapter.setItems(results.getPage());
             adapter.notifyDataSetChanged();
         }
-    }
-
-    public void updateDisplay() {
-        Log.i("updateDisplay()", "UPDATING");
     }
 
     // TODO: Customize parameter initialization
@@ -102,7 +95,6 @@ public class GameFragment extends Fragment {
 
         adapter = new MyGameRecyclerViewAdapter(new ArrayList<Game>(), mListener);
         searcher = new HLTBSearcher();
-        new DownloadGames().execute();
     }
 
     @Override
