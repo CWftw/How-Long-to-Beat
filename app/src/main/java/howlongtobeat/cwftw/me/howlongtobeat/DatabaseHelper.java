@@ -214,7 +214,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
             values.put("backlog", game.getBacklogCount());
             values.put("playing", game.getPlaying());
             values.put("retired", game.getRetired());
-            values.put("image", game.getImageBytes());
 
             db.update("games", values, "id = ?", whereArgs);
         }
