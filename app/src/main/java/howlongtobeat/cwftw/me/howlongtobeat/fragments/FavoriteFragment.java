@@ -79,8 +79,8 @@ public class FavoriteFragment extends Fragment {
 
     private void updateList() {
         ArrayList<Game> games = DatabaseHelper.getInstance(getContext()).selectGames("");
-//        adapter.setItems(games);
-//        adapter.notifyDataSetChanged();
+        adapter.setItems(games);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

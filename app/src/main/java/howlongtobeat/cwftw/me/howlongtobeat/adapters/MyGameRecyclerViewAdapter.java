@@ -7,6 +7,7 @@
 
 package howlongtobeat.cwftw.me.howlongtobeat.adapters;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,20 +19,20 @@ import android.widget.TextView;
 
 import com.koushikdutta.ion.Ion;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.Utils;
-import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnGameFragmentInteractionListener}.
- */
 public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecyclerViewAdapter.ViewHolder> {
 
     private final List<Game> mValues;
@@ -95,7 +96,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         holder.playingDetail.setText(String.valueOf(mValues.get(position).getPlaying()));
         holder.retiredDetail.setText(String.valueOf(mValues.get(position).getRetired()));
 
-        boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(position) != null;
+        boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
         if (isFavorited) {
             holder.favoritedImg.setImageResource(R.mipmap.full_star);
             holder.favoritedImgDetail.setImageResource(R.mipmap.full_star);
@@ -108,7 +109,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
             @Override
             public void onClick(View v) {
                 Log.i("INFO", "Image Clicked");
-                boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(position) != null;
+                boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
 
                 if (!isFavorited) {
                     holder.favoritedImg.setImageResource(R.mipmap.full_star);
@@ -120,6 +121,18 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
 //                    byte[] bArray = bos.toByteArray();
 //
 //                    holder.mItem.setImageBytes(bArray);
+
+                    Uri imageURI = Uri.parse(holder.mItem.getImageUrl());
+                    InputStream iStream = null;
+                    try {
+                        iStream = holder.gameItemImg.getContext().getContentResolver().openInputStream(imageURI);
+                        byte[] inputData = getBytes(iStream);
+                        holder.mItem.setImageBytes(inputData);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     DatabaseHelper.getInstance(holder.gameItemImg.getContext()).insertGame(holder.mItem);
                 } else {
@@ -140,6 +153,18 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
                 }
             }
         });
+    }
+
+    public byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
     }
 
     @Override

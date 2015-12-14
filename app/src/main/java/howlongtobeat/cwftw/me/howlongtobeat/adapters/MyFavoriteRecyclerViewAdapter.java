@@ -7,17 +7,25 @@
 
 package howlongtobeat.cwftw.me.howlongtobeat.adapters;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
-import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
+import howlongtobeat.cwftw.me.howlongtobeat.Utils;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
@@ -35,6 +43,11 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         mListener = listener;
     }
 
+    public void setItems(ArrayList<Game> games) {
+        this.mValues.clear();
+        this.mValues.addAll(games);
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -42,22 +55,51 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         return new ViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-//        holder.mItem = mValues.get(position);
-//        holder.mIdView.setText(mValues.get(position).id);
-//        holder.mContentView.setText(mValues.get(position).content);
-//
-//        holder.mView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (null != mListener) {
-//                    // Notify the active callbacks interface (the activity, if the
-//                    // fragment is attached to one) that an item has been selected.
-//                    mListener.onFavoriteFragmentInteraction(holder.mItem);
-//                }
-//            }
-//        });
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        holder.mItem = mValues.get(position);
+
+        //        ImageView imgViewer = (ImageView) findViewById(R.id.chart_image);
+        Bitmap bm = BitmapFactory.decodeByteArray(holder.mItem.getImageBytes(), 0, holder.mItem.getImageBytes().length);
+//        DisplayMetrics dm = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+//        imgViewer.setMinimumHeight(dm.heightPixels);
+//        imgViewer.setMinimumWidth(dm.widthPixels);
+//        imgViewer.setImageBitmap(bm);
+
+        holder.gameItemImg.setImageBitmap(bm);
+
+        holder.mainStoryItem.setText(Utils.formatData(mValues.get(position).getMainHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.extraItem.setText(Utils.formatData(mValues.get(position).getMainExtraHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.completionistItem.setText(Utils.formatData(mValues.get(position).getCompletionistHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.combinedItem.setText(Utils.formatData(mValues.get(position).getCombinedHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+
+        boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
+        if (isFavorited) {
+            holder.favoritedImg.setImageResource(R.mipmap.full_star);
+        } else {
+            holder.favoritedImg.setImageResource(R.mipmap.empty_star);
+        }
+
+        holder.favoritedImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("INFO", "Image Clicked");
+                DatabaseHelper.getInstance(holder.gameItemImg.getContext()).deleteGame(holder.mItem.getId());
+                mValues.remove(position);
+            }
+        });
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mListener) {
+                    // Notify the active callbacks interface (the activity, if the
+                    // fragment is attached to one) that an item has been selected.
+                    mListener.onFavoriteFragmentInteraction(holder.mItem);
+                }
+            }
+        });
     }
 
     @Override
@@ -67,15 +109,23 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-//        public final TextView mIdView;
-//        public final TextView mContentView;
+        public final ImageView gameItemImg;
+        public final ImageButton favoritedImg;
+        public final TextView mainStoryItem;
+        public final TextView extraItem;
+        public final TextView completionistItem;
+        public final TextView combinedItem;
         public Game mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-//            mIdView = (TextView) view.findViewById(R.id.id);
-//            mContentView = (TextView) view.findViewById(R.id.content);
+            gameItemImg = (ImageView) view.findViewById(R.id.gameItemImg);
+            favoritedImg = (ImageButton) view.findViewById(R.id.favoritedImg);
+            mainStoryItem = (TextView) view.findViewById(R.id.mainStoryItem);
+            extraItem = (TextView) view.findViewById(R.id.extraItem);
+            completionistItem = (TextView) view.findViewById(R.id.completionistItem);
+            combinedItem = (TextView) view.findViewById(R.id.combinedItem);
         }
     }
 }
