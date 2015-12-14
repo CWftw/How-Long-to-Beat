@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent.DummyItem;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
@@ -26,10 +28,10 @@ import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavorit
  */
 public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Game> mValues;
     private final OnFavoriteFragmentInteractionListener mListener;
 
-    public MyFavoriteRecyclerViewAdapter(List<DummyItem> items, OnFavoriteFragmentInteractionListener listener) {
+    public MyFavoriteRecyclerViewAdapter(ArrayList<Game> items, OnFavoriteFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -37,7 +39,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.favorite_item, parent, false);
+                .inflate(R.layout.game_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -66,20 +68,15 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+//        public final TextView mIdView;
+//        public final TextView mContentView;
+        public Game mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+//            mIdView = (TextView) view.findViewById(R.id.id);
+//            mContentView = (TextView) view.findViewById(R.id.content);
         }
     }
 }
