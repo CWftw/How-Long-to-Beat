@@ -157,7 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public Game selectGame(int id)
     {
-        Game game = null;
+        Game game = new Game();
 
         try
         {
@@ -167,8 +167,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
             if (c.moveToFirst())
             {
-                game = new Game();
-
                 game.setId(c.getInt(c.getColumnIndex("id")));
                 game.setTitle(c.getString(c.getColumnIndex("title")));
                 game.setMainHours(c.getDouble(c.getColumnIndex("mainHours")));
@@ -189,6 +187,40 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
 
         return game;
+    }
+
+    public int updateGame(String title, int id)
+    {
+        int rowCount = 0;
+
+        try
+        {
+            SQLiteDatabase db = this.getWritableDatabase();
+            HLTBSearcher webDb = new HLTBSearcher();
+            Game game = webDb.getGame(title, id);
+            ContentValues values = new ContentValues();
+            String[] whereArgs = {Integer.toString(game.getId())};
+
+            values.put("title", game.getTitle());
+            values.put("mainHours", game.getMainHours());
+            values.put("extraHours", game.getMainExtraHours());
+            values.put("completionistHours", game.getCompletionistHours());
+            values.put("combinedHours", game.getCombinedHours());
+            values.put("polled", game.getPolled());
+            values.put("rated", game.getRatedPercent());
+            values.put("backlog", game.getBacklogCount());
+            values.put("playing", game.getPlaying());
+            values.put("retired", game.getRetired());
+            values.put("image", game.getImageBytes());
+
+            db.update("games", values, "id = ?", whereArgs);
+        }
+        catch (Exception e)
+        {
+            Log.e("DatabaseHelper", "selectGame");
+        }
+
+        return rowCount;
     }
 
     public boolean deleteGame(int id)
