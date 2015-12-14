@@ -86,4 +86,6 @@
     <string name="Playing">Playing</string>
     <string name="Retired">Retired</string>
     <string name="gameImage">Game Image</string>
+    <string name="gameDetailImage">Game Detail Image</string>
+    <string name="favImage">Favorite Image</string>
 </resources>

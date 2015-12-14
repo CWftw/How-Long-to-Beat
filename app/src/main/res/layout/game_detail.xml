@@ -5,12 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <RelativeLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="101dp"
-        android:id="@+id/gameImageDetail"
-        android:src="@mipmap/ic_launcher"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="101dp"
+            android:id="@+id/gameDetailImg"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/gameDetailImage"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/favoritedImgDetail"
+            android:src="@mipmap/empty_star"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:contentDescription="@string/favImage"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp" />
+    </RelativeLayout>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -163,19 +185,19 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/backlogDetail" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/playingDetail" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/retiredDetail" />
         </TableRow>
@@ -185,6 +207,6 @@
     <View
         android:layout_width="wrap_content"
         android:layout_height="2dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@android:color/black" />
 
 </LinearLayout>

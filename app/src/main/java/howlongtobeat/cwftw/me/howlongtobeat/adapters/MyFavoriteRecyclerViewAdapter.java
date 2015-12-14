@@ -32,7 +32,6 @@ import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnFavoriteFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteRecyclerViewAdapter.ViewHolder> {
 

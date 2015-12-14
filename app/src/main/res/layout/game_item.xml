@@ -104,7 +104,8 @@
             android:id="@+id/favoritedImg"
             android:src="@mipmap/empty_star"
             android:layout_gravity="center"
-            android:background="@null"/>
+            android:background="@null"
+            android:contentDescription="@string/favImage" />
     </TableRow>
 
     <TableRow
