@@ -7,6 +7,8 @@
 
 package howlongtobeat.cwftw.me.howlongtobeat.adapters;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,12 +59,16 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
 
-        // Asynchronously load image with Ion library
-        Ion.with(holder.gameItemImg)
-                // use a placeholder image
-                .placeholder(R.mipmap.ic_launcher)
-                        // load the url
-                .load(mValues.get(position).getImageUrl());
+        //        ImageView imgViewer = (ImageView) findViewById(R.id.chart_image);
+        Bitmap bm = BitmapFactory.decodeByteArray(holder.mItem.getImageBytes(), 0, holder.mItem.getImageBytes().length);
+//        DisplayMetrics dm = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+//        imgViewer.setMinimumHeight(dm.heightPixels);
+//        imgViewer.setMinimumWidth(dm.widthPixels);
+//        imgViewer.setImageBitmap(bm);
+
+        holder.gameItemImg.setImageBitmap(bm);
 
         holder.mainStoryItem.setText(Utils.formatData(mValues.get(position).getMainHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
         holder.extraItem.setText(Utils.formatData(mValues.get(position).getMainExtraHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
