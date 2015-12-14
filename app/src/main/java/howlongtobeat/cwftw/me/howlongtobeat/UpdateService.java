@@ -53,49 +53,48 @@ public class UpdateService extends Service {
 
         TimerTask task = new TimerTask() {
             @Override
-            public void run() {
-            Log.d("Update", "Timer started");
-            boolean backUpdate = preferences.getBoolean("pref_backUpdate", false);
-            boolean pluggedIn = preferences.getBoolean("pref_pluggedIn", false);
-            boolean notifications = preferences.getBoolean("pref_notifications", false);
-            DatabaseHelper db = DatabaseHelper.getInstance(getApplicationContext());
-            List<Game> games = db.selectGames("");
-
-            for (Game game : games)
+            public void run()
             {
-                HLTBSearcher webDb = new HLTBSearcher();
+                Log.d("Update", "Timer started");
+                boolean backUpdate = preferences.getBoolean("pref_backUpdate", false);
+                boolean pluggedIn = preferences.getBoolean("pref_pluggedIn", false);
+                boolean notifications = preferences.getBoolean("pref_notifications", false);
+                DatabaseHelper db = DatabaseHelper.getInstance(getApplicationContext());
+                List<Game> games = db.selectGames("");
 
-                try
+                if(backUpdate && (!pluggedIn ||
+                        (pluggedIn && isPluggedIn(getApplicationContext()))))
                 {
-                    Game webGame = webDb.getGame(game.getTitle(), game.getId());
-
-                    if (game.getMainHours() != webGame.getMainHours() ||
-                        game.getMainExtraHours() != webGame.getMainExtraHours() ||
-                        game.getCompletionistHours() != webGame.getCompletionistHours() ||
-                        game.getCombinedHours() != webGame.getCombinedHours() ||
-                        game.getPolled() != webGame.getPolled() ||
-                        game.getRatedPercent() != webGame.getRatedPercent() ||
-                        game.getBacklogCount() != webGame.getBacklogCount() ||
-                        game.getPlaying() != webGame.getPlaying() ||
-                        game.getRetired() != webGame.getRetired())
+                    for (Game game : games)
                     {
-                        if(backUpdate && (!pluggedIn ||
-                                (pluggedIn && isPluggedIn(getApplicationContext()))))
-                        {
-                            db.updateGame(game.getTitle(), game.getId());
-                        }
+                        HLTBSearcher webDb = new HLTBSearcher();
 
-                        if (notifications)
+                        try
                         {
-                            sendNotification(game.getTitle() + " has been updated!");
+                            Game webGame = webDb.getGame(game.getTitle(), game.getId());
+
+                            if (game.getMainHours() != webGame.getMainHours() ||
+                                    game.getMainExtraHours() != webGame.getMainExtraHours() ||
+                                    game.getCompletionistHours() != webGame.getCompletionistHours() ||
+                                    game.getCombinedHours() != webGame.getCombinedHours() ||
+                                    game.getPolled() != webGame.getPolled() ||
+                                    game.getRatedPercent() != webGame.getRatedPercent() ||
+                                    game.getBacklogCount() != webGame.getBacklogCount() ||
+                                    game.getPlaying() != webGame.getPlaying() ||
+                                    game.getRetired() != webGame.getRetired())
+                            {
+                                db.updateGame(game.getTitle(), game.getId());
+
+                                if (notifications)
+                                {
+                                    sendNotification(game.getTitle() + " has been updated!");
+                                }
+                            }
+                        } catch (IOException e) {
+                            Log.d("How Long to Beat", e.getMessage());
                         }
                     }
                 }
-                catch(IOException e)
-                {
-                    Log.d("How Long to Beat", e.getMessage());
-                }
-            }
             }
         };
 
