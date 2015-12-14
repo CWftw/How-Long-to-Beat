@@ -82,6 +82,11 @@ public class GameFragment extends Fragment
         return fragment;
     }
 
+    public void search(String query) {
+        searcher.setQuery(query);
+        new DownloadGames().execute();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private TabLayout tabLayout;
+
+    private FavoriteFragment favoriteFragment;
+    private GameFragment gameFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +65,13 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
         boolean isNotification = getIntent().getBooleanExtra("isNotification", false);
         if (isNotification) {
             // Go to favorites
-            mViewPager.setCurrentItem(1);
+            tabLayout.getTabAt(1).select();
         }
     }
 
@@ -106,9 +110,8 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
                 public void onClick(DialogInterface dialog, int whichButton)
                 {
                     String result = input.getText().toString();
-                    Intent intent = new Intent(getApplicationContext(), GameFragment.class);
-
-                    intent.putExtra("searchQuery", result);
+                    gameFragment.search(result);
+                    tabLayout.getTabAt(0).select();
                 }
             });
 
@@ -153,9 +156,11 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
             // Return the appropriate fragment
             switch (position) {
                 case 0:
-                    return GameFragment.newInstance(1);
+                    gameFragment = GameFragment.newInstance(1);
+                    return gameFragment;
                 case 1:
-                    return FavoriteFragment.newInstance(1);
+                    favoriteFragment = FavoriteFragment.newInstance(1);
+                    return favoriteFragment;
             }
             return null;
         }

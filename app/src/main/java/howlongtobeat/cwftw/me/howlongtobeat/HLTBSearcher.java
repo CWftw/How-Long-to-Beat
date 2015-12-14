@@ -66,13 +66,13 @@ public class HLTBSearcher {
 //    private URL url;
 
 
-//    public String getQuery() {
-//        return query;
-//    }
-//
-//    public void setQuery(String query) {
-//        this.query = query;
-//    }
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
 //
 //    public int getPage() {
 //        return page;
