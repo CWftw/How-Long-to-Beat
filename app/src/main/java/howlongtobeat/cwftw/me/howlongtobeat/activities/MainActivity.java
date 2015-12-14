@@ -7,6 +7,8 @@
 
 package howlongtobeat.cwftw.me.howlongtobeat.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -18,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.dummy.DummyContent;
@@ -89,9 +92,36 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
             intent.putExtra(SettingsActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.GeneralPreferenceFragment.class.getName());
             intent.putExtra(SettingsActivity.EXTRA_NO_HEADERS, true);
             startActivity(intent);
-        } else if (id == R.id.action_search) {
-            // Search
-            // 
+        }
+        else if(id == R.id.action_search)
+        {
+            AlertDialog.Builder search = new AlertDialog.Builder(this);
+            search.setTitle("Search");
+            search.setMessage("Search for a game");
+
+            final EditText input = new EditText(this);
+
+            search.setView(input);
+            search.setPositiveButton("Search", new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog, int whichButton)
+                {
+                    String result = input.getText().toString();
+                    Intent intent = new Intent(getApplicationContext(), GameFragment.class);
+
+                    intent.putExtra("searchQuery", result);
+                }
+            });
+
+            search.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog, int whichButton)
+                {
+                    dialog.cancel();
+                }
+            });
+
+            search.show();
         }
 
         return super.onOptionsItemSelected(item);

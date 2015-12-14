@@ -9,7 +9,9 @@ package howlongtobeat.cwftw.me.howlongtobeat.activities;
 
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -26,6 +28,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 
@@ -183,9 +186,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
         @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
+        public boolean onOptionsItemSelected(MenuItem item)
+        {
             int id = item.getItemId();
-            if (id == android.R.id.home) {
+
+            if (id == android.R.id.home)
+            {
                 NavUtils.navigateUpFromSameTask(getActivity());
                 return true;
             }

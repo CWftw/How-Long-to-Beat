@@ -27,7 +27,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/MainStory"
                 android:id="@+id/textView2"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="20dp"
+                android:textColor="@color/colorPrimary"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -35,14 +36,16 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/Extra"
                 android:id="@+id/textView6"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="20dp"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/Completionist"
-                android:id="@+id/textView9" />
+                android:id="@+id/textView9"
+                android:textColor="@color/colorPrimary" />
         </TableRow>
 
         <TableRow
@@ -79,21 +82,24 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/Combined"
-                android:id="@+id/textView11" />
+                android:id="@+id/textView11"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/Polled"
-                android:id="@+id/textView13" />
+                android:id="@+id/textView13"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/Rated"
-                android:id="@+id/textView14" />
+                android:id="@+id/textView14"
+                android:textColor="@color/colorPrimary" />
         </TableRow>
 
         <TableRow
@@ -130,21 +136,24 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/Backlog"
-                android:id="@+id/textView17" />
+                android:id="@+id/textView17"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/Playing"
-                android:id="@+id/textView18" />
+                android:id="@+id/textView18"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/Retired"
-                android:id="@+id/textView19" />
+                android:id="@+id/textView19"
+                android:textColor="@color/colorPrimary" />
         </TableRow>
 
         <TableRow
