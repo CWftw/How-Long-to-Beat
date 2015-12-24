@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.gamelength;
+package howlongtobeat.cwftw.me.howlongtobeat;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -23,10 +23,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import howlongtobeat.cwftw.me.gamelength.activities.MainActivity;
-import howlongtobeat.cwftw.me.gamelength.models.Game;
+import howlongtobeat.cwftw.me.howlongtobeat.activities.MainActivity;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
-import static howlongtobeat.cwftw.me.gamelength.Utils.isPluggedIn;
+import static howlongtobeat.cwftw.me.howlongtobeat.Utils.isPluggedIn;
 
 public class UpdateService extends Service {
     private Timer timer;

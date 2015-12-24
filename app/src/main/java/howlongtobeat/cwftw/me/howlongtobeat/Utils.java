@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.gamelength;
+package howlongtobeat.cwftw.me.howlongtobeat;
 
 import android.content.Context;
 import android.content.Intent;

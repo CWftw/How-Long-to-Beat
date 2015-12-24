@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.gamelength;
+package howlongtobeat.cwftw.me.howlongtobeat;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,7 +15,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import java.util.ArrayList;
-import howlongtobeat.cwftw.me.gamelength.models.Game;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 public class DatabaseHelper extends SQLiteOpenHelper
 {

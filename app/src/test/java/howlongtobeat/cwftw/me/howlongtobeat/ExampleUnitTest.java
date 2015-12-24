@@ -1,4 +1,4 @@
-package howlongtobeat.cwftw.me.gamelength;
+package howlongtobeat.cwftw.me.howlongtobeat;
 
 import org.junit.Test;
 

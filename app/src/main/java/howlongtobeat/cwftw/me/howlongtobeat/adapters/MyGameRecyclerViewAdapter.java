@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.gamelength.adapters;
+package howlongtobeat.cwftw.me.howlongtobeat.adapters;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -28,11 +28,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import howlongtobeat.cwftw.me.gamelength.DatabaseHelper;
-import howlongtobeat.cwftw.me.gamelength.R;
-import howlongtobeat.cwftw.me.gamelength.Utils;
-import howlongtobeat.cwftw.me.gamelength.fragments.GameFragment.OnGameFragmentInteractionListener;
-import howlongtobeat.cwftw.me.gamelength.models.Game;
+import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
+import howlongtobeat.cwftw.me.howlongtobeat.R;
+import howlongtobeat.cwftw.me.howlongtobeat.Utils;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecyclerViewAdapter.ViewHolder> {
 

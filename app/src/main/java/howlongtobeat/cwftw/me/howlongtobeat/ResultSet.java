@@ -5,11 +5,11 @@
  *
  */
 
-package howlongtobeat.cwftw.me.gamelength;
+package howlongtobeat.cwftw.me.howlongtobeat;
 
 import java.util.ArrayList;
 
-import howlongtobeat.cwftw.me.gamelength.models.Game;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 public class ResultSet {
     private int pages;

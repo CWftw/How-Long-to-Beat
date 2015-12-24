@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.gamelength.adapters;
+package howlongtobeat.cwftw.me.howlongtobeat.adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,11 +21,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import howlongtobeat.cwftw.me.gamelength.DatabaseHelper;
-import howlongtobeat.cwftw.me.gamelength.R;
-import howlongtobeat.cwftw.me.gamelength.Utils;
-import howlongtobeat.cwftw.me.gamelength.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
-import howlongtobeat.cwftw.me.gamelength.models.Game;
+import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
+import howlongtobeat.cwftw.me.howlongtobeat.R;
+import howlongtobeat.cwftw.me.howlongtobeat.Utils;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the

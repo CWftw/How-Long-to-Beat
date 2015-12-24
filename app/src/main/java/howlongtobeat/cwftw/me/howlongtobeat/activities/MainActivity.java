@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.gamelength.activities;
+package howlongtobeat.cwftw.me.howlongtobeat.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -22,12 +22,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import howlongtobeat.cwftw.me.gamelength.R;
-import howlongtobeat.cwftw.me.gamelength.fragments.FavoriteFragment;
-import howlongtobeat.cwftw.me.gamelength.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
-import howlongtobeat.cwftw.me.gamelength.fragments.GameFragment;
-import howlongtobeat.cwftw.me.gamelength.fragments.GameFragment.OnGameFragmentInteractionListener;
-import howlongtobeat.cwftw.me.gamelength.models.Game;
+import howlongtobeat.cwftw.me.howlongtobeat.R;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment;
+import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
+import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 public class MainActivity extends AppCompatActivity implements OnGameFragmentInteractionListener, OnFavoriteFragmentInteractionListener {
 
