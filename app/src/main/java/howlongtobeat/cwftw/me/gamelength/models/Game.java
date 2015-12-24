@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.howlongtobeat.models;
+package howlongtobeat.cwftw.me.gamelength.models;
 
 public class Game {
 

@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.howlongtobeat.adapters;
+package howlongtobeat.cwftw.me.gamelength.adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,16 +18,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.koushikdutta.ion.Ion;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
-import howlongtobeat.cwftw.me.howlongtobeat.R;
-import howlongtobeat.cwftw.me.howlongtobeat.Utils;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
-import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
+import howlongtobeat.cwftw.me.gamelength.DatabaseHelper;
+import howlongtobeat.cwftw.me.gamelength.R;
+import howlongtobeat.cwftw.me.gamelength.Utils;
+import howlongtobeat.cwftw.me.gamelength.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
+import howlongtobeat.cwftw.me.gamelength.models.Game;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
@@ -81,6 +79,12 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
             holder.favoritedImg.setImageResource(R.mipmap.empty_star);
         }
 
+        if (position == mValues.size()-1) {
+            holder.separator.setVisibility(View.INVISIBLE);
+        } else {
+            holder.separator.setVisibility(View.VISIBLE);
+        }
+
         holder.favoritedImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +121,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         public final TextView completionistItem;
         public final TextView combinedItem;
         public Game mItem;
+        public View separator;
 
         public ViewHolder(View view) {
             super(view);
@@ -127,6 +132,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
             extraItem = (TextView) view.findViewById(R.id.extraItem);
             completionistItem = (TextView) view.findViewById(R.id.completionistItem);
             combinedItem = (TextView) view.findViewById(R.id.combinedItem);
+            separator = view.findViewById(R.id.separator);
         }
     }
 }

@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.howlongtobeat;
+package howlongtobeat.cwftw.me.gamelength;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

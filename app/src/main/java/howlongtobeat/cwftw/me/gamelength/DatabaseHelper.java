@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.howlongtobeat;
+package howlongtobeat.cwftw.me.gamelength;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,7 +15,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import java.util.ArrayList;
-import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
+import howlongtobeat.cwftw.me.gamelength.models.Game;
 
 public class DatabaseHelper extends SQLiteOpenHelper
 {
@@ -192,15 +192,15 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return game;
     }
 
-    public int updateGame(String title, int id)
+    public int updateGame(int id, Game game)
     {
         int rowCount = 0;
 
         try
         {
             SQLiteDatabase db = this.getWritableDatabase();
-            HLTBSearcher webDb = new HLTBSearcher();
-            Game game = webDb.getGame(title, id);
+//            HLTBSearcher webDb = new HLTBSearcher();
+//            Game game = webDb.getGame(title, id);
             ContentValues values = new ContentValues();
             String[] whereArgs = {Integer.toString(game.getId())};
 

@@ -5,10 +5,9 @@
  *
  */
 
-package howlongtobeat.cwftw.me.howlongtobeat.adapters;
+package howlongtobeat.cwftw.me.gamelength.adapters;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,20 +21,18 @@ import android.widget.TextView;
 import com.koushikdutta.ion.Ion;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
-import howlongtobeat.cwftw.me.howlongtobeat.R;
-import howlongtobeat.cwftw.me.howlongtobeat.Utils;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
-import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
+import howlongtobeat.cwftw.me.gamelength.DatabaseHelper;
+import howlongtobeat.cwftw.me.gamelength.R;
+import howlongtobeat.cwftw.me.gamelength.Utils;
+import howlongtobeat.cwftw.me.gamelength.fragments.GameFragment.OnGameFragmentInteractionListener;
+import howlongtobeat.cwftw.me.gamelength.models.Game;
 
 public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecyclerViewAdapter.ViewHolder> {
 
@@ -117,6 +114,12 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
             holder.favoritedImg.setImageResource(R.mipmap.empty_star);
         }
 
+        if (position == mValues.size()-1) {
+            holder.separator.setVisibility(View.INVISIBLE);
+        } else {
+            holder.separator.setVisibility(View.VISIBLE);
+        }
+
         holder.favoritedImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,6 +174,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         public final TextView completionistItem;
         public final TextView combinedItem;
         public Game mItem;
+        public View separator;
 
         public ViewHolder(View view) {
             super(view);
@@ -181,6 +185,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
             extraItem = (TextView) view.findViewById(R.id.extraItem);
             completionistItem = (TextView) view.findViewById(R.id.completionistItem);
             combinedItem = (TextView) view.findViewById(R.id.combinedItem);
+            separator = view.findViewById(R.id.separator);
         }
     }
 }

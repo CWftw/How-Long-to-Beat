@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.howlongtobeat;
+package howlongtobeat.cwftw.me.gamelength;
 
 import android.util.Log;
 
@@ -15,10 +15,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
-import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
+import howlongtobeat.cwftw.me.gamelength.models.Game;
 
 public class HLTBSearcher {
     /*
@@ -187,7 +186,11 @@ public class HLTBSearcher {
         for (Element gameElement : gameElements) {
             Game game = new Game();
 
-            game.setId((int)parseString(gameElement.select(SELECTOR_ID).first().attr("href")));
+            if (gameElement.select(SELECTOR_ID).first() == null) {
+                break;
+            }
+
+            game.setId((int) parseString(gameElement.select(SELECTOR_ID).first().attr("href")));
             game.setTitle(gameElement.select(SELECTOR_TITLE).first().attr("title"));
             game.setImageUrl(BASE_IMAGE_URL + gameElement.select(SELECTOR_IMAGE_URL).first().attr("src"));
 

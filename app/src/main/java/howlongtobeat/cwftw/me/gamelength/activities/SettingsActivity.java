@@ -5,13 +5,11 @@
  *
  */
 
-package howlongtobeat.cwftw.me.howlongtobeat.activities;
+package howlongtobeat.cwftw.me.gamelength.activities;
 
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -28,9 +26,8 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.widget.EditText;
 
-import howlongtobeat.cwftw.me.howlongtobeat.R;
+import howlongtobeat.cwftw.me.gamelength.R;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

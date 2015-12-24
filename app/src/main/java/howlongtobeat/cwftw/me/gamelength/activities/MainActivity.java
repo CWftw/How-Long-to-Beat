@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.howlongtobeat.activities;
+package howlongtobeat.cwftw.me.gamelength.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -22,12 +22,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import howlongtobeat.cwftw.me.howlongtobeat.R;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
-import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
+import howlongtobeat.cwftw.me.gamelength.R;
+import howlongtobeat.cwftw.me.gamelength.fragments.FavoriteFragment;
+import howlongtobeat.cwftw.me.gamelength.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
+import howlongtobeat.cwftw.me.gamelength.fragments.GameFragment;
+import howlongtobeat.cwftw.me.gamelength.fragments.GameFragment.OnGameFragmentInteractionListener;
+import howlongtobeat.cwftw.me.gamelength.models.Game;
 
 public class MainActivity extends AppCompatActivity implements OnGameFragmentInteractionListener, OnFavoriteFragmentInteractionListener {
 
@@ -103,22 +103,26 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
             search.setMessage(getResources().getString(R.string.searchGame));
 
             final EditText input = new EditText(this);
+            input.setMaxLines(1);
 
             search.setView(input);
-            search.setPositiveButton(getResources().getString(R.string.search), new DialogInterface.OnClickListener()
-            {
-                public void onClick(DialogInterface dialog, int whichButton)
-                {
+            search.setPositiveButton(getResources().getString(R.string.search), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
                     String result = input.getText().toString();
                     gameFragment.search(result);
                     tabLayout.getTabAt(0).select();
                 }
             });
 
-            search.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener()
-            {
-                public void onClick(DialogInterface dialog, int whichButton)
-                {
+            search.setNeutralButton(getResources().getString(R.string.clear), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    gameFragment.search("");
+                    tabLayout.getTabAt(0).select();
+                }
+            });
+
+            search.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
                     dialog.cancel();
                 }
             });

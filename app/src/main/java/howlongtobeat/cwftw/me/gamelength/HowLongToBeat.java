@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.howlongtobeat;
+package howlongtobeat.cwftw.me.gamelength;
 
 import android.app.ActivityManager;
 import android.app.Application;
@@ -24,7 +24,7 @@ public class HowLongToBeat extends Application {
 
         for (ActivityManager.RunningServiceInfo service :
                 manager.getRunningServices(Integer.MAX_VALUE)) {
-            if ("howlongtobeat.cwftw.me.howlongtobeat.UpdateService".equals(
+            if ("gamelength.cwftw.me.gamelength.UpdateService".equals(
                     service.service.getClassName())) {
                 isRunning = true;
             }

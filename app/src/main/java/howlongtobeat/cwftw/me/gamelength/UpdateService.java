@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.howlongtobeat;
+package howlongtobeat.cwftw.me.gamelength;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -23,10 +23,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import howlongtobeat.cwftw.me.howlongtobeat.activities.MainActivity;
-import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
+import howlongtobeat.cwftw.me.gamelength.activities.MainActivity;
+import howlongtobeat.cwftw.me.gamelength.models.Game;
 
-import static howlongtobeat.cwftw.me.howlongtobeat.Utils.isPluggedIn;
+import static howlongtobeat.cwftw.me.gamelength.Utils.isPluggedIn;
 
 public class UpdateService extends Service {
     private Timer timer;
@@ -54,54 +54,46 @@ public class UpdateService extends Service {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-            Log.d("Update", "Timer started");
-            boolean backUpdate = preferences.getBoolean("pref_backUpdate", false);
-            boolean pluggedIn = preferences.getBoolean("pref_pluggedIn", false);
-            boolean notifications = preferences.getBoolean("pref_notifications", false);
-            DatabaseHelper db = DatabaseHelper.getInstance(getApplicationContext());
-            List<Game> games = db.selectGames("");
+                Log.d("Update", "Timer started");
+                boolean backUpdate = preferences.getBoolean("pref_backUpdate", true);
+                boolean pluggedIn = preferences.getBoolean("pref_pluggedIn", false);
+                boolean notifications = preferences.getBoolean("pref_notifications", true);
 
-            for (Game game : games)
-            {
-                HLTBSearcher webDb = new HLTBSearcher();
+                if (backUpdate) {
+                    if (!pluggedIn || pluggedIn && isPluggedIn(getApplicationContext())) {
+                        DatabaseHelper db = DatabaseHelper.getInstance(getApplicationContext());
+                        List<Game> games = db.selectGames("");
 
-                try
-                {
-                    Game webGame = webDb.getGame(game.getTitle(), game.getId());
+                        for (Game game : games) {
+                            HLTBSearcher webDb = new HLTBSearcher();
 
-                    if (game.getMainHours() != webGame.getMainHours() ||
-                        game.getMainExtraHours() != webGame.getMainExtraHours() ||
-                        game.getCompletionistHours() != webGame.getCompletionistHours() ||
-                        game.getCombinedHours() != webGame.getCombinedHours() ||
-                        game.getPolled() != webGame.getPolled() ||
-                        game.getRatedPercent() != webGame.getRatedPercent() ||
-                        game.getBacklogCount() != webGame.getBacklogCount() ||
-                        game.getPlaying() != webGame.getPlaying() ||
-                        game.getRetired() != webGame.getRetired())
-                    {
-                        if(backUpdate && (!pluggedIn ||
-                                (pluggedIn && isPluggedIn(getApplicationContext()))))
-                        {
-                            db.updateGame(game.getTitle(), game.getId());
-                        }
+                            try {
+                                Game webGame = webDb.getGame(game.getTitle(), game.getId());
 
-                        if (notifications)
-                        {
-                            sendNotification(game.getTitle() + " has been updated!");
+                                if (game.getMainHours() != webGame.getMainHours() ||
+                                        game.getMainExtraHours() != webGame.getMainExtraHours() ||
+                                        game.getCompletionistHours() != webGame.getCompletionistHours() ||
+                                        game.getCombinedHours() != webGame.getCombinedHours()) {
+                                    db.updateGame(game.getId(), webGame);
+
+                                    if (notifications) {
+                                        sendNotification(game.getTitle() + " has been updated!");
+                                    }
+                                }
+                            } catch (IOException e) {
+                                Log.i("How Long to Beat", e.getMessage());
+                            }
                         }
                     }
                 }
-                catch(IOException e)
-                {
-                    Log.i("How Long to Beat", e.getMessage());
-                }
-            }
+
+
             }
         };
 
         timer = new Timer(true);
-        int delay = 60000;
-        int interval = 600000;
+        int delay = 3600000;
+        int interval = 3600000;
         timer.schedule(task, delay, interval);
     }
 

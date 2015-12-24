@@ -5,7 +5,7 @@
  *
  */
 
-package howlongtobeat.cwftw.me.howlongtobeat.activities;
+package howlongtobeat.cwftw.me.gamelength.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

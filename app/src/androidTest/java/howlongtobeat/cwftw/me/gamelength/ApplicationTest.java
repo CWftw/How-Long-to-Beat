@@ -1,4 +1,4 @@
-package howlongtobeat.cwftw.me.howlongtobeat;
+package howlongtobeat.cwftw.me.gamelength;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
