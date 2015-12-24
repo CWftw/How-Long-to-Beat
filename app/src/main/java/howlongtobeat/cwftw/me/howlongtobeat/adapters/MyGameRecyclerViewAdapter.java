@@ -109,9 +109,9 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
 
         boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
         if (isFavorited) {
-            holder.favoritedImg.setImageResource(R.mipmap.full_star);
+            holder.favoritedImg.setImageResource(R.drawable.ic_toggle_star);
         } else {
-            holder.favoritedImg.setImageResource(R.mipmap.empty_star);
+            holder.favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
         }
 
         if (position == mValues.size()-1) {
@@ -127,10 +127,10 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
                 boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
 
                 if (!isFavorited) {
-                    holder.favoritedImg.setImageResource(R.mipmap.full_star);
+                    holder.favoritedImg.setImageResource(R.drawable.ic_toggle_star);
                     new LoadImageFromURL().execute(holder.mItem);
                 } else {
-                    holder.favoritedImg.setImageResource(R.mipmap.empty_star);
+                    holder.favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
                     DatabaseHelper.getInstance(holder.gameItemImg.getContext()).deleteGame(holder.mItem.getId());
                 }
             }

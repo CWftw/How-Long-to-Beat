@@ -116,7 +116,7 @@ public class UpdateService extends Service {
                 getApplicationContext(), 0, favoritesIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        nBuilder.setSmallIcon(R.mipmap.full_star);
+        nBuilder.setSmallIcon(R.drawable.ic_toggle_star);
         nBuilder.setContentTitle("How Long to Beat");
         nBuilder.setContentText(text);
         nBuilder.setContentIntent(pIntent);
