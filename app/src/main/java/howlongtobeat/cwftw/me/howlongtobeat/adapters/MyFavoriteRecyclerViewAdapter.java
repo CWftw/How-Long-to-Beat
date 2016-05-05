@@ -24,17 +24,14 @@ import java.util.List;
 import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.Utils;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteRecyclerViewAdapter.ViewHolder> {
 
     private final List<Game> mValues;
-    private final OnFavoriteFragmentInteractionListener mListener;
 
-    public MyFavoriteRecyclerViewAdapter(ArrayList<Game> items, OnFavoriteFragmentInteractionListener listener) {
+    public MyFavoriteRecyclerViewAdapter(ArrayList<Game> items) {
         mValues = items;
-        mListener = listener;
     }
 
     public void setItems(ArrayList<Game> games) {
@@ -81,17 +78,6 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
                 DatabaseHelper.getInstance(holder.gameItemImg.getContext()).deleteGame(holder.mItem.getId());
                 mValues.remove(position);
                 notifyDataSetChanged();
-            }
-        });
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onFavoriteFragmentInteraction(holder.mItem);
-                }
             }
         });
     }

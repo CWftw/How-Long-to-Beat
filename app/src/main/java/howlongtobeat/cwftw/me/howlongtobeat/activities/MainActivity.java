@@ -27,12 +27,9 @@ import android.widget.FrameLayout;
 
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
-import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
-public class MainActivity extends AppCompatActivity implements OnGameFragmentInteractionListener, OnFavoriteFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -77,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
             tabLayout.getTabAt(1).select();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -142,17 +138,6 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
 
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void onFavoriteFragmentInteraction(Game item) {
-
-    }
-
-    @Override
-    public void onGameFragmentInteraction(Game item) {
-
-    }
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

@@ -14,7 +14,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
 import java.util.ArrayList;
+
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 public class DatabaseHelper extends SQLiteOpenHelper

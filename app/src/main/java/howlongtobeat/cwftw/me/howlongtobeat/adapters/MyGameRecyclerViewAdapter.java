@@ -30,18 +30,15 @@ import java.util.List;
 import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.Utils;
-import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment.OnGameFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
 public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecyclerViewAdapter.ViewHolder> {
 
     private final List<Game> mValues;
-    private final OnGameFragmentInteractionListener mListener;
     private Context context;
 
-    public MyGameRecyclerViewAdapter(List<Game> items, OnGameFragmentInteractionListener listener, Context context) {
+    public MyGameRecyclerViewAdapter(List<Game> items, Context context) {
         mValues = items;
-        mListener = listener;
         this.context = context;
     }
 
@@ -69,7 +66,6 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         protected void onPostExecute(Game result) {
             DatabaseHelper.getInstance(context).insertGame(result);
         }
-
     }
 
     public void addItems(ArrayList<Game> games) {
@@ -125,17 +121,6 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
                 } else {
                     holder.favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
                     DatabaseHelper.getInstance(holder.gameItemImg.getContext()).deleteGame(holder.mItem.getId());
-                }
-            }
-        });
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onGameFragmentInteraction(holder.mItem);
                 }
             }
         });
