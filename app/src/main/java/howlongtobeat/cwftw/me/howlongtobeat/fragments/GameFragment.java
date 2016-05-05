@@ -44,6 +44,7 @@ public class GameFragment extends Fragment
     private MyGameRecyclerViewAdapter adapter;
     private ResultSet results;
     private HLTBSearcher searcher;
+    private EmptyRecyclerView recyclerView;
     private boolean isLoading = false;
 
     /**
@@ -77,6 +78,10 @@ public class GameFragment extends Fragment
                 adapter.addItems(results.getPage());
                 adapter.notifyDataSetChanged();
                 isLoading = false;
+
+                if (searcher.getPage() == 1) {
+                    recyclerView.scrollToPosition(0);
+                }
             } else {
                 Toast.makeText(getContext(), getResources().getString(R.string.nonet),Toast.LENGTH_LONG).show();
             }
@@ -109,22 +114,8 @@ public class GameFragment extends Fragment
 
         adapter = new MyGameRecyclerViewAdapter(new ArrayList<Game>(), mListener, getActivity());
         searcher = new HLTBSearcher();
-    }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (isVisibleToUser) {
-            Log.d("MyFragment", "Fragment is visible.");
-            adapter.clearData();
-            adapter.notifyDataSetChanged();
-            searcher.setPage(0);
-            new DownloadGames().execute();
-        }
-        else {
-            Log.d("MyFragment", "Fragment is not visible.");
-        }
+        new DownloadGames().execute();
     }
 
     @Override
@@ -136,7 +127,7 @@ public class GameFragment extends Fragment
         // Set the adapter
         if (view instanceof EmptyRecyclerView) {
             Context context = view.getContext();
-            EmptyRecyclerView recyclerView = (EmptyRecyclerView) view;
+            recyclerView = (EmptyRecyclerView) view;
             recyclerView.setEmptyView(parent.findViewById(R.id.empty_games));
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
