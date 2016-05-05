@@ -18,9 +18,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment;
@@ -103,9 +106,16 @@ public class MainActivity extends AppCompatActivity implements OnGameFragmentInt
             search.setMessage(getResources().getString(R.string.searchGame));
 
             final EditText input = new EditText(this);
-            input.setMaxLines(1);
+            input.setSingleLine();
 
-            search.setView(input);
+            FrameLayout container = new FrameLayout(this);
+            FrameLayout.LayoutParams params = new  FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
+            params.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
+            input.setLayoutParams(params);
+            container.addView(input);
+            search.setView(container);
+
             search.setPositiveButton(getResources().getString(R.string.search), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String result = input.getText().toString();

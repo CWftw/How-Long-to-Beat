@@ -1,46 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
 
-    <TableRow
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp">
+        android:orientation="horizontal">
 
-        <TableRow
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/txtTitle"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="3"
             android:layout_height="match_parent"
-            android:layout_column="0"
-            android:layout_weight="1">
+            android:layout_marginRight="5dp">
 
             <ImageView
-                android:layout_width="75dp"
-                android:layout_height="0dp"
                 android:id="@+id/gameItemImg"
-                android:src="@mipmap/ic_launcher"
                 android:contentDescription="@string/gameImage"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitStart"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_column="1"
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1">
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,16 +76,13 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/extraItem"
                 android:textColor="@android:color/black" />
-
         </LinearLayout>
 
         <LinearLayout
-            android:layout_column="2"
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1">
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -113,41 +114,38 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/combinedItem"
                 android:textColor="@android:color/black" />
-
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_column="3"
-            android:layout_weight="1">
+            android:gravity="center_vertical"
+            android:layout_weight="2">
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
                 android:id="@+id/favoritedImg"
                 android:src="@drawable/ic_toggle_star"
                 android:background="@null"
                 android:contentDescription="@string/gameImage"
                 android:scaleType="fitCenter"
-                android:layout_gravity="center_vertical" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
 
         <View
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/black"
-            android:layout_column="0"
-            android:layout_span="5"
-            android:layout_weight="1"
             android:id="@+id/separator" />
-    </TableRow>
+    </LinearLayout>
 
-</TableLayout>
+</LinearLayout>

@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import howlongtobeat.cwftw.me.howlongtobeat.DatabaseHelper;
+import howlongtobeat.cwftw.me.howlongtobeat.EmptyRecyclerView;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.adapters.MyFavoriteRecyclerViewAdapter;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
@@ -86,12 +86,14 @@ public class FavoriteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorite_list, container, false);
+        View parent = inflater.inflate(R.layout.fragment_favorite_list, container, false);
+        View view = parent.findViewById(R.id.list);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
+        if (view instanceof EmptyRecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            EmptyRecyclerView recyclerView = (EmptyRecyclerView) view;
+            recyclerView.setEmptyView(parent.findViewById(R.id.empty_favorites));
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -99,7 +101,7 @@ public class FavoriteFragment extends Fragment {
             }
             recyclerView.setAdapter(adapter);
         }
-        return view;
+        return parent;
     }
 
 

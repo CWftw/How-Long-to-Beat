@@ -54,7 +54,7 @@ public class UpdateService extends Service {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                Log.d("Update", "Timer started");
+                Log.i("How Long to Beat", "Timer started");
                 boolean backUpdate = preferences.getBoolean("pref_backUpdate", true);
                 boolean pluggedIn = preferences.getBoolean("pref_pluggedIn", false);
                 boolean notifications = preferences.getBoolean("pref_notifications", true);
@@ -92,6 +92,7 @@ public class UpdateService extends Service {
         };
 
         timer = new Timer(true);
+        // 1 hour
         int delay = 3600000;
         int interval = 3600000;
         timer.schedule(task, delay, interval);

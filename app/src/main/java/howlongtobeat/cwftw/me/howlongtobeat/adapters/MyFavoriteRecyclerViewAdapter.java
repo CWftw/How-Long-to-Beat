@@ -27,10 +27,6 @@ import howlongtobeat.cwftw.me.howlongtobeat.Utils;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment.OnFavoriteFragmentInteractionListener;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnFavoriteFragmentInteractionListener}.
- */
 public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteRecyclerViewAdapter.ViewHolder> {
 
     private final List<Game> mValues;
@@ -56,21 +52,14 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
 
-        //        ImageView imgViewer = (ImageView) findViewById(R.id.chart_image);
         Bitmap bm = BitmapFactory.decodeByteArray(holder.mItem.getImageBytes(), 0, holder.mItem.getImageBytes().length);
-//        DisplayMetrics dm = new DisplayMetrics();
-//        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-//        imgViewer.setMinimumHeight(dm.heightPixels);
-//        imgViewer.setMinimumWidth(dm.widthPixels);
-//        imgViewer.setImageBitmap(bm);
-
         holder.gameItemImg.setImageBitmap(bm);
 
         holder.mainStoryItem.setText(Utils.formatData(mValues.get(position).getMainHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
         holder.extraItem.setText(Utils.formatData(mValues.get(position).getMainExtraHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
         holder.completionistItem.setText(Utils.formatData(mValues.get(position).getCompletionistHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
         holder.combinedItem.setText(Utils.formatData(mValues.get(position).getCombinedHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.txtTitle.setText(mValues.get(position).getTitle());
 
         boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
         if (isFavorited) {
@@ -120,6 +109,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         public final TextView extraItem;
         public final TextView completionistItem;
         public final TextView combinedItem;
+        public final TextView txtTitle;
         public Game mItem;
         public View separator;
 
@@ -133,6 +123,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
             completionistItem = (TextView) view.findViewById(R.id.completionistItem);
             combinedItem = (TextView) view.findViewById(R.id.combinedItem);
             separator = view.findViewById(R.id.separator);
+            txtTitle = (TextView)view.findViewById(R.id.txtTitle);
         }
     }
 }

@@ -4,7 +4,7 @@
     <string name="backUpdate">Update in background?</string>
     <string name="notificationsCheck">Recieve Notifications?</string>
     <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">Close</string>
     <string name="pluggedIn">Only when plugged in?</string>
     <string name="alert_dialog_ok">Ok</string>
     <string name="updating">Updates</string>
@@ -20,6 +20,11 @@
     <string name="searchGame">Search for a game</string>
     <string name="clear">Clear Search</string>
     <string name="nonet">Unable to update games list.</string>
+    <string name="empty_favorites">No favorites to show.\nSearch for games to add on the \"Games\" screen!</string>
+    <string name="empty_games_network">No games to show.\nMake sure you are connected to the internet and try again!</string>
+    <string name="empty_games_search">No games to show.\nTry broadening your search terms!</string>
+    <string name="empty_games">No games to show.\nMake sure you are connected to the internet, or try broadening your search terms!</string>
+
 
     <!-- Strings related to Settings -->
 

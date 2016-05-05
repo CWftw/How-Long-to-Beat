@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import howlongtobeat.cwftw.me.howlongtobeat.EmptyRecyclerView;
 import howlongtobeat.cwftw.me.howlongtobeat.HLTBSearcher;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.ResultSet;
@@ -41,9 +42,9 @@ public class GameFragment extends Fragment
     private int mColumnCount = 2;
     private OnGameFragmentInteractionListener mListener;
     private MyGameRecyclerViewAdapter adapter;
-    private RecyclerView recyclerView;
     private ResultSet results;
     private HLTBSearcher searcher;
+    private boolean isLoading = false;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -56,6 +57,8 @@ public class GameFragment extends Fragment
         @Override
         protected Object doInBackground(Object[] params) {
             try {
+                isLoading = true;
+                searcher.setPage(searcher.getPage() + 1);
                 results = searcher.search();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -71,8 +74,9 @@ public class GameFragment extends Fragment
         @Override
         protected void onPostExecute(Object o) {
             if (results != null) {
-                adapter.setItems(results.getPage());
+                adapter.addItems(results.getPage());
                 adapter.notifyDataSetChanged();
+                isLoading = false;
             } else {
                 Toast.makeText(getContext(), getResources().getString(R.string.nonet),Toast.LENGTH_LONG).show();
             }
@@ -89,9 +93,10 @@ public class GameFragment extends Fragment
     }
 
     public void search(String query) {
+        adapter.clearData();
+        adapter.notifyDataSetChanged();
         searcher.setQuery(query);
         new DownloadGames().execute();
-        recyclerView.smoothScrollToPosition(0);
     }
 
     @Override
@@ -122,20 +127,47 @@ public class GameFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_game_list, container, false);
+        View parent = inflater.inflate(R.layout.fragment_game_list, container, false);
+        View view = parent.findViewById(R.id.list);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
+        if (view instanceof EmptyRecyclerView) {
             Context context = view.getContext();
-            recyclerView = (RecyclerView) view;
+            EmptyRecyclerView recyclerView = (EmptyRecyclerView) view;
+            recyclerView.setEmptyView(parent.findViewById(R.id.empty_games));
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(adapter);
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                }
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+                    if (!isLoading && searcher.getPage() <= results.getPages()) {
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                                && firstVisibleItemPosition >= 0) {
+                            new DownloadGames().execute();
+                        } else {
+                            Log.i("How Long to Beat", "Last page of query");
+                        }
+                    }
+                }
+            });
         }
-        return view;
+        return parent;
     }
 
 

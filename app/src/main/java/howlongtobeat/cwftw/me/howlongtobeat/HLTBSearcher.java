@@ -44,7 +44,7 @@ public class HLTBSearcher {
     private static final String HEADER_RETIRED = "Retired";
 
     // General Results
-    private static final String SELECTOR_PAGES = "span.search_list_page.back_darkish.shadow_box";
+    private static final String SELECTOR_PAGES = "span.search_list_page.shadow_box";
     // Get last page element text
     private static final String SELECTOR_TOTAL_RESULTS = ".head_padding.shadow_box.back_blue";
     /*
@@ -54,56 +54,35 @@ public class HLTBSearcher {
     /*
      * Search URL
      */
-    private static final String BASE_SEARCH_URL = "http://howlongtobeat.com/search_main.php";
+    private static final String BASE_SEARCH_URL = "http://howlongtobeat.com/search_main.php?page=";
     private static final String BASE_IMAGE_URL = "http://howlongtobeat.com/";
 
     private ResultSet resultSet;
-    private ResultSet previousResultSet;
 
     private String query;
     private int page;
-//    private URL url;
-
-
-    public String getQuery() {
-        return query;
-    }
 
     public void setQuery(String query) {
+        setPage(0);
         this.query = query;
     }
-//
-//    public int getPage() {
-//        return page;
-//    }
-//
-//    public void setPage(int page) {
-//        this.page = page;
-//    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
 
     public HLTBSearcher () {
         this.query = "";
-        this.page = 1;
+        this.page = 0;
         resultSet = new ResultSet();
-        previousResultSet = null;
-    }
-
-    public HLTBSearcher (String query) {
-        this.query = query;
-        this.page = 1;
-        resultSet = new ResultSet();
-        previousResultSet = null;
-    }
-
-    public HLTBSearcher (String query, int page) {
-        this.query = query;
-        this.page = page;
-        resultSet = new ResultSet();
-        previousResultSet = null;
     }
 
     public Game getGame(String name, int matchId) throws IOException{
-        Document doc = Jsoup.connect(BASE_SEARCH_URL).data("queryString", name).data("t", "games").data("page", Integer.toString(this.page)).data("sorthead", "name").data("sortd", "Normal Order").data("plat", "").data("detail", "1").post();
+        Document doc = Jsoup.connect(BASE_SEARCH_URL + Integer.toString(this.page)).data("queryString", name).data("t", "games").data("sorthead", "name").data("sortd", "Normal Order").data("plat", "").data("detail", "1").post();
 
         // Get game divs
         Elements gameElements = doc.select(SELECTOR_GAME_CARD);
@@ -119,8 +98,8 @@ public class HLTBSearcher {
 
                 // Get all data elements
                 Elements gameData = gameElement.select(SELECTOR_DATA_MULTI);
-                // Parse and convert all data fields
 
+                // Parse and convert all data fields
                 for (int i = 0; i < gameData.size(); i+=2) {
                     switch (gameData.get(i).text().trim()) {
                         case HEADER_MAIN_STORY:
@@ -152,30 +131,27 @@ public class HLTBSearcher {
                             break;
                         default:
                             // Unknown field
-                            Log.i("UNKNOWN FIELD", gameData.get(i + 1).text());
+                            Log.i("How Long to Beat", "UNKNOWN FIELD: " + gameData.get(i + 1).text());
                             break;
                     }
                 }
                 return game;
             }
         }
-
         // Game not found
         return null;
     }
 
     public ResultSet search () throws IOException {
-//        ResultSet resultSet = new ResultSet();
         ArrayList<Game> games = new ArrayList<Game>();
 
         // Post search form
-        Document doc = Jsoup.connect(BASE_SEARCH_URL).data("queryString", this.query).data("t", "games").data("page", Integer.toString(this.page)).data("sorthead", "popular").data("sortd", "Normal Order").data("plat", "").data("detail", "1").post();
+        Document doc = Jsoup.connect(BASE_SEARCH_URL + Integer.toString(this.page)).data("queryString", this.query).data("t", "games").data("sorthead", "popular").data("sortd", "Normal Order").data("plat", "").data("detail", "1").post();
 
-        // Get general result values
-//        Element pages =
-//        resultSet.setPages();
-        if (previousResultSet == null) {
-            // No previous results
+        Element pages = doc.select(SELECTOR_PAGES).last();
+        Element results = doc.select(SELECTOR_TOTAL_RESULTS).first();
+
+        if (pages != null && results != null) {
             resultSet.setPages((int)parseString(doc.select(SELECTOR_PAGES).last().text()));
             resultSet.setTotalResults((int) parseString(doc.select(SELECTOR_TOTAL_RESULTS).first().text()));
         }
@@ -196,8 +172,8 @@ public class HLTBSearcher {
 
             // Get all data elements
             Elements gameData = gameElement.select(SELECTOR_DATA_MULTI);
-            // Parse and convert all data fields
 
+            // Parse and convert all data fields
             for (int i = 0; i < gameData.size(); i+=2) {
                 switch (gameData.get(i).text().trim()) {
                     case HEADER_MAIN_STORY:
@@ -229,15 +205,13 @@ public class HLTBSearcher {
                         break;
                     default:
                         // Unknown field
-                        Log.i("UNKNOWN FIELD", gameData.get(i + 1).text());
+                        Log.i("How Long to Beat", "UNKNOWN FIELD: " + gameData.get(i + 1).text());
                         break;
                 }
             }
             games.add(game);
         }
-
         resultSet.setPage(games);
-        previousResultSet = resultSet;
         return resultSet;
     }
 

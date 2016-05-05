@@ -199,8 +199,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         try
         {
             SQLiteDatabase db = this.getWritableDatabase();
-//            HLTBSearcher webDb = new HLTBSearcher();
-//            Game game = webDb.getGame(title, id);
             ContentValues values = new ContentValues();
             String[] whereArgs = {Integer.toString(game.getId())};
 

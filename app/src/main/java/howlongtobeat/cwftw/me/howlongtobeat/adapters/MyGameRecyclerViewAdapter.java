@@ -23,7 +23,6 @@ import com.koushikdutta.ion.Ion;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +58,6 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
                 game.setImageBytes(imageData);
                 return game;
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -76,11 +73,6 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
     }
 
     public void addItems(ArrayList<Game> games) {
-        this.mValues.addAll(games);
-    }
-
-    public void setItems(ArrayList<Game> games) {
-        this.mValues.clear();
         this.mValues.addAll(games);
     }
 
@@ -106,6 +98,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         holder.extraItem.setText(Utils.formatData(mValues.get(position).getMainExtraHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
         holder.completionistItem.setText(Utils.formatData(mValues.get(position).getCompletionistHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
         holder.combinedItem.setText(Utils.formatData(mValues.get(position).getCombinedHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
+        holder.txtTitle.setText(mValues.get(position).getTitle());
 
         boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
         if (isFavorited) {
@@ -173,6 +166,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         public final TextView extraItem;
         public final TextView completionistItem;
         public final TextView combinedItem;
+        public final TextView txtTitle;
         public Game mItem;
         public View separator;
 
@@ -186,6 +180,11 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
             completionistItem = (TextView) view.findViewById(R.id.completionistItem);
             combinedItem = (TextView) view.findViewById(R.id.combinedItem);
             separator = view.findViewById(R.id.separator);
+            txtTitle = (TextView)view.findViewById(R.id.txtTitle);
         }
+    }
+
+    public void clearData() {
+        mValues.clear(); //clear list
     }
 }
