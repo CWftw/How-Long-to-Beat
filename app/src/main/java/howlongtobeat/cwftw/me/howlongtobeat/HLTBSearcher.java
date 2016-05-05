@@ -82,7 +82,7 @@ public class HLTBSearcher {
     }
 
     public Game getGame(String name, int matchId) throws IOException{
-        Document doc = Jsoup.connect(BASE_SEARCH_URL + Integer.toString(this.page)).data("queryString", name).data("t", "games").data("sorthead", "name").data("sortd", "Normal Order").data("plat", "").data("detail", "1").post();
+        Document doc = Jsoup.connect(BASE_SEARCH_URL + Integer.toString(this.page)).data("queryString", name).data("t", "games").data("sorthead", "name").data("sortd", "Normal Order").data("plat", "").data("detail", "1").timeout(10*1000).post();
 
         // Get game divs
         Elements gameElements = doc.select(SELECTOR_GAME_CARD);
@@ -146,7 +146,7 @@ public class HLTBSearcher {
         ArrayList<Game> games = new ArrayList<Game>();
 
         // Post search form
-        Document doc = Jsoup.connect(BASE_SEARCH_URL + Integer.toString(this.page)).data("queryString", this.query).data("t", "games").data("sorthead", "popular").data("sortd", "Normal Order").data("plat", "").data("detail", "1").post();
+        Document doc = Jsoup.connect(BASE_SEARCH_URL + Integer.toString(this.page)).data("queryString", this.query).data("t", "games").data("sorthead", "popular").data("sortd", "Normal Order").data("plat", "").data("detail", "1").timeout(10*1000).post();
 
         Element pages = doc.select(SELECTOR_PAGES).last();
         Element results = doc.select(SELECTOR_TOTAL_RESULTS).first();

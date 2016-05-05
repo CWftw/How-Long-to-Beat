@@ -117,6 +117,9 @@ public class GameFragment extends Fragment
 
         if (isVisibleToUser) {
             Log.d("MyFragment", "Fragment is visible.");
+            adapter.clearData();
+            adapter.notifyDataSetChanged();
+            searcher.setPage(0);
             new DownloadGames().execute();
         }
         else {
@@ -160,8 +163,6 @@ public class GameFragment extends Fragment
                         if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                                 && firstVisibleItemPosition >= 0) {
                             new DownloadGames().execute();
-                        } else {
-                            Log.i("How Long to Beat", "Last page of query");
                         }
                     }
                 }
