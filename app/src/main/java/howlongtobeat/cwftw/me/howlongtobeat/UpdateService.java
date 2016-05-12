@@ -70,24 +70,24 @@ public class UpdateService extends Service {
                             try {
                                 Game webGame = webDb.getGame(game.getTitle(), game.getId());
 
-                                if (game.getMainHours() != webGame.getMainHours() ||
-                                        game.getMainExtraHours() != webGame.getMainExtraHours() ||
-                                        game.getCompletionistHours() != webGame.getCompletionistHours() ||
-                                        game.getCombinedHours() != webGame.getCombinedHours()) {
-                                    db.updateGame(game.getId(), webGame);
+                                if (webDb != null) {
+                                    if (game.getMainHours() != webGame.getMainHours() ||
+                                            game.getMainExtraHours() != webGame.getMainExtraHours() ||
+                                            game.getCompletionistHours() != webGame.getCompletionistHours() ||
+                                            game.getCombinedHours() != webGame.getCombinedHours()) {
+                                        db.updateGame(game.getId(), webGame);
 
-                                    if (notifications) {
-                                        sendNotification(game.getTitle() + " has been updated!");
+                                        if (notifications) {
+                                            sendNotification(game.getTitle() + " has been updated!");
+                                        }
                                     }
                                 }
                             } catch (IOException e) {
-                                Log.i("How Long to Beat", e.getMessage());
+                                Log.e("How Long to Beat", "Error updating game: " + game.getTitle(), e);
                             }
                         }
                     }
                 }
-
-
             }
         };
 

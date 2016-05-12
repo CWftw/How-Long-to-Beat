@@ -54,7 +54,7 @@ public class HLTBSearcher {
     /*
      * Search URL
      */
-    private static final String BASE_SEARCH_URL = "http://howlongtobeat.com/search_main.php?page=";
+    private static final String BASE_SEARCH_URL = "http://howlongtobeat.com/search_main.php";
     private static final String BASE_IMAGE_URL = "http://howlongtobeat.com/";
 
     private ResultSet resultSet;
@@ -82,7 +82,7 @@ public class HLTBSearcher {
     }
 
     public Game getGame(String name, int matchId) throws IOException{
-        Document doc = Jsoup.connect(BASE_SEARCH_URL + Integer.toString(this.page)).data("queryString", name).data("t", "games").data("sorthead", "name").data("sortd", "Normal Order").data("plat", "").data("detail", "1").timeout(10*1000).post();
+        Document doc = Jsoup.connect(BASE_SEARCH_URL).data("queryString", name).data("t", "games").data("sorthead", "name").data("sortd", "Normal Order").data("plat", "").data("detail", "1").timeout(10*1000).post();
 
         // Get game divs
         Elements gameElements = doc.select(SELECTOR_GAME_CARD);
@@ -131,7 +131,6 @@ public class HLTBSearcher {
                             break;
                         default:
                             // Unknown field
-                            Log.i("How Long to Beat", "UNKNOWN FIELD: " + gameData.get(i + 1).text());
                             break;
                     }
                 }
@@ -146,7 +145,7 @@ public class HLTBSearcher {
         ArrayList<Game> games = new ArrayList<Game>();
 
         // Post search form
-        Document doc = Jsoup.connect(BASE_SEARCH_URL + Integer.toString(this.page)).data("queryString", this.query).data("t", "games").data("sorthead", "popular").data("sortd", "Normal Order").data("plat", "").data("detail", "1").timeout(10*1000).post();
+        Document doc = Jsoup.connect(BASE_SEARCH_URL + "?page=" + Integer.toString(this.page)).data("queryString", this.query).data("t", "games").data("sorthead", "popular").data("sortd", "Normal Order").data("plat", "").data("detail", "1").timeout(10*1000).post();
 
         Element pages = doc.select(SELECTOR_PAGES).last();
         Element results = doc.select(SELECTOR_TOTAL_RESULTS).first();
@@ -205,7 +204,6 @@ public class HLTBSearcher {
                         break;
                     default:
                         // Unknown field
-                        Log.i("How Long to Beat", "UNKNOWN FIELD: " + gameData.get(i + 1).text());
                         break;
                 }
             }
