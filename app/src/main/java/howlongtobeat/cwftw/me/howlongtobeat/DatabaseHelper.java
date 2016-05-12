@@ -19,12 +19,11 @@ import java.util.ArrayList;
 
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
-public class DatabaseHelper extends SQLiteOpenHelper
-{
+public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "HLTB.db";
     private static final int DATABASE_VERSION = 2;
     private static final String CREATE_TABLE_GAME =
-                    "CREATE TABLE games ( " +
+            "CREATE TABLE games ( " +
                     "id INTEGER," +
                     "title VARCHAR," +
                     "mainHours REAL," +
@@ -43,36 +42,28 @@ public class DatabaseHelper extends SQLiteOpenHelper
     /**
      * Constructor should be private to prevent direct instantiation.
      */
-    private DatabaseHelper(Context context)
-    {
+    private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static synchronized DatabaseHelper getInstance(Context context)
-    {
-        if (instance == null)
-        {
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        if (instance == null) {
             instance = new DatabaseHelper(context.getApplicationContext());
         }
         return instance;
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db)
-    {
-        try
-        {
+    public void onCreate(SQLiteDatabase db) {
+        try {
             db.execSQL(CREATE_TABLE_GAME);
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             Log.e("DatabaseHelper", "onCreate");
         }
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         try {
             db.execSQL("DROP TABLE IF EXISTS games");
             db.execSQL(CREATE_TABLE_GAME);
@@ -82,8 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     }
 
     // Can't surround this with try/catch, need method to throw for the UI
-    public long insertGame(Game game)
-    {
+    public long insertGame(Game game) {
         long id = -1;
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -106,12 +96,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return id;
     }
 
-    public ArrayList<Game> selectGames(String query)
-    {
+    public ArrayList<Game> selectGames(String query) {
         ArrayList<Game> games = new ArrayList<Game>();
 
-        try
-        {
+        try {
             SQLiteDatabase db = this.getReadableDatabase();
             String selectQuery;
             Cursor c;
@@ -122,14 +110,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 c = db.rawQuery(selectQuery, null);
             } else {
                 selectQuery = "SELECT * FROM games WHERE title LIKE '%?%'";
-                c = db.rawQuery(selectQuery, new String[] {query});
+                c = db.rawQuery(selectQuery, new String[]{query});
             }
 
             // looping through all rows and adding to list
-            if (c.moveToFirst())
-            {
-                do
-                {
+            if (c.moveToFirst()) {
+                do {
                     Game game = new Game();
                     game.setId(c.getInt(c.getColumnIndex("id")));
                     game.setTitle(c.getString(c.getColumnIndex("title")));
@@ -148,27 +134,22 @@ public class DatabaseHelper extends SQLiteOpenHelper
                     games.add(game);
                 } while (c.moveToNext());
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.e("DatabaseHelper", "selectGames");
         }
-        
+
         return games;
     }
 
-    public Game selectGame(int id)
-    {
+    public Game selectGame(int id) {
         Game game = null;
 
-        try
-        {
+        try {
             SQLiteDatabase db = this.getReadableDatabase();
             String selectQuery = "SELECT * FROM games WHERE id = " + id;
             Cursor c = db.rawQuery(selectQuery, null);
 
-            if (c.moveToFirst())
-            {
+            if (c.moveToFirst()) {
                 game = new Game();
 
                 game.setId(c.getInt(c.getColumnIndex("id")));
@@ -184,9 +165,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 game.setRetired(c.getDouble(c.getColumnIndex("retired")));
                 game.setImageBytes(c.getBlob(c.getColumnIndex("image")));
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.e("DatabaseHelper", "selectGame");
             return null;
         }
@@ -194,12 +173,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return game;
     }
 
-    public int updateGame(int id, Game game)
-    {
+    public int updateGame(int id, Game game) {
         int rowCount = 0;
 
-        try
-        {
+        try {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
             String[] whereArgs = {Integer.toString(game.getId())};
@@ -216,27 +193,21 @@ public class DatabaseHelper extends SQLiteOpenHelper
             values.put("retired", game.getRetired());
 
             db.update("games", values, "id = ?", whereArgs);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.e("DatabaseHelper", "selectGame");
         }
 
         return rowCount;
     }
 
-    public boolean deleteGame(int id)
-    {
+    public boolean deleteGame(int id) {
         boolean deleteSuccessful = false;
 
-        try
-        {
+        try {
             SQLiteDatabase db = this.getWritableDatabase();
             deleteSuccessful = db.delete("games", "id ='" + id + "'", null) > 0;
             db.close();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.e("DatabaseHelper", "deleteGame");
         }
 

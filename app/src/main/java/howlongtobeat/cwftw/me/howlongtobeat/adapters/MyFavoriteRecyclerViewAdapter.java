@@ -65,7 +65,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
             holder.favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
         }
 
-        if (position == mValues.size()-1) {
+        if (position == mValues.size() - 1) {
             holder.separator.setVisibility(View.INVISIBLE);
         } else {
             holder.separator.setVisibility(View.VISIBLE);
@@ -109,7 +109,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
             completionistItem = (TextView) view.findViewById(R.id.completionistItem);
             combinedItem = (TextView) view.findViewById(R.id.combinedItem);
             separator = view.findViewById(R.id.separator);
-            txtTitle = (TextView)view.findViewById(R.id.txtTitle);
+            txtTitle = (TextView) view.findViewById(R.id.txtTitle);
         }
     }
 }

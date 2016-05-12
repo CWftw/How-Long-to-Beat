@@ -94,9 +94,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(SettingsActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.GeneralPreferenceFragment.class.getName());
             intent.putExtra(SettingsActivity.EXTRA_NO_HEADERS, true);
             startActivity(intent);
-        }
-        else if(id == R.id.action_search)
-        {
+        } else if (id == R.id.action_search) {
             AlertDialog.Builder search = new AlertDialog.Builder(this);
             search.setTitle(getResources().getString(R.string.search));
             search.setMessage(getResources().getString(R.string.searchGame));
@@ -105,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             input.setSingleLine();
 
             FrameLayout container = new FrameLayout(this);
-            FrameLayout.LayoutParams params = new  FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
             params.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
             input.setLayoutParams(params);

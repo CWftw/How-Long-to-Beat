@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +33,7 @@ import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 /**
  * A fragment representing a list of Items.
  */
-public class GameFragment extends Fragment
-{
+public class GameFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 2;
     private MyGameRecyclerViewAdapter adapter;
@@ -47,40 +47,6 @@ public class GameFragment extends Fragment
      * fragment (e.g. upon screen orientation changes).
      */
     public GameFragment() {
-    }
-
-    private class DownloadGames extends AsyncTask {
-        @Override
-        protected Object doInBackground(Object[] params) {
-            try {
-                isLoading = true;
-                searcher.setPage(searcher.getPage() + 1);
-                results = searcher.search();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(Object o) {
-            if (results != null) {
-                adapter.addItems(results.getPage());
-                adapter.notifyDataSetChanged();
-                isLoading = false;
-
-                if (searcher.getPage() == 1) {
-                    recyclerView.scrollToPosition(0);
-                }
-            } else {
-                Toast.makeText(getContext(), getResources().getString(R.string.nonet),Toast.LENGTH_LONG).show();
-            }
-        }
     }
 
     @SuppressWarnings("unused")
@@ -155,5 +121,51 @@ public class GameFragment extends Fragment
             });
         }
         return parent;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isVisibleToUser) {
+            Log.d("GameFragment", "Fragment is visible.");
+            adapter.notifyDataSetChanged();
+        } else {
+            Log.d("GameFragment", "Fragment is not visible.");
+        }
+    }
+
+    private class DownloadGames extends AsyncTask {
+        @Override
+        protected Object doInBackground(Object[] params) {
+            try {
+                isLoading = true;
+                searcher.setPage(searcher.getPage() + 1);
+                results = searcher.search();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            if (results != null) {
+                adapter.addItems(results.getPage());
+                adapter.notifyDataSetChanged();
+                isLoading = false;
+
+                if (searcher.getPage() == 1) {
+                    recyclerView.scrollToPosition(0);
+                }
+            } else {
+                Toast.makeText(getContext(), getResources().getString(R.string.nonet), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

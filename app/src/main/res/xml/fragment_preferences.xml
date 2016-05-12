@@ -1,16 +1,14 @@
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="howlongtobeat.cwftw.me.howlongtobeat.Preferences">
 
-    <PreferenceCategory
-        android:title="@string/updating">
+    <PreferenceCategory android:title="@string/updating">
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="pref_backUpdate"
-            android:title="@string/backUpdate"/>
+            android:title="@string/backUpdate" />
 
         <CheckBoxPreference
             android:defaultValue="false"
@@ -19,19 +17,16 @@
             android:dependency="pref_backUpdate" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/notifications" >
+    <PreferenceCategory android:title="@string/notifications">
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="pref_notifications"
             android:title="@string/notificationsCheck" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/about" >
+    <PreferenceCategory android:title="@string/about">
         <Preference
             android:key="@string/credits"
-            android:title="@string/credits">
-        </Preference>
+            android:title="@string/credits"></Preference>
     </PreferenceCategory>
 </PreferenceScreen>

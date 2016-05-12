@@ -7,8 +7,6 @@
 
 package howlongtobeat.cwftw.me.howlongtobeat;
 
-import android.util.Log;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -75,24 +73,24 @@ public class HLTBSearcher {
         this.page = page;
     }
 
-    public HLTBSearcher () {
+    public HLTBSearcher() {
         this.query = "";
         this.page = 0;
         resultSet = new ResultSet();
     }
 
-    public Game getGame(String name, int matchId) throws IOException{
-        Document doc = Jsoup.connect(BASE_SEARCH_URL).data("queryString", name).data("t", "games").data("sorthead", "name").data("sortd", "Normal Order").data("plat", "").data("detail", "1").timeout(10*1000).post();
+    public Game getGame(String name, int matchId) throws IOException {
+        Document doc = Jsoup.connect(BASE_SEARCH_URL).data("queryString", name).data("t", "games").data("sorthead", "name").data("sortd", "Normal Order").data("plat", "").data("detail", "1").timeout(10 * 1000).post();
 
         // Get game divs
         Elements gameElements = doc.select(SELECTOR_GAME_CARD);
 
         for (Element gameElement : gameElements) {
-            int id = (int)parseString(gameElement.select(SELECTOR_ID).first().attr("href"));
+            int id = (int) parseString(gameElement.select(SELECTOR_ID).first().attr("href"));
             if (id == matchId) {
                 Game game = new Game();
 
-                game.setId((int)parseString(gameElement.select(SELECTOR_ID).first().attr("href")));
+                game.setId((int) parseString(gameElement.select(SELECTOR_ID).first().attr("href")));
                 game.setTitle(gameElement.select(SELECTOR_TITLE).first().attr("title"));
                 game.setImageUrl(BASE_IMAGE_URL + gameElement.select(SELECTOR_IMAGE_URL).first().attr("src"));
 
@@ -100,7 +98,7 @@ public class HLTBSearcher {
                 Elements gameData = gameElement.select(SELECTOR_DATA_MULTI);
 
                 // Parse and convert all data fields
-                for (int i = 0; i < gameData.size(); i+=2) {
+                for (int i = 0; i < gameData.size(); i += 2) {
                     switch (gameData.get(i).text().trim()) {
                         case HEADER_MAIN_STORY:
                             game.setMainHours(parseString(gameData.get(i + 1).text()));
@@ -141,17 +139,17 @@ public class HLTBSearcher {
         return null;
     }
 
-    public ResultSet search () throws IOException {
+    public ResultSet search() throws IOException {
         ArrayList<Game> games = new ArrayList<Game>();
 
         // Post search form
-        Document doc = Jsoup.connect(BASE_SEARCH_URL + "?page=" + Integer.toString(this.page)).data("queryString", this.query).data("t", "games").data("sorthead", "popular").data("sortd", "Normal Order").data("plat", "").data("detail", "1").timeout(10*1000).post();
+        Document doc = Jsoup.connect(BASE_SEARCH_URL + "?page=" + Integer.toString(this.page)).data("queryString", this.query).data("t", "games").data("sorthead", "popular").data("sortd", "Normal Order").data("plat", "").data("detail", "1").timeout(10 * 1000).post();
 
         Element pages = doc.select(SELECTOR_PAGES).last();
         Element results = doc.select(SELECTOR_TOTAL_RESULTS).first();
 
         if (pages != null && results != null) {
-            resultSet.setPages((int)parseString(doc.select(SELECTOR_PAGES).last().text()));
+            resultSet.setPages((int) parseString(doc.select(SELECTOR_PAGES).last().text()));
             resultSet.setTotalResults((int) parseString(doc.select(SELECTOR_TOTAL_RESULTS).first().text()));
         }
 
@@ -173,7 +171,7 @@ public class HLTBSearcher {
             Elements gameData = gameElement.select(SELECTOR_DATA_MULTI);
 
             // Parse and convert all data fields
-            for (int i = 0; i < gameData.size(); i+=2) {
+            for (int i = 0; i < gameData.size(); i += 2) {
                 switch (gameData.get(i).text().trim()) {
                     case HEADER_MAIN_STORY:
                         game.setMainHours(parseString(gameData.get(i + 1).text()));

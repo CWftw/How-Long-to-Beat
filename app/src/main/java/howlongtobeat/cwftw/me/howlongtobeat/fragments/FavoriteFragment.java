@@ -65,11 +65,10 @@ public class FavoriteFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser) {
-            Log.d("MyFragment", "Fragment is visible.");
+            Log.d("FavoriteFragment", "Fragment is visible.");
             updateList();
-        }
-        else {
-            Log.d("MyFragment", "Fragment is not visible.");
+        } else {
+            Log.d("FavoriteFragment", "Fragment is not visible.");
         }
     }
 
