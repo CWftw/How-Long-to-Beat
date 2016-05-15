@@ -121,6 +121,7 @@ public class UpdateService extends Service {
         nBuilder.setContentTitle("How Long to Beat");
         nBuilder.setContentText(text);
         nBuilder.setContentIntent(pIntent);
+        nBuilder.setAutoCancel(true);
 
         Notification notification = nBuilder.build();
 
