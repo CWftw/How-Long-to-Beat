@@ -180,7 +180,7 @@ public class GameFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Object o) {
-            if (results != null && networkError == false) {
+            if (results != null && !networkError) {
                 // Remove progress indicator
                 removeProgressbar();
 

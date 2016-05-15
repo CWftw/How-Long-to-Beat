@@ -3,7 +3,6 @@
     <string name="settings">Settings</string>
     <string name="backUpdate">Update in background?</string>
     <string name="notificationsCheck">Receive Notifications?</string>
-    <string name="save">Save</string>
     <string name="cancel">Close</string>
     <string name="pluggedIn">Only when plugged in?</string>
     <string name="updating">Updates</string>

@@ -27,6 +27,6 @@
     <PreferenceCategory android:title="@string/about">
         <Preference
             android:key="@string/credits"
-            android:title="@string/credits"></Preference>
+            android:title="@string/credits"/>
     </PreferenceCategory>
 </PreferenceScreen>
