@@ -36,6 +36,7 @@ import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
  */
 public class GameFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final int VISIBLE_THRESHOLD = 0;
     private SwipeRefreshLayout swipeContainer;
     private int mColumnCount = 2;
     private MyGameRecyclerViewAdapter adapter;
@@ -43,6 +44,7 @@ public class GameFragment extends Fragment {
     private HLTBSearcher searcher;
     private EmptyRecyclerView recyclerView;
     private boolean isLoading = false;
+    private boolean networkError = false;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -111,11 +113,11 @@ public class GameFragment extends Fragment {
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     int visibleItemCount = layoutManager.getChildCount();
                     int totalItemCount = layoutManager.getItemCount();
-                    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                    int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
                     if (!isLoading && searcher.getPage() <= results.getPages()) {
-                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-                                && firstVisibleItemPosition >= 0) {
+                        if ((totalItemCount - visibleItemCount)
+                                <= (firstVisibleItem + VISIBLE_THRESHOLD)) {
                             adapter.addItem(null);
                             adapter.notifyItemInserted(adapter.getItemCount() - 1);
                             new DownloadGames().execute();
@@ -151,6 +153,13 @@ public class GameFragment extends Fragment {
         }
     }
 
+    private void removeProgressbar() {
+        if (adapter.getItemCount() > 0 && adapter.getItem(adapter.getItemCount() - 1) == null) {
+            adapter.removeItem(adapter.getItemCount() - 1);
+            adapter.notifyItemRemoved(adapter.getItemCount());
+        }
+    }
+
     private class DownloadGames extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] params) {
@@ -159,6 +168,7 @@ public class GameFragment extends Fragment {
                 searcher.setPage(searcher.getPage() + 1);
                 results = searcher.search();
             } catch (IOException e) {
+                networkError = true;
                 e.printStackTrace();
             }
             return null;
@@ -171,24 +181,25 @@ public class GameFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Object o) {
-            if (results != null) {
+            if (results != null && networkError == false) {
                 // Remove progress indicator
-                if (adapter.getItemCount() > 0 && adapter.getItem(adapter.getItemCount() - 1) == null) {
-                    adapter.removeItem(adapter.getItemCount() - 1);
-                    adapter.notifyItemRemoved(adapter.getItemCount());
-                }
+                removeProgressbar();
 
                 adapter.addItems(results.getPage());
                 adapter.notifyDataSetChanged();
-                isLoading = false;
-                swipeContainer.setRefreshing(false);
 
                 if (searcher.getPage() == 1) {
                     recyclerView.scrollToPosition(0);
                 }
             } else {
-                Toast.makeText(getContext(), getResources().getString(R.string.nonet), Toast.LENGTH_LONG).show();
+                searcher.setPage(searcher.getPage() - 1);
+                Toast.makeText(getContext(), getResources().getString(R.string.nonet), Toast.LENGTH_SHORT).show();
             }
+
+            removeProgressbar();
+            swipeContainer.setRefreshing(false);
+            isLoading = false;
+            networkError = false;
         }
     }
 }

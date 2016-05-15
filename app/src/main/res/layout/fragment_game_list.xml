@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipeContainer"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clickable="true">
 
         <howlongtobeat.cwftw.me.howlongtobeat.EmptyRecyclerView
             android:id="@+id/list"
@@ -18,13 +20,13 @@
             app:layoutManager="LinearLayoutManager"
             tools:context=".fragments.GameFragment"
             tools:listitem="@layout/game_item" />
-    </android.support.v4.widget.SwipeRefreshLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/empty_games"
-        android:id="@+id/empty_games"
-        android:gravity="center" />
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/empty_games"
+            android:id="@+id/empty_games"
+            android:gravity="center" />
+    </FrameLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
