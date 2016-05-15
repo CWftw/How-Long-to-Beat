@@ -98,11 +98,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<Game> selectGames(String query) {
         ArrayList<Game> games = new ArrayList<Game>();
+        Cursor c = null;
 
         try {
             SQLiteDatabase db = this.getReadableDatabase();
             String selectQuery;
-            Cursor c;
 
             if (query == "") {
                 // Select all
@@ -136,6 +136,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         } catch (Exception e) {
             Log.e("DatabaseHelper", "selectGames");
+        } finally {
+            if (c != null) {
+                c.close();
+            }
         }
 
         return games;
@@ -143,11 +147,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Game selectGame(int id) {
         Game game = null;
+        Cursor c = null;
 
         try {
             SQLiteDatabase db = this.getReadableDatabase();
             String selectQuery = "SELECT * FROM games WHERE id = " + id;
-            Cursor c = db.rawQuery(selectQuery, null);
+            c = db.rawQuery(selectQuery, null);
 
             if (c.moveToFirst()) {
                 game = new Game();
@@ -168,6 +173,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             Log.e("DatabaseHelper", "selectGame");
             return null;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
         }
 
         return game;

@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -193,7 +192,6 @@ public class GameFragment extends Fragment {
                 }
             } else {
                 searcher.setPage(searcher.getPage() - 1);
-                Toast.makeText(getContext(), getResources().getString(R.string.nonet), Toast.LENGTH_SHORT).show();
             }
 
             removeProgressbar();
