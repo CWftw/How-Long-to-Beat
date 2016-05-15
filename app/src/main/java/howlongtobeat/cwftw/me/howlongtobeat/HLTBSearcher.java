@@ -65,6 +65,10 @@ public class HLTBSearcher {
         this.query = query;
     }
 
+    public String getQuery() {
+        return query;
+    }
+
     public int getPage() {
         return page;
     }

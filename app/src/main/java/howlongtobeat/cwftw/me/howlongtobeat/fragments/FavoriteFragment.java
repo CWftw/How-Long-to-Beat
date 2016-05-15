@@ -10,6 +10,7 @@ package howlongtobeat.cwftw.me.howlongtobeat.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -30,6 +31,7 @@ import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
  */
 public class FavoriteFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private SwipeRefreshLayout swipeContainer;
     private int mColumnCount = 2;
     private MyFavoriteRecyclerViewAdapter adapter;
 
@@ -76,6 +78,7 @@ public class FavoriteFragment extends Fragment {
         ArrayList<Game> games = DatabaseHelper.getInstance(getContext()).selectGames("");
         adapter.setItems(games);
         adapter.notifyDataSetChanged();
+        swipeContainer.setRefreshing(false);
     }
 
     @Override
@@ -95,6 +98,17 @@ public class FavoriteFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(adapter);
+
+            swipeContainer = (SwipeRefreshLayout) parent.findViewById(R.id.swipeContainer);
+            // Setup refresh listener which triggers new data loading
+            swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    updateList();
+                }
+            });
+
+            swipeContainer.setColorSchemeResources(R.color.colorPrimary);
         }
         return parent;
     }

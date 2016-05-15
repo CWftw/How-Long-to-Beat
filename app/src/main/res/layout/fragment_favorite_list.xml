@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <howlongtobeat.cwftw.me.howlongtobeat.EmptyRecyclerView
-        android:id="@+id/list"
-        android:name="howlongtobeat.cwftw.me.howlongtobeat.FavoriteFragment"
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        tools:context=".fragments.FavoriteFragment"
-        tools:listitem="@layout/game_item" />
+        android:layout_height="match_parent">
+
+        <howlongtobeat.cwftw.me.howlongtobeat.EmptyRecyclerView
+            android:id="@+id/list"
+            android:name="howlongtobeat.cwftw.me.howlongtobeat.FavoriteFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".fragments.FavoriteFragment"
+            tools:listitem="@layout/game_item" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -22,4 +28,4 @@
         android:text="@string/empty_favorites"
         android:id="@+id/empty_favorites"
         android:gravity="center" />
-</LinearLayout>
+</FrameLayout>

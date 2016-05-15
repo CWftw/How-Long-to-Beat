@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.koushikdutta.ion.Ion;
@@ -32,8 +33,10 @@ import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.Utils;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
-public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecyclerViewAdapter.ViewHolder> {
+public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
 
+    private final int VIEW_ITEM = 1;
+    private final int VIEW_PROG = 0;
     private final List<Game> mValues;
     private Context context;
 
@@ -72,58 +75,90 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         this.mValues.addAll(games);
     }
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.game_item, parent, false);
-        return new ViewHolder(view);
+    public void addItem(Game game) {
+        this.mValues.add(game);
+    }
+
+    public void removeItem(int index) {
+        this.mValues.remove(index);
+    }
+
+    public Game getItem(int index) {
+        return this.mValues.get(index);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.mItem = mValues.get(position);
+    public int getItemViewType(int position) {
+        return mValues.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+    }
 
-        // Asynchronously load image with Ion library
-        Ion.with(holder.gameItemImg)
-                // use a placeholder image
-                .placeholder(R.mipmap.ic_launcher)
-                // load the url
-                .load(mValues.get(position).getImageUrl());
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        RecyclerView.ViewHolder vh;
 
-        holder.mainStoryItem.setText(Utils.formatData(mValues.get(position).getMainHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
-        holder.extraItem.setText(Utils.formatData(mValues.get(position).getMainExtraHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
-        holder.completionistItem.setText(Utils.formatData(mValues.get(position).getCompletionistHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
-        holder.combinedItem.setText(Utils.formatData(mValues.get(position).getCombinedHours(), Utils.FormatTypes.HOURS, holder.gameItemImg.getContext()));
-        holder.txtTitle.setText(mValues.get(position).getTitle());
+        if (viewType == VIEW_ITEM) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.game_item, parent, false);
 
-        boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
-        if (isFavorited) {
-            holder.favoritedImg.setImageResource(R.drawable.ic_toggle_star);
+            vh = new GameViewHolder(v);
         } else {
-            holder.favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
+            View v = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.layout_loading_item, parent, false);
+
+            vh = new ProgressViewHolder(v);
         }
+        return vh;
+    }
 
-        if (position == mValues.size() - 1) {
-            holder.separator.setVisibility(View.INVISIBLE);
-        } else {
-            holder.separator.setVisibility(View.VISIBLE);
-        }
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        if (holder instanceof GameViewHolder) {
+            ((GameViewHolder)holder).mItem = mValues.get(position);
 
-        holder.favoritedImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("INFO", "Image Clicked");
-                boolean isFavorited = DatabaseHelper.getInstance(holder.gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
+            // Asynchronously load image with Ion library
+            Ion.with(((GameViewHolder)holder).gameItemImg)
+                    // use a placeholder image
+                    .placeholder(R.mipmap.ic_launcher)
+                    // load the url
+                    .load(mValues.get(position).getImageUrl());
 
-                if (!isFavorited) {
-                    holder.favoritedImg.setImageResource(R.drawable.ic_toggle_star);
-                    new LoadImageFromURL().execute(holder.mItem);
-                } else {
-                    holder.favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
-                    DatabaseHelper.getInstance(holder.gameItemImg.getContext()).deleteGame(holder.mItem.getId());
-                }
+            ((GameViewHolder)holder).mainStoryItem.setText(Utils.formatData(mValues.get(position).getMainHours(), Utils.FormatTypes.HOURS, ((GameViewHolder)holder).gameItemImg.getContext()));
+            ((GameViewHolder)holder).extraItem.setText(Utils.formatData(mValues.get(position).getMainExtraHours(), Utils.FormatTypes.HOURS, ((GameViewHolder)holder).gameItemImg.getContext()));
+            ((GameViewHolder)holder).completionistItem.setText(Utils.formatData(mValues.get(position).getCompletionistHours(), Utils.FormatTypes.HOURS, ((GameViewHolder)holder).gameItemImg.getContext()));
+            ((GameViewHolder)holder).combinedItem.setText(Utils.formatData(mValues.get(position).getCombinedHours(), Utils.FormatTypes.HOURS, ((GameViewHolder)holder).gameItemImg.getContext()));
+            ((GameViewHolder)holder).txtTitle.setText(mValues.get(position).getTitle());
+
+            boolean isFavorited = DatabaseHelper.getInstance(((GameViewHolder)holder).gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
+            if (isFavorited) {
+                ((GameViewHolder)holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star);
+            } else {
+                ((GameViewHolder)holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
             }
-        });
+
+            if (position == mValues.size() - 1) {
+                ((GameViewHolder)holder).separator.setVisibility(View.INVISIBLE);
+            } else {
+                ((GameViewHolder)holder).separator.setVisibility(View.VISIBLE);
+            }
+
+            ((GameViewHolder)holder).favoritedImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("INFO", "Image Clicked");
+                    boolean isFavorited = DatabaseHelper.getInstance(((GameViewHolder)holder).gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
+
+                    if (!isFavorited) {
+                        ((GameViewHolder)holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star);
+                        new LoadImageFromURL().execute(((GameViewHolder)holder).mItem);
+                    } else {
+                        ((GameViewHolder)holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
+                        DatabaseHelper.getInstance(((GameViewHolder)holder).gameItemImg.getContext()).deleteGame(((GameViewHolder)holder).mItem.getId());
+                    }
+                }
+            });
+        } else {
+            ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
+        }
     }
 
     public byte[] getBytes(InputStream inputStream) throws IOException {
@@ -143,7 +178,11 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void clearData() {
+        mValues.clear(); //clear list
+    }
+
+    public class GameViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final ImageView gameItemImg;
         public final ImageButton favoritedImg;
@@ -155,7 +194,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         public Game mItem;
         public View separator;
 
-        public ViewHolder(View view) {
+        public GameViewHolder(View view) {
             super(view);
             mView = view;
             gameItemImg = (ImageView) view.findViewById(R.id.gameItemImg);
@@ -169,7 +208,12 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         }
     }
 
-    public void clearData() {
-        mValues.clear(); //clear list
+    public static class ProgressViewHolder extends RecyclerView.ViewHolder {
+        public ProgressBar progressBar;
+
+        public ProgressViewHolder(View v) {
+            super(v);
+            progressBar = (ProgressBar) v.findViewById(R.id.progressBar1);
+        }
     }
 }

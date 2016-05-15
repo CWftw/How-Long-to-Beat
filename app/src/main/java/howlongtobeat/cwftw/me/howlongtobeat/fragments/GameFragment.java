@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +36,7 @@ import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
  */
 public class GameFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private SwipeRefreshLayout swipeContainer;
     private int mColumnCount = 2;
     private MyGameRecyclerViewAdapter adapter;
     private ResultSet results;
@@ -114,11 +116,25 @@ public class GameFragment extends Fragment {
                     if (!isLoading && searcher.getPage() <= results.getPages()) {
                         if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                                 && firstVisibleItemPosition >= 0) {
+                            adapter.addItem(null);
+                            adapter.notifyItemInserted(adapter.getItemCount() - 1);
                             new DownloadGames().execute();
                         }
                     }
                 }
             });
+
+            swipeContainer = (SwipeRefreshLayout) parent.findViewById(R.id.swipeContainer);
+            // Setup refresh listener which triggers new data loading
+            swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    search(searcher.getQuery());
+                }
+            });
+
+            swipeContainer.setColorSchemeResources(R.color.colorPrimary);
+
         }
         return parent;
     }
@@ -156,9 +172,16 @@ public class GameFragment extends Fragment {
         @Override
         protected void onPostExecute(Object o) {
             if (results != null) {
+                // Remove progress indicator
+                if (adapter.getItemCount() > 0 && adapter.getItem(adapter.getItemCount() - 1) == null) {
+                    adapter.removeItem(adapter.getItemCount() - 1);
+                    adapter.notifyItemRemoved(adapter.getItemCount());
+                }
+
                 adapter.addItems(results.getPage());
                 adapter.notifyDataSetChanged();
                 isLoading = false;
+                swipeContainer.setRefreshing(false);
 
                 if (searcher.getPage() == 1) {
                     recyclerView.scrollToPosition(0);
