@@ -12,9 +12,9 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
+            android:dependency="pref_backUpdate"
             android:key="pref_pluggedIn"
-            android:title="@string/pluggedIn"
-            android:dependency="pref_backUpdate" />
+            android:title="@string/pluggedIn" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/notifications">
@@ -27,6 +27,6 @@
     <PreferenceCategory android:title="@string/about">
         <Preference
             android:key="@string/credits"
-            android:title="@string/credits"/>
+            android:title="@string/credits" />
     </PreferenceCategory>
 </PreferenceScreen>

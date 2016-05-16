@@ -13,10 +13,6 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 
 public class Utils {
-    public enum FormatTypes {
-        HOURS, PERCENT
-    }
-
     public static boolean isPluggedIn(Context context) {
         Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
@@ -45,5 +41,9 @@ public class Utils {
         }
 
         return output;
+    }
+
+    public enum FormatTypes {
+        HOURS, PERCENT
     }
 }

@@ -45,32 +45,6 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
         this.context = context;
     }
 
-    public class LoadImageFromURL extends AsyncTask<Game, Void, Game> {
-
-        @Override
-        protected Game doInBackground(Game... params) {
-            Game game = params[0];
-
-            try {
-                URL url = new URL(game.getImageUrl());
-                InputStream is = url.openConnection().getInputStream();
-                byte[] imageData = getBytes(is);
-                game.setImageBytes(imageData);
-                return game;
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Game result) {
-            DatabaseHelper.getInstance(context).insertGame(result);
-        }
-    }
-
     public void addItems(ArrayList<Game> games) {
         this.mValues.addAll(games);
     }
@@ -182,6 +156,41 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
         mValues.clear(); //clear list
     }
 
+    public static class ProgressViewHolder extends RecyclerView.ViewHolder {
+        public ProgressBar progressBar;
+
+        public ProgressViewHolder(View v) {
+            super(v);
+            progressBar = (ProgressBar) v.findViewById(R.id.progressBar1);
+        }
+    }
+
+    public class LoadImageFromURL extends AsyncTask<Game, Void, Game> {
+
+        @Override
+        protected Game doInBackground(Game... params) {
+            Game game = params[0];
+
+            try {
+                URL url = new URL(game.getImageUrl());
+                InputStream is = url.openConnection().getInputStream();
+                byte[] imageData = getBytes(is);
+                game.setImageBytes(imageData);
+                return game;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Game result) {
+            DatabaseHelper.getInstance(context).insertGame(result);
+        }
+    }
+
     public class GameViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final ImageView gameItemImg;
@@ -205,15 +214,6 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
             combinedItem = (TextView) view.findViewById(R.id.combinedItem);
             separator = view.findViewById(R.id.separator);
             txtTitle = (TextView) view.findViewById(R.id.txtTitle);
-        }
-    }
-
-    public static class ProgressViewHolder extends RecyclerView.ViewHolder {
-        public ProgressBar progressBar;
-
-        public ProgressViewHolder(View v) {
-            super(v);
-            progressBar = (ProgressBar) v.findViewById(R.id.progressBar1);
         }
     }
 }

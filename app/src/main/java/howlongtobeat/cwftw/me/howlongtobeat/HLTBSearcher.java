@@ -60,13 +60,19 @@ public class HLTBSearcher {
     private String query;
     private int page;
 
-    public void setQuery(String query) {
-        setPage(0);
-        this.query = query;
+    public HLTBSearcher() {
+        this.query = "";
+        this.page = 0;
+        resultSet = new ResultSet();
     }
 
     public String getQuery() {
         return query;
+    }
+
+    public void setQuery(String query) {
+        setPage(0);
+        this.query = query;
     }
 
     public int getPage() {
@@ -75,12 +81,6 @@ public class HLTBSearcher {
 
     public void setPage(int page) {
         this.page = page;
-    }
-
-    public HLTBSearcher() {
-        this.query = "";
-        this.page = 0;
-        resultSet = new ResultSet();
     }
 
     public Game getGame(String name, int matchId) throws IOException {
