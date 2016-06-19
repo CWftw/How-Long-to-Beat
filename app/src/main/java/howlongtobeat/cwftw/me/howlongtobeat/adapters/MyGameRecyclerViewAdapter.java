@@ -39,6 +39,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
     private final int VIEW_PROG = 0;
     private final List<Game> mValues;
     private Context context;
+    private FavoriteToggledCallback callback;
 
     public MyGameRecyclerViewAdapter(List<Game> items, Context context) {
         mValues = items;
@@ -131,6 +132,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
                     } else {
                         ((GameViewHolder) holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
                         DatabaseHelper.getInstance(((GameViewHolder) holder).gameItemImg.getContext()).deleteGame(((GameViewHolder) holder).mItem.getId());
+                        callback.favoriteToggled();
                     }
                 }
             });
@@ -158,6 +160,14 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
 
     public void clearData() {
         mValues.clear(); //clear list
+    }
+
+    public void setCallback(FavoriteToggledCallback callback) {
+        this.callback = callback;
+    }
+
+    public interface FavoriteToggledCallback {
+        void favoriteToggled();
     }
 
     public static class ProgressViewHolder extends RecyclerView.ViewHolder {
@@ -192,6 +202,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
         @Override
         protected void onPostExecute(Game result) {
             DatabaseHelper.getInstance(context).insertGame(result);
+            callback.favoriteToggled();
         }
     }
 

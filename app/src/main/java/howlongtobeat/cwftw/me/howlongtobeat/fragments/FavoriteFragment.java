@@ -13,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,6 @@ public class FavoriteFragment extends Fragment {
     private SwipeRefreshLayout swipeContainer;
     private int mColumnCount = 2;
     private MyFavoriteRecyclerViewAdapter adapter;
-    private boolean isViewShown = false;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -63,24 +61,7 @@ public class FavoriteFragment extends Fragment {
         adapter = new MyFavoriteRecyclerViewAdapter(new ArrayList<Game>());
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (isVisibleToUser) {
-            Log.d("FavoriteFragment", "Fragment is visible.");
-            if (getView() != null) {
-                isViewShown = true;
-                updateList();
-            } else {
-                isViewShown = false;
-            }
-        } else {
-            Log.d("FavoriteFragment", "Fragment is not visible.");
-        }
-    }
-
-    private void updateList() {
+    public void updateList() {
         ArrayList<Game> games = DatabaseHelper.getInstance(getContext()).selectGames("");
         adapter.setItems(games);
         adapter.notifyDataSetChanged();
@@ -115,10 +96,6 @@ public class FavoriteFragment extends Fragment {
             });
 
             swipeContainer.setColorSchemeResources(R.color.colorPrimary);
-
-            if (!isViewShown) {
-                updateList();
-            }
         }
         return parent;
     }

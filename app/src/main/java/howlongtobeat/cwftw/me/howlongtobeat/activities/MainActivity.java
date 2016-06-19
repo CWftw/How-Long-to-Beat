@@ -26,10 +26,11 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import howlongtobeat.cwftw.me.howlongtobeat.R;
+import howlongtobeat.cwftw.me.howlongtobeat.adapters.MyGameRecyclerViewAdapter;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.FavoriteFragment;
 import howlongtobeat.cwftw.me.howlongtobeat.fragments.GameFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MyGameRecyclerViewAdapter.FavoriteToggledCallback {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -133,6 +134,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void favoriteToggled() {
+        favoriteFragment.updateList();
     }
 
     /**

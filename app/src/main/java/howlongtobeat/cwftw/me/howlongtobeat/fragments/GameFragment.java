@@ -27,6 +27,7 @@ import howlongtobeat.cwftw.me.howlongtobeat.EmptyRecyclerView;
 import howlongtobeat.cwftw.me.howlongtobeat.HLTBSearcher;
 import howlongtobeat.cwftw.me.howlongtobeat.R;
 import howlongtobeat.cwftw.me.howlongtobeat.ResultSet;
+import howlongtobeat.cwftw.me.howlongtobeat.activities.MainActivity;
 import howlongtobeat.cwftw.me.howlongtobeat.adapters.MyGameRecyclerViewAdapter;
 import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 
@@ -77,6 +78,7 @@ public class GameFragment extends Fragment {
         }
 
         adapter = new MyGameRecyclerViewAdapter(new ArrayList<Game>(), getActivity());
+        adapter.setCallback((MainActivity)getActivity());
         searcher = new HLTBSearcher();
 
         new DownloadGames().execute();
