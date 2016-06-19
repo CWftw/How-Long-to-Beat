@@ -7,6 +7,8 @@
 
 package howlongtobeat.cwftw.me.howlongtobeat.models;
 
+import java.util.Arrays;
+
 public class Game {
 
     // Basic game info
@@ -43,6 +45,61 @@ public class Game {
         this.playing = -1;
         this.speedruns = -1;
         this.retired = -1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Game game = (Game) o;
+
+        if (id != game.id) return false;
+        if (Double.compare(game.mainHours, mainHours) != 0) return false;
+        if (Double.compare(game.mainExtraHours, mainExtraHours) != 0) return false;
+        if (Double.compare(game.completionistHours, completionistHours) != 0) return false;
+        if (Double.compare(game.combinedHours, combinedHours) != 0) return false;
+        if (Double.compare(game.polled, polled) != 0) return false;
+        if (Double.compare(game.ratedPercent, ratedPercent) != 0) return false;
+        if (Double.compare(game.backlogCount, backlogCount) != 0) return false;
+        if (Double.compare(game.playing, playing) != 0) return false;
+        if (Double.compare(game.speedruns, speedruns) != 0) return false;
+        if (Double.compare(game.retired, retired) != 0) return false;
+        if (!title.equals(game.title)) return false;
+        if (!imageUrl.equals(game.imageUrl)) return false;
+        return Arrays.equals(imageBytes, game.imageBytes);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + title.hashCode();
+        temp = Double.doubleToLongBits(mainHours);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(mainExtraHours);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(completionistHours);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(combinedHours);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + imageUrl.hashCode();
+        result = 31 * result + Arrays.hashCode(imageBytes);
+        temp = Double.doubleToLongBits(polled);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(ratedPercent);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(backlogCount);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(playing);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(speedruns);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(retired);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
     public double getMainHours() {

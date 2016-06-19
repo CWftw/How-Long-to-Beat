@@ -92,9 +92,9 @@ public class UpdateService extends Service {
         };
 
         timer = new Timer(true);
-        // 1 hour
-        int delay = 3600000;
-        int interval = 3600000;
+        // 1 day
+        int delay = 86400000;
+        int interval = 86400000;
         timer.schedule(task, delay, interval);
     }
 
@@ -118,7 +118,7 @@ public class UpdateService extends Service {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         nBuilder.setSmallIcon(R.drawable.ic_toggle_star);
-        nBuilder.setContentTitle("How Long to Beat");
+        nBuilder.setContentTitle(getResources().getString(R.string.app_name));
         nBuilder.setContentText(text);
         nBuilder.setContentIntent(pIntent);
         nBuilder.setAutoCancel(true);

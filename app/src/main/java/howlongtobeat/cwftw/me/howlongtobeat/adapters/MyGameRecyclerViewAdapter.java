@@ -46,7 +46,11 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     public void addItems(ArrayList<Game> games) {
-        this.mValues.addAll(games);
+        for (Game game : games) {
+            if (!mValues.contains(game)) {
+                mValues.add(game);
+            }
+        }
     }
 
     public void addItem(Game game) {
@@ -87,46 +91,46 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof GameViewHolder) {
-            ((GameViewHolder)holder).mItem = mValues.get(position);
+            ((GameViewHolder) holder).mItem = mValues.get(position);
 
             // Asynchronously load image with Ion library
-            Ion.with(((GameViewHolder)holder).gameItemImg)
+            Ion.with(((GameViewHolder) holder).gameItemImg)
                     // use a placeholder image
                     .placeholder(R.mipmap.ic_launcher)
                     // load the url
                     .load(mValues.get(position).getImageUrl());
 
-            ((GameViewHolder)holder).mainStoryItem.setText(Utils.formatData(mValues.get(position).getMainHours(), Utils.FormatTypes.HOURS, ((GameViewHolder)holder).gameItemImg.getContext()));
-            ((GameViewHolder)holder).extraItem.setText(Utils.formatData(mValues.get(position).getMainExtraHours(), Utils.FormatTypes.HOURS, ((GameViewHolder)holder).gameItemImg.getContext()));
-            ((GameViewHolder)holder).completionistItem.setText(Utils.formatData(mValues.get(position).getCompletionistHours(), Utils.FormatTypes.HOURS, ((GameViewHolder)holder).gameItemImg.getContext()));
-            ((GameViewHolder)holder).combinedItem.setText(Utils.formatData(mValues.get(position).getCombinedHours(), Utils.FormatTypes.HOURS, ((GameViewHolder)holder).gameItemImg.getContext()));
-            ((GameViewHolder)holder).txtTitle.setText(mValues.get(position).getTitle());
+            ((GameViewHolder) holder).mainStoryItem.setText(Utils.formatData(mValues.get(position).getMainHours(), Utils.FormatTypes.HOURS, ((GameViewHolder) holder).gameItemImg.getContext()));
+            ((GameViewHolder) holder).extraItem.setText(Utils.formatData(mValues.get(position).getMainExtraHours(), Utils.FormatTypes.HOURS, ((GameViewHolder) holder).gameItemImg.getContext()));
+            ((GameViewHolder) holder).completionistItem.setText(Utils.formatData(mValues.get(position).getCompletionistHours(), Utils.FormatTypes.HOURS, ((GameViewHolder) holder).gameItemImg.getContext()));
+            ((GameViewHolder) holder).combinedItem.setText(Utils.formatData(mValues.get(position).getCombinedHours(), Utils.FormatTypes.HOURS, ((GameViewHolder) holder).gameItemImg.getContext()));
+            ((GameViewHolder) holder).txtTitle.setText(mValues.get(position).getTitle());
 
-            boolean isFavorited = DatabaseHelper.getInstance(((GameViewHolder)holder).gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
+            boolean isFavorited = DatabaseHelper.getInstance(((GameViewHolder) holder).gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
             if (isFavorited) {
-                ((GameViewHolder)holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star);
+                ((GameViewHolder) holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star);
             } else {
-                ((GameViewHolder)holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
+                ((GameViewHolder) holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
             }
 
             if (position == mValues.size() - 1) {
-                ((GameViewHolder)holder).separator.setVisibility(View.INVISIBLE);
+                ((GameViewHolder) holder).separator.setVisibility(View.INVISIBLE);
             } else {
-                ((GameViewHolder)holder).separator.setVisibility(View.VISIBLE);
+                ((GameViewHolder) holder).separator.setVisibility(View.VISIBLE);
             }
 
-            ((GameViewHolder)holder).favoritedImg.setOnClickListener(new View.OnClickListener() {
+            ((GameViewHolder) holder).favoritedImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.i("INFO", "Image Clicked");
-                    boolean isFavorited = DatabaseHelper.getInstance(((GameViewHolder)holder).gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
+                    boolean isFavorited = DatabaseHelper.getInstance(((GameViewHolder) holder).gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
 
                     if (!isFavorited) {
-                        ((GameViewHolder)holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star);
-                        new LoadImageFromURL().execute(((GameViewHolder)holder).mItem);
+                        ((GameViewHolder) holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star);
+                        new LoadImageFromURL().execute(((GameViewHolder) holder).mItem);
                     } else {
-                        ((GameViewHolder)holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
-                        DatabaseHelper.getInstance(((GameViewHolder)holder).gameItemImg.getContext()).deleteGame(((GameViewHolder)holder).mItem.getId());
+                        ((GameViewHolder) holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
+                        DatabaseHelper.getInstance(((GameViewHolder) holder).gameItemImg.getContext()).deleteGame(((GameViewHolder) holder).mItem.getId());
                     }
                 }
             });
