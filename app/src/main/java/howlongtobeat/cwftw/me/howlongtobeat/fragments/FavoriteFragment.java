@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,18 @@ public class FavoriteFragment extends Fragment {
         adapter.setItems(games);
         adapter.notifyDataSetChanged();
         swipeContainer.setRefreshing(false);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isVisibleToUser) {
+            Log.d("FavoriteFragment", "Fragment is visible.");
+            updateList();
+        } else {
+            Log.d("FavoriteFragment", "Fragment is not visible.");
+        }
     }
 
     @Override
