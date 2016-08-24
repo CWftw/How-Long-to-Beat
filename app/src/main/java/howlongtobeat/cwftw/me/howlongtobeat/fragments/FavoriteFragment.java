@@ -34,6 +34,7 @@ public class FavoriteFragment extends Fragment {
     private SwipeRefreshLayout swipeContainer;
     private int mColumnCount = 2;
     private MyFavoriteRecyclerViewAdapter adapter;
+    private boolean isViewShown = false;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -75,7 +76,12 @@ public class FavoriteFragment extends Fragment {
 
         if (isVisibleToUser) {
             Log.d("FavoriteFragment", "Fragment is visible.");
-            updateList();
+            if (getView() != null) {
+                isViewShown = true;
+                updateList();
+            } else {
+                isViewShown = false;
+            }
         } else {
             Log.d("FavoriteFragment", "Fragment is not visible.");
         }
@@ -109,6 +115,10 @@ public class FavoriteFragment extends Fragment {
             });
 
             swipeContainer.setColorSchemeResources(R.color.colorPrimary);
+
+            if (!isViewShown) {
+                updateList();
+            }
         }
         return parent;
     }
