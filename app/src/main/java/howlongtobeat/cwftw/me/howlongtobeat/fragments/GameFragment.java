@@ -78,7 +78,7 @@ public class GameFragment extends Fragment {
         }
 
         adapter = new MyGameRecyclerViewAdapter(new ArrayList<Game>(), getActivity());
-        adapter.setCallback((MainActivity)getActivity());
+        adapter.setCallback((MainActivity) getActivity());
         searcher = new HLTBSearcher();
 
         new DownloadGames().execute();
