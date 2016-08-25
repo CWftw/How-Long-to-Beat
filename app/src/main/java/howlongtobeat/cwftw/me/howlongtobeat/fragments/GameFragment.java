@@ -116,6 +116,7 @@ public class GameFragment extends Fragment {
                     int totalItemCount = layoutManager.getItemCount();
                     int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
+                    // When scrolled to the end of a page, load next page
                     if (!isLoading && searcher.getPage() <= results.getPages()) {
                         if ((totalItemCount - visibleItemCount)
                                 <= (firstVisibleItem + VISIBLE_THRESHOLD)) {
@@ -186,9 +187,11 @@ public class GameFragment extends Fragment {
                 // Remove progress indicator
                 removeProgressbar();
 
+                // Add next page, refresh list
                 adapter.addItems(results.getPage());
                 adapter.notifyDataSetChanged();
 
+                // If on page 1, scroll to top
                 if (searcher.getPage() == 1) {
                     recyclerView.scrollToPosition(0);
                 }

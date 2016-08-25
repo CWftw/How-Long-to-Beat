@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements MyGameRecyclerVie
 
         boolean isNotification = getIntent().getBooleanExtra("isNotification", false);
         if (isNotification) {
-            // Go to favorites
+            // If coming from a notification, go to favorites
             tabLayout.getTabAt(1).select();
         }
     }
@@ -89,11 +89,13 @@ public class MainActivity extends AppCompatActivity implements MyGameRecyclerVie
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            // Go to settings activity
             Intent intent = new Intent(this, SettingsActivity.class);
             intent.putExtra(SettingsActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.GeneralPreferenceFragment.class.getName());
             intent.putExtra(SettingsActivity.EXTRA_NO_HEADERS, true);
             startActivity(intent);
         } else if (id == R.id.action_search) {
+            // Display search dialog
             AlertDialog.Builder search = new AlertDialog.Builder(this);
             search.setTitle(getResources().getString(R.string.search));
             search.setMessage(getResources().getString(R.string.searchGame));
@@ -111,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements MyGameRecyclerVie
 
             search.setPositiveButton(getResources().getString(R.string.search), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
+                    // Search for a game, and go to Games screen
                     String result = input.getText().toString();
                     gameFragment.search(result);
                     tabLayout.getTabAt(0).select();
@@ -119,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements MyGameRecyclerVie
 
             search.setNeutralButton(getResources().getString(R.string.clear), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
+                    // Clear search and go to Games screen
                     gameFragment.search("");
                     tabLayout.getTabAt(0).select();
                 }
@@ -126,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements MyGameRecyclerVie
 
             search.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
+                    // Close dialog
                     dialog.cancel();
                 }
             });
@@ -138,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements MyGameRecyclerVie
 
     @Override
     public void favoriteToggled() {
+        // When a favorite is toggled on the Games screen, update the Favorites lists
         favoriteFragment.updateList();
     }
 

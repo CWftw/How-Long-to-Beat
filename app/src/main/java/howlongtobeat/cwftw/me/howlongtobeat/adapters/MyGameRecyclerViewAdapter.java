@@ -76,11 +76,13 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
         RecyclerView.ViewHolder vh;
 
         if (viewType == VIEW_ITEM) {
+            // Return game list item view
             View v = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.game_item, parent, false);
 
             vh = new GameViewHolder(v);
         } else {
+            // Return progress bar view
             View v = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.layout_loading_item, parent, false);
 
@@ -114,6 +116,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((GameViewHolder) holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
             }
 
+            // Hide separator on last list item
             if (position == mValues.size() - 1) {
                 ((GameViewHolder) holder).separator.setVisibility(View.INVISIBLE);
             } else {
@@ -127,9 +130,11 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
                     boolean isFavorited = DatabaseHelper.getInstance(((GameViewHolder) holder).gameItemImg.getContext()).selectGame(mValues.get(position).getId()) != null;
 
                     if (!isFavorited) {
+                        // If not favorited, begin downloading image
                         ((GameViewHolder) holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star);
                         new LoadImageFromURL().execute(((GameViewHolder) holder).mItem);
                     } else {
+                        // If favorited, delete from favorites, refresh list
                         ((GameViewHolder) holder).favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
                         DatabaseHelper.getInstance(((GameViewHolder) holder).gameItemImg.getContext()).deleteGame(((GameViewHolder) holder).mItem.getId());
                         callback.favoriteToggled();
@@ -186,6 +191,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
             Game game = params[0];
 
             try {
+                // Save image byte array to game object
                 URL url = new URL(game.getImageUrl());
                 InputStream is = url.openConnection().getInputStream();
                 byte[] imageData = getBytes(is);
@@ -201,6 +207,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter {
 
         @Override
         protected void onPostExecute(Game result) {
+            // Insert game to database, refresh list
             DatabaseHelper.getInstance(context).insertGame(result);
             callback.favoriteToggled();
         }

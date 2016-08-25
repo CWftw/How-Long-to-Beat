@@ -16,6 +16,7 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("How Long to Beat", "Booted");
+        // Start update service on boot
         context.startService(new Intent(context, UpdateService.class));
     }
 }

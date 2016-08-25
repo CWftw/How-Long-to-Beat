@@ -24,6 +24,7 @@ public class HowLongToBeat extends Application {
 
         for (ActivityManager.RunningServiceInfo service :
                 manager.getRunningServices(Integer.MAX_VALUE)) {
+            // Check if update service is already running
             if ("howlongtobeat.cwftw.me.howlongtobeat.UpdateService".equals(
                     service.service.getClassName())) {
                 isRunning = true;
@@ -31,6 +32,7 @@ public class HowLongToBeat extends Application {
         }
 
         if (!isRunning) {
+            // If service is not running, start it
             startService(new Intent(this, UpdateService.class));
         }
     }

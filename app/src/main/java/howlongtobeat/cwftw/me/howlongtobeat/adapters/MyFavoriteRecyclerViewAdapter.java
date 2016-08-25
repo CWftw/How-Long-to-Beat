@@ -49,6 +49,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
 
+        // Get Bitmap from byte array in database
         Bitmap bm = BitmapFactory.decodeByteArray(holder.mItem.getImageBytes(), 0, holder.mItem.getImageBytes().length);
         holder.gameItemImg.setImageBitmap(bm);
 
@@ -65,6 +66,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
             holder.favoritedImg.setImageResource(R.drawable.ic_toggle_star_outline);
         }
 
+        // Hide separator on last list item
         if (position == mValues.size() - 1) {
             holder.separator.setVisibility(View.INVISIBLE);
         } else {
@@ -74,6 +76,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         holder.favoritedImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // When clicked, remove game from favorites and update list
                 Log.i("INFO", "Image Clicked");
                 DatabaseHelper.getInstance(holder.gameItemImg.getContext()).deleteGame(holder.mItem.getId());
                 mValues.remove(position);
