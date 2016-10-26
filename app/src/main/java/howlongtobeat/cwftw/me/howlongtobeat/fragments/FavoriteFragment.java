@@ -31,9 +31,11 @@ import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
  */
 public class FavoriteFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
+
     private SwipeRefreshLayout swipeContainer;
-    private int mColumnCount = 2;
     private MyFavoriteRecyclerViewAdapter adapter;
+
+    private int mColumnCount = 2;
     private boolean isViewShown = false;
 
     /**

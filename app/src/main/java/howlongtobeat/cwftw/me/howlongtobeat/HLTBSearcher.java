@@ -71,7 +71,7 @@ public class HLTBSearcher {
     }
 
     public void setQuery(String query) {
-        setPage(0);
+        this.page = 0;
         this.query = query;
     }
 
@@ -91,9 +91,9 @@ public class HLTBSearcher {
 
         for (Element gameElement : gameElements) {
             int id = (int) parseString(gameElement.select(SELECTOR_ID).first().attr("href"));
+
             if (id == matchId) {
                 Game game = new Game();
-
                 game.setId((int) parseString(gameElement.select(SELECTOR_ID).first().attr("href")));
                 game.setTitle(gameElement.select(SELECTOR_TITLE).first().attr("title"));
                 game.setImageUrl(BASE_IMAGE_URL + gameElement.select(SELECTOR_IMAGE_URL).first().attr("src"));
@@ -144,7 +144,7 @@ public class HLTBSearcher {
     }
 
     public ResultSet search() throws IOException {
-        ArrayList<Game> games = new ArrayList<Game>();
+        ArrayList<Game> games = new ArrayList<>();
 
         // Post search form
         Document doc = Jsoup.connect(BASE_SEARCH_URL + "?page=" + Integer.toString(this.page)).data("queryString", this.query).data("t", "games").data("sorthead", "popular").data("sortd", "Normal Order").data("plat", "").data("detail", "1").timeout(10 * 1000).post();

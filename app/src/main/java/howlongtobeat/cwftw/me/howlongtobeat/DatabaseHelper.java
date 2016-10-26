@@ -97,14 +97,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Game> selectGames(String query) {
-        ArrayList<Game> games = new ArrayList<Game>();
+        ArrayList<Game> games = new ArrayList<>();
         Cursor c = null;
 
         try {
             SQLiteDatabase db = this.getReadableDatabase();
             String selectQuery;
 
-            if (query == "") {
+            if (query.equals("")) {
                 // Select all
                 selectQuery = "SELECT * FROM games";
                 c = db.rawQuery(selectQuery, null);

@@ -37,12 +37,14 @@ import howlongtobeat.cwftw.me.howlongtobeat.models.Game;
 public class GameFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final int VISIBLE_THRESHOLD = 0;
+
     private SwipeRefreshLayout swipeContainer;
-    private int mColumnCount = 2;
     private MyGameRecyclerViewAdapter adapter;
     private ResultSet results;
     private HLTBSearcher searcher;
     private EmptyRecyclerView recyclerView;
+
+    private int mColumnCount = 2;
     private boolean isLoading = false;
     private boolean networkError = false;
 
@@ -149,7 +151,9 @@ public class GameFragment extends Fragment {
 
         if (isVisibleToUser) {
             Log.d("GameFragment", "Fragment is visible.");
-            adapter.notifyDataSetChanged();
+            if (getView() != null) {
+                adapter.notifyDataSetChanged();
+            }
         } else {
             Log.d("GameFragment", "Fragment is not visible.");
         }

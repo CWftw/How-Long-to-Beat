@@ -54,7 +54,7 @@ public class UpdateService extends Service {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                Log.i("How Long to Beat", "Timer started");
+                Log.i("UpdateService", "Timer started");
                 boolean backUpdate = preferences.getBoolean("pref_backUpdate", true);
                 boolean pluggedIn = preferences.getBoolean("pref_pluggedIn", false);
                 boolean notifications = preferences.getBoolean("pref_notifications", true);
@@ -83,7 +83,7 @@ public class UpdateService extends Service {
                                     }
                                 }
                             } catch (IOException e) {
-                                Log.e("How Long to Beat", "Error updating game: " + game.getTitle(), e);
+                                Log.e("UpdateService", "Error updating game: " + game.getTitle(), e);
                             }
                         }
                     }

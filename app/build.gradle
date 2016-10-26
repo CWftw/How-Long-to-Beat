@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 23
     buildToolsVersion "24.0.1"
     defaultConfig {
         applicationId 'gamelength.cwftw.me.gamelength'
-        minSdkVersion 15
-        targetSdkVersion 24
-        versionCode 6
-        versionName "1.06"
+        minSdkVersion 17
+        targetSdkVersion 23
+        versionCode 7
+        versionName "1.07"
     }
     buildTypes {
         release {

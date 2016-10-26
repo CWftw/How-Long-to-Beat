@@ -16,17 +16,16 @@ public class HowLongToBeat extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         // Set default Preferences
         PreferenceManager.setDefaultValues(this, R.xml.fragment_preferences, false);
 
         ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         boolean isRunning = false;
 
-        for (ActivityManager.RunningServiceInfo service :
-                manager.getRunningServices(Integer.MAX_VALUE)) {
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             // Check if update service is already running
-            if ("howlongtobeat.cwftw.me.howlongtobeat.UpdateService".equals(
-                    service.service.getClassName())) {
+            if ("howlongtobeat.cwftw.me.howlongtobeat.UpdateService".equals(service.service.getClassName())) {
                 isRunning = true;
             }
         }
